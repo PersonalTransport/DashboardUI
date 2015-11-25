@@ -36,14 +36,6 @@
             android:orientation="horizontal"
             tools:ignore="UselessParent">
 
-            <Button
-                android:id="@+id/dummy_button"
-                style="?metaButtonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/dummy_button" />
-
         </LinearLayout>
 
         <ImageView
@@ -51,49 +43,49 @@
             android:layout_height="221dp"
             android:id="@+id/batteryLife"
             android:layout_gravity="center_horizontal|bottom"
-            android:src="@drawable/Battery100" />
+            android:src="@drawable/battery100" />
 
         <ImageView
             android:layout_width="235dp"
             android:layout_height="235dp"
             android:id="@+id/leftTurn"
             android:layout_gravity="left|top"
-            android:src="@drawable/LeftTurnSignal" />
+            android:src="@drawable/leftturnsignal" />
 
         <ImageView
             android:layout_width="230dp"
             android:layout_height="230dp"
             android:id="@+id/rightTurn"
             android:layout_gravity="right|top"
-            android:src="@drawable/RightTurnSignal" />
+            android:src="@drawable/rightturnsignal" />
 
         <ImageView
             android:layout_width="244dp"
             android:layout_height="244dp"
             android:id="@+id/wipers"
             android:layout_gravity="left|bottom"
-            android:src="@drawable/Wipers1" />
+            android:src="@drawable/wipers" />
 
         <ImageView
             android:layout_width="223dp"
             android:layout_height="223dp"
             android:id="@+id/defrost"
             android:layout_gravity="right|bottom"
-            android:src="@drawable/Defrost" />
+            android:src="@drawable/defrost" />
 
         <ImageView
             android:layout_width="238dp"
             android:layout_height="238dp"
             android:id="@+id/headLamp"
             android:layout_gravity="left|center_vertical"
-            android:src="@drawable/HeadlampOff" />
+            android:src="@drawable/headlampoff" />
 
         <ImageView
             android:layout_width="227dp"
             android:layout_height="227dp"
             android:id="@+id/warning"
             android:layout_gravity="right|center_vertical"
-            android:src="@drawable/Warning" />
+            android:src="@drawable/warning" />
 
     </FrameLayout>
 
