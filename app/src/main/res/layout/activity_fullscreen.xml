@@ -24,7 +24,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:layout_gravity="right|bottom">
 
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
@@ -39,15 +40,15 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="433dp"
+            android:layout_width="430dp"
             android:layout_height="221dp"
             android:id="@+id/batteryLife"
             android:layout_gravity="center_horizontal|bottom"
             android:src="@drawable/battery100" />
 
         <ImageView
-            android:layout_width="235dp"
-            android:layout_height="235dp"
+            android:layout_width="250dp"
+            android:layout_height="230dp"
             android:id="@+id/leftTurn"
             android:layout_gravity="left|top"
             android:src="@drawable/leftturnsignal" />
@@ -60,29 +61,29 @@
             android:src="@drawable/rightturnsignal" />
 
         <ImageView
-            android:layout_width="244dp"
-            android:layout_height="244dp"
+            android:layout_width="250dp"
+            android:layout_height="230dp"
             android:id="@+id/wipers"
             android:layout_gravity="left|bottom"
             android:src="@drawable/wipers" />
 
         <ImageView
-            android:layout_width="223dp"
-            android:layout_height="223dp"
+            android:layout_width="235dp"
+            android:layout_height="225dp"
             android:id="@+id/defrost"
             android:layout_gravity="right|bottom"
             android:src="@drawable/defrost" />
 
         <ImageView
-            android:layout_width="238dp"
-            android:layout_height="238dp"
+            android:layout_width="250dp"
+            android:layout_height="230dp"
             android:id="@+id/headLamp"
             android:layout_gravity="left|center_vertical"
             android:src="@drawable/headlampoff" />
 
         <ImageView
-            android:layout_width="227dp"
-            android:layout_height="227dp"
+            android:layout_width="235dp"
+            android:layout_height="230dp"
             android:id="@+id/warning"
             android:layout_gravity="right|center_vertical"
             android:src="@drawable/warning" />
