@@ -24,6 +24,66 @@ import android.widget.ImageButton;
 public class FullscreenActivity extends Activity {
 
     boolean warningOn = false;
+    boolean headlampOn = false;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_fullscreen);
+
+        mVisible = true;
+        mControlsView = findViewById(R.id.fullscreen_content_controls);
+        mContentView = findViewById(R.id.fullscreen_content);
+
+
+        // Set up the user interaction to manually show or hide the system UI.
+        mContentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggle();
+            }
+        });
+
+        // Upon interacting with UI controls, delay any scheduled hide()
+        // operations to prevent the jarring behavior of controls going away
+        // while interacting with the UI.
+        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+        final ImageButton warningButton = (ImageButton) findViewById(R.id.warning);
+        warningButton.setImageResource(R.drawable.warningoff);
+        warningButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("BUTTON", "I clicked it!");
+
+                if (warningOn) {
+                    warningButton.setImageResource(R.drawable.warningoff);
+                    warningOn = false;
+                }
+                else {
+                    warningButton.setImageResource(R.drawable.warningon);
+                    warningOn = true;
+                }
+            }
+        });
+        final ImageButton headlampButton = (ImageButton) findViewById(R.id.headlampoff);
+        headlampButton.setImageResource(R.drawable.headlamp_off);
+        headlampButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("BUTTON", "I clicked it!");
+
+                if (headlampOn) {
+                    headlampButton.setImageResource(R.drawable.headlamp_off);
+                    headlampOn = false;
+                }
+                else {
+                    headlampButton.setImageResource(R.drawable.headlamp_on);
+                    headlampOn = true;
+                }
+            }
+        });
+    }
 
     /**
      * Whether or not the system UI should be auto-hidden after
@@ -101,47 +161,6 @@ public class FullscreenActivity extends Activity {
     };
     private ActionBar supportActionBar;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_fullscreen);
-
-        mVisible = true;
-        mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mContentView = findViewById(R.id.fullscreen_content);
-
-
-        // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggle();
-            }
-        });
-
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-
-        final ImageButton warningButton = (ImageButton) findViewById(R.id.warning);
-        warningButton.setImageResource(R.drawable.warningoff);
-        warningButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d("BUTTON", "I clicked it!");
-
-                if (warningOn) {
-                    warningButton.setImageResource(R.drawable.warningoff);
-                    warningOn = false;
-                }
-                else {
-                    warningButton.setImageResource(R.drawable.warningon);
-                    warningOn = true;
-                }
-            }
-        });
-    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {

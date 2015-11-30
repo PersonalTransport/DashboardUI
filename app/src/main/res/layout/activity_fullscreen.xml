@@ -49,84 +49,86 @@
 
 
         </LinearLayout>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="220dp"
+            android:layout_marginBottom="50dp"
+            android:id="@+id/speedleft"
+            android:layout_gravity="left|center_vertical"
+            android:src="@drawable/zero" />
 
         <ImageView
-            android:layout_width="500dp"
-            android:layout_height="250dp"
+            android:layout_width="100dp"
+            android:layout_height="200dp"
+            android:layout_marginRight="220dp"
+            android:layout_marginBottom="50dp"
+            android:id="@+id/speedright"
+            android:layout_gravity="right|center_vertical"
+            android:src="@drawable/zero" />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="100dp"
             android:layout_marginBottom="25dp"
             android:id="@+id/batteryLife"
             android:layout_gravity="center_horizontal|bottom"
             android:src="@drawable/battery95" />
 
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_marginLeft="135dp"
-            android:layout_marginTop="5dp"
-            android:id="@+id/leftTurn"
-            android:layout_gravity="left|top"
-            android:src="@drawable/leftturnsignal" />
 
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_marginRight="135dp"
-            android:layout_marginTop="5dp"
-            android:id="@+id/rightTurn"
-            android:layout_gravity="right|top"
-            android:src="@drawable/rightturnsignal" />
 
         <ImageButton
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginBottom="25dp"
-            android:layout_marginLeft="135dp"
+            android:layout_marginLeft="115dp"
             android:id="@+id/wipers"
             android:layout_gravity="left|bottom"
             android:src="@drawable/wipers1" />
 
         <ImageButton
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="115dp"
             android:layout_marginBottom="25dp"
-            android:layout_marginRight="135dp"
             android:src="@drawable/defrost"
             android:layout_gravity="right|bottom" />
 
         <ImageView
-            android:layout_width="240dp"
-            android:layout_height="600dp"
-            android:layout_marginRight="645dp"
-            android:layout_marginBottom="125dp"
-            android:id="@+id/speedL"
-            android:layout_gravity="right|center_vertical"
-            android:src="@drawable/rightturnsignal" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="115dp"
+            android:layout_marginBottom="105dp"
+            android:id="@+id/leftTurn"
+            android:layout_gravity="left|center_vertical"
+            android:src="@drawable/left_turn_signal" />
+
         <ImageView
-            android:layout_width="240dp"
-            android:layout_height="600dp"
-            android:layout_marginRight="395dp"
-            android:layout_marginBottom="125dp"
-            android:id="@+id/speedR"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="115dp"
+            android:layout_marginBottom="105dp"
+            android:id="@+id/rightTurn"
             android:layout_gravity="right|center_vertical"
-            android:src="@drawable/rightturnsignal" />
+            android:src="@drawable/right_turn_signal" />
+
         <ImageButton
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="135dp"
-            android:layout_marginEnd="135dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="115dp"
             android:id="@+id/warning"
             android:layout_gravity="right|center_vertical"
-            android:src="@drawable/warningon"
+            android:src="@drawable/warning"
             android:clickable="true" />
 
         <ImageButton
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_marginLeft="135dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/headlampoff"
-            android:layout_gravity="left|center_vertical" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="115dp"
+            android:id="@+id/headlampoff"
+            android:src="@drawable/headlamp_off"
+            android:layout_gravity="left|center_vertical"
+            android:clickable="true"/>
 
     </FrameLayout>
 
