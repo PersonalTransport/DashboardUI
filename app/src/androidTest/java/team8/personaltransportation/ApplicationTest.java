@@ -3,6 +3,7 @@ package team8.personaltransportation;
 import android.app.Application;
 import android.app.Activity;
 import android.test.ApplicationTestCase;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -32,10 +33,11 @@ public class ApplicationTest extends Activity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ApplicationTest.this,"Hazard Lights Activated!", Toast.LENGTH_LONG).show();
+                Log.d("BUTTONS", "onClickListener reached here!");
 
                 //Change Image on button
                 ImageButton warning = (ImageButton) findViewById(R.id.warning);
-                warning.setImageResource(R.drawable.warningOn);
+                warning.setImageResource(R.drawable.warningoff);
             }
         });
     }

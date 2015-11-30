@@ -1,47 +1,103 @@
 [
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_dialog_material_background_light.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_dialog_material_background_light.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery100.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery100.png"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_dark.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_item_background_holo_dark.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_switch_thumb_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_switch_thumb_material.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_tab_indicator_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_tab_indicator_material.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_btn_radio_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_btn_radio_material.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_textfield_search_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_textfield_search_material.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery10.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery10.png"
     },
     {
         "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_btn_borderless_material.xml",
         "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_btn_borderless_material.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_dark.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_list_selector_holo_dark.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_btn_check_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_btn_check_material.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_full_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_ratingbar_full_material.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/leftturnsignal.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/leftturnsignal.png"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_spinner_textfield_background_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_spinner_textfield_background_material.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery55.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery55.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/warningon.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/warningon.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_textfield_search_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_btn_radio_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery85.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery85.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/rightturnsignal.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/rightturnsignal.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery50.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery50.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_btn_borderless_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_light.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery05.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery05.png"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_btn_radio_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_dialog_material_background_light.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_dialog_material_background_light.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_switch_thumb_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_btn_default_mtrl_shape.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery60.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery60.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_cab_background_top_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/headlampon.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/headlampon.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_text_cursor_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_text_cursor_material.xml"
     },
     {
         "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_light.xml",
@@ -52,47 +108,251 @@
         "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_cab_background_top_material.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_seekbar_track_material.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery45.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery45.png"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_btn_colored_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_btn_colored_material.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_spinner_textfield_background_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_spinner_textfield_background_material.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_list_selector_background_transition_holo_light.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery15.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery15.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery90.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery90.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/headlampoff.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/headlampoff.png"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_spinner_textfield_background_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_spinner_textfield_background_material.xml"
     },
     {
         "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_btn_default_mtrl_shape.xml",
         "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_btn_default_mtrl_shape.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_text_cursor_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_text_cursor_material.xml"
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_full_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_ratingbar_full_material.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_edit_text_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_edit_text_material.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/headlamp_on.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/headlamp_on.png"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_btn_check_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_btn_check_material.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_tab_indicator_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_tab_indicator_material.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_cab_background_internal_bg.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_cab_background_internal_bg.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_light.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery25.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery25.png"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_textfield_search_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/mockdisplay1.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/mockdisplay1.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/left_turn_signalc.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/left_turn_signalc.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_cab_background_internal_bg.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/wipers1.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/wipers1.png"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_btn_colored_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/warning.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/warning.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/left_turn_signal.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/left_turn_signal.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/defrost.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/defrost.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery75.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery75.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery35.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery35.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_btn_colored_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery30.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery30.png"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_dialog_material_background_dark.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_dialog_material_background_dark.xml"
     },
     {
         "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_light.xml",
         "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_item_background_holo_light.xml"
     },
     {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_dark.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_full_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_ratingbar_full_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/leftturnsignalc.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/leftturnsignalc.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_dialog_material_background_dark.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_dialog_material_background_dark.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery02.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery02.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery20.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery20.png"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_edit_text_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_edit_text_material.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_dialog_material_background_light.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_dialog_material_background_light.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery80.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery80.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery65.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery65.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_edit_text_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_edit_text_material.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_tab_indicator_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/rightturnsignalc.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/rightturnsignalc.png"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery40.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery40.png"
+    },
+    {
         "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_thumb_material.xml",
         "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_seekbar_thumb_material.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_dialog_material_background_dark.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_dialog_material_background_dark.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_dark.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_dark.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/warningoff.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/warningoff.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery95.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery95.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_thumb_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_switch_thumb_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_btn_check_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_btn_check_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/right_turn_signalc.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/right_turn_signalc.png"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/mock_display1.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/mock_display1.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/right_turn_signal.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/right_turn_signal.png"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery00.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery00.png"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_dark.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/abc_text_cursor_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery01.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery01.png"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/drawable/abc_cab_background_internal_bg.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/drawable/battery70.png",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/drawable/battery70.png"
     }
 ]

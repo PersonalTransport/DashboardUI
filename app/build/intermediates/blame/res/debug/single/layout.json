@@ -1,79 +1,15 @@
 [
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_expanded_menu_layout.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_expanded_menu_layout.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_action_menu_layout.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_layout.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/select_dialog_multichoice_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_multichoice_material.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/select_dialog_item_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_item_material.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_screen_content_include.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_content_include.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_action_bar_view_list_nav_layout.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_view_list_nav_layout.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_icon.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_icon.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_layout.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_layout.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/notification_template_big_media.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_big_media.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_search_view.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_search_view.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/activity_fullscreen.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/res/layout/activity_fullscreen.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/notification_media_cancel_action.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_cancel_action.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_action_mode_bar.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_mode_bar.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_checkbox.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_checkbox.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_search_dropdown_item_icons_2line.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_search_dropdown_item_icons_2line.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_screen_simple_overlay_action_mode.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_simple_overlay_action_mode.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/notification_template_media.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_media.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_part_chronometer.xml"
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view_list_item.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_activity_chooser_view_list_item.xml"
     },
     {
         "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/notification_template_lines.xml",
         "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_lines.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_alert_dialog_button_bar_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_alert_dialog_button_bar_material.xml"
     },
     {
         "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view.xml",
@@ -84,32 +20,32 @@
         "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_select_dialog_material.xml"
     },
     {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_action_bar_up_container.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_action_mode_bar.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_action_bar_view_list_nav_layout.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
         "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/notification_template_part_time.xml",
         "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_part_time.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_action_menu_layout.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_layout.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_action_menu_item_layout.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_item_layout.xml"
-    },
-    {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_screen_toolbar.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_toolbar.xml"
     },
     {
         "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/support_simple_spinner_dropdown_item.xml",
         "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/support_simple_spinner_dropdown_item.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view_list_item.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_activity_chooser_view_list_item.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_search_dropdown_item_icons_2line.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_search_dropdown_item_icons_2line.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_action_mode_close_item_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_mode_close_item_material.xml"
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/select_dialog_singlechoice_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_singlechoice_material.xml"
     },
     {
         "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_dialog_title_material.xml",
@@ -120,35 +56,251 @@
         "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_up_container.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_radio.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_radio.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/notification_template_big_media.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_big_media.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_screen_simple.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_simple.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/notification_template_media.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_media.xml"
     },
     {
         "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_alert_dialog_material.xml",
         "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_alert_dialog_material.xml"
     },
     {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_select_dialog_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/activity_fullscreen.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/src/main/res/layout/activity_fullscreen.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/notification_media_cancel_action.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_layout.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/notification_template_media.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_media.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/select_dialog_item_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_item_material.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/activity_fullscreen.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/res/layout/activity_fullscreen.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_screen_simple.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_simple.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_screen_toolbar.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_icon.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_expanded_menu_layout.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_search_dropdown_item_icons_2line.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_checkbox.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/notification_template_lines.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_lines.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/select_dialog_item_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_item_material.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_popup_menu_item_layout.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_screen_toolbar.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_action_menu_layout.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/notification_template_big_media_narrow.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_radio.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_radio.xml"
+    },
+    {
         "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_action_bar_title_item.xml",
         "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_title_item.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/notification_template_big_media_narrow.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_big_media_narrow.xml"
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_action_menu_item_layout.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_item_layout.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/select_dialog_singlechoice_material.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_singlechoice_material.xml"
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_search_view.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_search_view.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_search_view.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_search_view.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_alert_dialog_button_bar_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_icon.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/notification_template_part_time.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_alert_dialog_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_alert_dialog_material.xml"
     },
     {
         "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/notification_media_action.xml",
         "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_action.xml"
     },
     {
-        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_popup_menu_item_layout.xml",
-        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_popup_menu_item_layout.xml"
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_action_bar_view_list_nav_layout.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_screen_simple.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_simple.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view_list_item.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_expanded_menu_layout.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/notification_template_big_media_narrow.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/select_dialog_singlechoice_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/notification_media_action.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_action.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_checkbox.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/notification_template_big_media.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_big_media.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/select_dialog_multichoice_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_popup_menu_item_layout.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_action_bar_title_item.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_dialog_title_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/notification_media_cancel_action.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_layout.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_radio.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_action_mode_close_item_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_alert_dialog_button_bar_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_screen_simple_overlay_action_mode.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_screen_content_include.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_content_include.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_screen_simple_overlay_action_mode.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/layout/abc_action_mode_close_item_material.xml",
+        "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_screen_content_include.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_content_include.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_action_menu_item_layout.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/abc_action_mode_bar.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/select_dialog_multichoice_material.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/res/merged/debug/layout/support_simple_spinner_dropdown_item.xml",
+        "source": "/home/ribab/AndroidStudioProjects/Personal_Transportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/support_simple_spinner_dropdown_item.xml"
     }
 ]
