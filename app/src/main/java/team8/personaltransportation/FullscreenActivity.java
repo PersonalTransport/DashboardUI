@@ -10,8 +10,11 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -19,6 +22,9 @@ import android.view.View;
  */
 //public class FullscreenActivity extends AppCompatActivity {
 public class FullscreenActivity extends Activity {
+
+    boolean warningOn = false;
+
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -86,6 +92,7 @@ public class FullscreenActivity extends Activity {
     private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
+            Log.d("BUTTONS", "View.onTouchListener got here!");
             if (AUTO_HIDE) {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
@@ -117,6 +124,23 @@ public class FullscreenActivity extends Activity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+        final ImageButton warningButton = (ImageButton) findViewById(R.id.warning);
+        warningButton.setImageResource(R.drawable.warningoff);
+        warningButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("BUTTON", "I clicked it!");
+
+                if (warningOn) {
+                    warningButton.setImageResource(R.drawable.warningoff);
+                    warningOn = false;
+                }
+                else {
+                    warningButton.setImageResource(R.drawable.warningon);
+                    warningOn = true;
+                }
+            }
+        });
     }
 
     @Override
@@ -175,4 +199,8 @@ public class FullscreenActivity extends Activity {
     public ActionBar getSupportActionBar() {
         return supportActionBar;
     }
+
+    /*public void onClick() {
+        Log.d("BUTTON", "CLICKED YAY");
+    }*/
 }

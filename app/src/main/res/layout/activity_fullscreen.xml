@@ -65,7 +65,7 @@
             android:layout_marginTop="5dp"
             android:id="@+id/leftTurn"
             android:layout_gravity="left|top"
-            android:src="@drawable/leftTurnSignal" />
+            android:src="@drawable/leftturnsignal" />
 
         <ImageView
             android:layout_width="250dp"
@@ -74,7 +74,7 @@
             android:layout_marginTop="5dp"
             android:id="@+id/rightTurn"
             android:layout_gravity="right|top"
-            android:src="@drawable/rightTurnSignal" />
+            android:src="@drawable/rightturnsignal" />
 
         <ImageButton
             android:layout_width="250dp"
@@ -100,7 +100,7 @@
             android:layout_marginBottom="125dp"
             android:id="@+id/speedL"
             android:layout_gravity="right|center_vertical"
-            android:src="@drawable/zero" />
+            android:src="@drawable/rightturnsignal" />
         <ImageView
             android:layout_width="240dp"
             android:layout_height="600dp"
@@ -108,7 +108,7 @@
             android:layout_marginBottom="125dp"
             android:id="@+id/speedR"
             android:layout_gravity="right|center_vertical"
-            android:src="@drawable/zero" />
+            android:src="@drawable/rightturnsignal" />
         <ImageButton
             android:layout_width="250dp"
             android:layout_height="250dp"
@@ -117,14 +117,15 @@
             android:layout_marginEnd="135dp"
             android:id="@+id/warning"
             android:layout_gravity="right|center_vertical"
-            android:src="@drawable/warningOn" />
+            android:src="@drawable/warningon"
+            android:clickable="true" />
 
         <ImageButton
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_marginLeft="135dp"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/headlampOff"
+            android:src="@drawable/headlampoff"
             android:layout_gravity="left|center_vertical" />
 
     </FrameLayout>
