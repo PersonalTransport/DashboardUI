@@ -1,8 +1,13 @@
 package team8.personaltransportation;
 
 import android.annotation.SuppressLint;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.app.ActionBar;
+//import android.support.v7.app.AppCompatActivity;
+//import android.app.AppCompactActivity;
+//import android.app.ActivityManager;
+//import android.app.ActivityOptions;
+import android.app.ActionBar;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -12,7 +17,8 @@ import android.view.View;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class FullscreenActivity extends AppCompatActivity {
+//public class FullscreenActivity extends AppCompatActivity {
+public class FullscreenActivity extends Activity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -60,6 +66,10 @@ public class FullscreenActivity extends AppCompatActivity {
             }
             mControlsView.setVisibility(View.VISIBLE);
         }
+
+        private ActionBar getSupportActionBar() {
+            return null;
+        }
     };
     private boolean mVisible;
     private final Runnable mHideRunnable = new Runnable() {
@@ -82,6 +92,7 @@ public class FullscreenActivity extends AppCompatActivity {
             return false;
         }
     };
+    private ActionBar supportActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,5 +170,9 @@ public class FullscreenActivity extends AppCompatActivity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    public ActionBar getSupportActionBar() {
+        return supportActionBar;
     }
 }

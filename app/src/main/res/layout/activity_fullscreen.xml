@@ -24,7 +24,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:layout_gravity="left|bottom">
 
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
@@ -44,56 +45,87 @@
                 android:layout_weight="1"
                 android:text="@string/dummy_button" />
 
+
+
+
         </LinearLayout>
 
         <ImageView
-            android:layout_width="433dp"
-            android:layout_height="221dp"
+            android:layout_width="500dp"
+            android:layout_height="250dp"
+            android:layout_marginBottom="25dp"
             android:id="@+id/batteryLife"
             android:layout_gravity="center_horizontal|bottom"
-            android:src="@drawable/Battery100" />
+            android:src="@drawable/battery95" />
 
         <ImageView
-            android:layout_width="235dp"
-            android:layout_height="235dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginLeft="135dp"
+            android:layout_marginTop="5dp"
             android:id="@+id/leftTurn"
             android:layout_gravity="left|top"
-            android:src="@drawable/LeftTurnSignal" />
+            android:src="@drawable/leftTurnSignal" />
 
         <ImageView
-            android:layout_width="230dp"
-            android:layout_height="230dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginRight="135dp"
+            android:layout_marginTop="5dp"
             android:id="@+id/rightTurn"
             android:layout_gravity="right|top"
-            android:src="@drawable/RightTurnSignal" />
+            android:src="@drawable/rightTurnSignal" />
 
-        <ImageView
-            android:layout_width="244dp"
-            android:layout_height="244dp"
+        <ImageButton
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="135dp"
             android:id="@+id/wipers"
             android:layout_gravity="left|bottom"
-            android:src="@drawable/Wipers1" />
+            android:src="@drawable/wipers1" />
+
+        <ImageButton
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginRight="135dp"
+            android:src="@drawable/defrost"
+            android:layout_gravity="right|bottom" />
 
         <ImageView
-            android:layout_width="223dp"
-            android:layout_height="223dp"
-            android:id="@+id/defrost"
-            android:layout_gravity="right|bottom"
-            android:src="@drawable/Defrost" />
-
+            android:layout_width="240dp"
+            android:layout_height="600dp"
+            android:layout_marginRight="645dp"
+            android:layout_marginBottom="125dp"
+            android:id="@+id/speedL"
+            android:layout_gravity="right|center_vertical"
+            android:src="@drawable/zero" />
         <ImageView
-            android:layout_width="238dp"
-            android:layout_height="238dp"
-            android:id="@+id/headLamp"
-            android:layout_gravity="left|center_vertical"
-            android:src="@drawable/HeadlampOff" />
-
-        <ImageView
-            android:layout_width="227dp"
-            android:layout_height="227dp"
+            android:layout_width="240dp"
+            android:layout_height="600dp"
+            android:layout_marginRight="395dp"
+            android:layout_marginBottom="125dp"
+            android:id="@+id/speedR"
+            android:layout_gravity="right|center_vertical"
+            android:src="@drawable/zero" />
+        <ImageButton
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="135dp"
+            android:layout_marginEnd="135dp"
             android:id="@+id/warning"
             android:layout_gravity="right|center_vertical"
-            android:src="@drawable/Warning" />
+            android:src="@drawable/warningOn" />
+
+        <ImageButton
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginLeft="135dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/headlampOff"
+            android:layout_gravity="left|center_vertical" />
 
     </FrameLayout>
 
