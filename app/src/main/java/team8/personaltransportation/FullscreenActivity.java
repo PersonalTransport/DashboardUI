@@ -93,7 +93,7 @@ public class FullscreenActivity extends Activity {
             }
         });
         /*************************** working on this ********************************************/
-        final ImageButton wiperButton = (ImageButton) findViewById(R.id.headlampoff);
+        final ImageButton wiperButton = (ImageButton) findViewById(R.id.wipers);
         wiperButton.setImageResource(R.drawable.wipers);
         wiperButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -101,18 +101,18 @@ public class FullscreenActivity extends Activity {
 
                 if (wipers1 && wiperswitch == 0) {
                     wiperButton.setImageResource(R.drawable.wipers1);
-                    wipers1 = false;
+                    //wipers1 = false;
                     wiperswitch = 1;
                 }
                 else if(wipers1 && wiperswitch == 1){
                     wiperButton.setImageResource(R.drawable.wipers2);
-                    wipers1 = false;
+                    //wipers1 = false;
                     wiperswitch = 2;
                 }
                 else if(wipers1 && wiperswitch == 2){
                     wiperButton.setImageResource(R.drawable.wipers3);
                     wipers1 = false;
-                    wiperswitch = 1;
+                    wiperswitch = 0;
                 }
                 else {
                     wiperButton.setImageResource(R.drawable.wipers);
