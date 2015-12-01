@@ -25,12 +25,8 @@ public class FullscreenActivity extends Activity {
 
     boolean warningOn = false;
     boolean headlampOn = false;
-    boolean wipers1 = false;
     int wiperswitch = 0;
     int defrostswitch = 0;
-
-    boolean defrost1 = false;
-
 
 
     @Override
@@ -40,17 +36,18 @@ public class FullscreenActivity extends Activity {
         setContentView(R.layout.activity_fullscreen);
 
         mVisible = true;
-        mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
 
         // Set up the user interaction to manually show or hide the system UI.
+        /*
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toggle();
             }
         });
+        */
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
@@ -106,7 +103,6 @@ public class FullscreenActivity extends Activity {
                 }
                 else if(defrostswitch == 2){
                     defrostButton.setImageResource(R.drawable.defrost3);
-                    defrost1 = false;
                     defrostswitch = 3;
                 }
                 else {
@@ -124,17 +120,14 @@ public class FullscreenActivity extends Activity {
 
                 if (wiperswitch == 0) {
                     wiperButton.setImageResource(R.drawable.wipers1);
-                    //wipers1 = false;
                     wiperswitch = 1;
                 }
                 else if(wiperswitch == 1){
                     wiperButton.setImageResource(R.drawable.wipers2);
-                    //wipers1 = false;
                     wiperswitch = 2;
                 }
                 else if(wiperswitch == 2){
                     wiperButton.setImageResource(R.drawable.wipers3);
-                    wipers1 = false;
                     wiperswitch = 3;
                 }
                 else {
@@ -181,7 +174,6 @@ public class FullscreenActivity extends Activity {
                     | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
     };
-    private View mControlsView;
     private final Runnable mShowPart2Runnable = new Runnable() {
         @Override
         public void run() {
@@ -190,7 +182,6 @@ public class FullscreenActivity extends Activity {
             if (actionBar != null) {
                 actionBar.show();
             }
-            mControlsView.setVisibility(View.VISIBLE);
         }
 
         private ActionBar getSupportActionBar() {
@@ -246,7 +237,6 @@ public class FullscreenActivity extends Activity {
         if (actionBar != null) {
             actionBar.hide();
         }
-        mControlsView.setVisibility(View.GONE);
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
