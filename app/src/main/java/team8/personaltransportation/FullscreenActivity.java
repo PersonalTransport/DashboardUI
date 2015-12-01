@@ -25,6 +25,15 @@ public class FullscreenActivity extends Activity {
 
     boolean warningOn = false;
     boolean headlampOn = false;
+    boolean wipers1 = false;
+    boolean wipers2 = false;
+    boolean wipers3 = false;
+    int wiperswitch = 0;
+
+    boolean defrost1 = false;
+    boolean defrost2 = false;
+    boolean defrost3 = false;
+
 
 
     @Override
@@ -80,6 +89,34 @@ public class FullscreenActivity extends Activity {
                 else {
                     headlampButton.setImageResource(R.drawable.headlamp_on);
                     headlampOn = true;
+                }
+            }
+        });
+        /*************************** working on this ********************************************/
+        final ImageButton wiperButton = (ImageButton) findViewById(R.id.headlampoff);
+        wiperButton.setImageResource(R.drawable.wipers);
+        wiperButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("BUTTON", "I clicked it!");
+
+                if (wipers1 && wiperswitch == 0) {
+                    headlampButton.setImageResource(R.drawable.wipers1);
+                    wipers1 = false;
+                    wiperswitch = 1;
+                }
+                else if(wipers1 && wiperswitch == 1){
+                    headlampButton.setImageResource(R.drawable.wipers2);
+                    wipers1 = false;
+                    wiperswitch = 2;
+                }
+                else if(wipers1 && wiperswitch == 2){
+                    headlampButton.setImageResource(R.drawable.wipers3);
+                    wipers1 = false;
+                    wiperswitch = 1;
+                }
+                else {
+                    headlampButton.setImageResource(R.drawable.wipers);
+                    wipers1 = true;
                 }
             }
         });

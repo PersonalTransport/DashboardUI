@@ -84,7 +84,7 @@
             android:layout_marginLeft="115dp"
             android:id="@+id/wipers"
             android:layout_gravity="left|bottom"
-            android:src="@drawable/wipers1" />
+            android:src="@drawable/wipers" />
 
         <ImageButton
             android:layout_width="100dp"
