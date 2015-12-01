@@ -26,13 +26,10 @@ public class FullscreenActivity extends Activity {
     boolean warningOn = false;
     boolean headlampOn = false;
     boolean wipers1 = false;
-    boolean wipers2 = false;
-    boolean wipers3 = false;
     int wiperswitch = 0;
+    int defrostswitch = 0;
 
     boolean defrost1 = false;
-    boolean defrost2 = false;
-    boolean defrost3 = false;
 
 
 
@@ -93,30 +90,56 @@ public class FullscreenActivity extends Activity {
             }
         });
         /*************************** working on this ********************************************/
+        final ImageButton defrostButton = (ImageButton) findViewById(R.id.defrost);
+        defrostButton.setImageResource(R.drawable.defrost);
+        defrostButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("BUTTON", "I clicked it!");
+
+                if (defrostswitch == 0) {
+                    defrostButton.setImageResource(R.drawable.defrost1);
+                    defrostswitch = 1;
+                }
+                else if(defrostswitch == 1){
+                    defrostButton.setImageResource(R.drawable.defrost2);
+                    defrostswitch = 2;
+                }
+                else if(defrostswitch == 2){
+                    defrostButton.setImageResource(R.drawable.defrost3);
+                    defrost1 = false;
+                    defrostswitch = 3;
+                }
+                else {
+                    defrostButton.setImageResource(R.drawable.defrost);
+                    defrostswitch = 0;
+                }
+            }
+        });
+        /*************************** working ********************************************/
         final ImageButton wiperButton = (ImageButton) findViewById(R.id.wipers);
         wiperButton.setImageResource(R.drawable.wipers);
         wiperButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("BUTTON", "I clicked it!");
 
-                if (wipers1 && wiperswitch == 0) {
+                if (wiperswitch == 0) {
                     wiperButton.setImageResource(R.drawable.wipers1);
                     //wipers1 = false;
                     wiperswitch = 1;
                 }
-                else if(wipers1 && wiperswitch == 1){
+                else if(wiperswitch == 1){
                     wiperButton.setImageResource(R.drawable.wipers2);
                     //wipers1 = false;
                     wiperswitch = 2;
                 }
-                else if(wipers1 && wiperswitch == 2){
+                else if(wiperswitch == 2){
                     wiperButton.setImageResource(R.drawable.wipers3);
                     wipers1 = false;
-                    wiperswitch = 0;
+                    wiperswitch = 3;
                 }
                 else {
                     wiperButton.setImageResource(R.drawable.wipers);
-                    wipers1 = true;
+                    wiperswitch = 0;
                 }
             }
         });
