@@ -100,22 +100,22 @@ public class FullscreenActivity extends Activity {
                 Log.d("BUTTON", "I clicked it!");
 
                 if (wipers1 && wiperswitch == 0) {
-                    headlampButton.setImageResource(R.drawable.wipers1);
+                    wiperButton.setImageResource(R.drawable.wipers1);
                     wipers1 = false;
                     wiperswitch = 1;
                 }
                 else if(wipers1 && wiperswitch == 1){
-                    headlampButton.setImageResource(R.drawable.wipers2);
+                    wiperButton.setImageResource(R.drawable.wipers2);
                     wipers1 = false;
                     wiperswitch = 2;
                 }
                 else if(wipers1 && wiperswitch == 2){
-                    headlampButton.setImageResource(R.drawable.wipers3);
+                    wiperButton.setImageResource(R.drawable.wipers3);
                     wipers1 = false;
                     wiperswitch = 1;
                 }
                 else {
-                    headlampButton.setImageResource(R.drawable.wipers);
+                    wiperButton.setImageResource(R.drawable.wipers);
                     wipers1 = true;
                 }
             }
