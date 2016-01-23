@@ -8,13 +8,25 @@ import android.annotation.SuppressLint;
 //import android.app.ActivityOptions;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.hardware.usb.UsbAccessory;
+import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -28,6 +40,13 @@ public class FullscreenActivity extends Activity {
     int wiperswitch = 0;
     int defrostswitch = 0;
 
+    UsbManager manager;
+    UsbAccessory accessory;
+    PendingIntent permissionIntent;
+    BroadcastReceiver usbReceiver;
+    ParcelFileDescriptor fileDescriptor;
+    FileInputStream inputStream;
+    FileOutputStream outputStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +155,70 @@ public class FullscreenActivity extends Activity {
                 }
             }
         });
+
+
+
+        // Obtain USB manager
+        manager = (UsbManager) getSystemService(Context.USB_SERVICE);
+        accessory = (UsbAccessory) getIntent().getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
+
+        String ACTION_USB_PERMISSION =
+                "com.android.example.USB_PERMISSION";
+        
+        permissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+        registerReceiver(usbReceiver, filter);
+
+        manager.requestPermission(accessory, permissionIntent);
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(1000, 0);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    openAccessory();
+                }
+            }
+        });
+
+        thread.run();
+
+        BroadcastReceiver usbReceiver = new BroadcastReceiver() {
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+
+                if (UsbManager.ACTION_USB_ACCESSORY_DETACHED.equals(action)) {
+                    UsbAccessory accessory = (UsbAccessory)intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
+                    if (accessory != null) {
+                        // call your method that cleans up and closes communication with the accessory
+
+                        // call filedescriptor.close() method here
+                    }
+                }
+            }
+        };
+    }
+
+    private void openAccessory() {
+
+        Log.d("openAccessory", "trying to open accessory: " + usbReceiver);
+
+        fileDescriptor = manager.openAccessory(accessory);
+        if (fileDescriptor != null) {
+            FileDescriptor fd = fileDescriptor.getFileDescriptor();
+            inputStream = new FileInputStream(fd);
+            outputStream = new FileOutputStream(fd);
+            Thread thread = new Thread("AccessoryThread");
+
+            Log.d("openAccessory", "opened accessory: " + usbReceiver);
+
+            thread.start(); // thread started here
+        }
     }
 
     /**
