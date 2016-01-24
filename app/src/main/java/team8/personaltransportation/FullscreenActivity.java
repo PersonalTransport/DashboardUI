@@ -1,5 +1,11 @@
 package team8.personaltransportation;
 
+// Sources:
+// USB communication -
+// http://developer.android.com/guide/topics/connectivity/usb/accessory.html
+// http://www.java2s.com/Open-Source/Android_Free_Code/Example/code/com_examples_accessory_controllerMainUsbActivity_java.htm
+// http://www.ftdichip.com/Support/SoftwareExamples/Android_Projects.htm
+
 import android.annotation.SuppressLint;
 //import android.support.v7.app.ActionBar;
 //import android.support.v7.app.AppCompatActivity;
@@ -17,16 +23,17 @@ import android.hardware.usb.UsbAccessory;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -35,18 +42,26 @@ import java.io.FileOutputStream;
 //public class FullscreenActivity extends AppCompatActivity {
 public class FullscreenActivity extends Activity {
 
+    // Used to obtain USB permission from the host device (to communicate)
+    private static final String ACTION_USB_PERMISSION =    "FTDI.LED.USB_PERMISSION";  // XXX ??
+
+    // variables for USB communication
+    public USB_ACTIVITY_Thread UIhandlerThread;
+    public UsbManager UIusbManager;
+    public UsbAccessory UIaccessory;
+    public PendingIntent UIpermissionIntent;
+    private boolean UIPermissionRequestPending = true;
+
+    public ParcelFileDescriptor UIfileDescriptor;
+    public FileInputStream UIinputStream;
+    public FileOutputStream UIoutputStream;
+
+
+    // variables for GUI interface
     boolean warningOn = false;
     boolean headlampOn = false;
     int wiperswitch = 0;
     int defrostswitch = 0;
-
-    UsbManager manager;
-    UsbAccessory accessory;
-    PendingIntent permissionIntent;
-    BroadcastReceiver usbReceiver;
-    ParcelFileDescriptor fileDescriptor;
-    FileInputStream inputStream;
-    FileOutputStream outputStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +72,14 @@ public class FullscreenActivity extends Activity {
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
 
+        // XXX Setup USB communication items
+        UIusbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
+        Log.d("LED", "usbmanager" +UIusbManager);
+        UIpermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+        filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
+        Log.d("LED", "filter" +filter);
+        registerReceiver(UIusbReceiver, filter);
 
         // Set up the user interaction to manually show or hide the system UI.
         /*
@@ -158,68 +181,214 @@ public class FullscreenActivity extends Activity {
 
 
 
-        // Obtain USB manager
-        manager = (UsbManager) getSystemService(Context.USB_SERVICE);
-        accessory = (UsbAccessory) getIntent().getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
+        // Obtain USB UIusbManager
+//        UIusbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
+//        UIaccessory = (UsbAccessory) getIntent().getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
+//
+//        String ACTION_USB_PERMISSION =
+//                "com.android.example.USB_PERMISSION";
+//
+//        permissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+//        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+//        registerReceiver(UIusbReceiver, filter);
+//
+//        UIusbManager.requestPermission(UIaccessory, permissionIntent);
+//
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    try {
+//                        Thread.sleep(1000, 0);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    openAccessory();
+//                }
+//            }
+//        });
+//
+//        thread.run();
 
-        String ACTION_USB_PERMISSION =
-                "com.android.example.USB_PERMISSION";
-        
-        permissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
-        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
-        registerReceiver(usbReceiver, filter);
-
-        manager.requestPermission(accessory, permissionIntent);
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        Thread.sleep(1000, 0);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    openAccessory();
-                }
-            }
-        });
-
-        thread.run();
-
-        BroadcastReceiver usbReceiver = new BroadcastReceiver() {
-            public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-
-                if (UsbManager.ACTION_USB_ACCESSORY_DETACHED.equals(action)) {
-                    UsbAccessory accessory = (UsbAccessory)intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
-                    if (accessory != null) {
-                        // call your method that cleans up and closes communication with the accessory
-
-                        // call filedescriptor.close() method here
-                    }
-                }
-            }
-        };
     }
 
-    private void openAccessory() {
+    // source : http://www.java2s.com/Open-Source/Android_Free_Code/Example/code/com_examples_accessory_controllerMainUsbActivity_java.htm
+    @Override
+    public void onResume() {
+        super.onResume();
 
-        Log.d("openAccessory", "trying to open accessory: " + usbReceiver);
+        Intent intent = getIntent();
+        if (UIinputStream != null && UIoutputStream != null) {
+            return;
+        }
 
-        fileDescriptor = manager.openAccessory(accessory);
-        if (fileDescriptor != null) {
-            FileDescriptor fd = fileDescriptor.getFileDescriptor();
-            inputStream = new FileInputStream(fd);
-            outputStream = new FileOutputStream(fd);
-            Thread thread = new Thread("AccessoryThread");
-
-            Log.d("openAccessory", "opened accessory: " + usbReceiver);
-
-            thread.start(); // thread started here
+        UsbAccessory[] accessories = UIusbManager.getAccessoryList();
+        UsbAccessory accessory = (accessories == null ? null : accessories[0]);
+        if (accessory != null) {
+            if (UIusbManager.hasPermission(accessory)) {
+                openAccessory(accessory);
+            } else {
+                synchronized (UIusbManager) {
+                    if (!UIPermissionRequestPending) {
+                        UIusbManager.requestPermission(accessory,
+                                UIpermissionIntent);
+                        UIPermissionRequestPending = true;
+                    }
+                }
+            }
+        } else {
+            Log.d("UI_USB_OnResume", "accessory is null");
         }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        closeAccessory();
+    }
+
+    @Override
+    public void onDestroy() {
+        unregisterReceiver(UIusbReceiver);
+        super.onDestroy();
+    }
+
+    // source : http://www.java2s.com/Open-Source/Android_Free_Code/Example/code/com_examples_accessory_controllerMainUsbActivity_java.htm
+    private void openAccessory(UsbAccessory accessory) {
+
+        Log.d("openAccessory", "trying to open UIaccessory: " + UIusbReceiver);
+
+        UIfileDescriptor = UIusbManager.openAccessory(accessory);
+        if (UIfileDescriptor != null) {
+            UIaccessory = accessory;
+            FileDescriptor fd = UIfileDescriptor.getFileDescriptor();
+            UIinputStream = new FileInputStream(fd);
+            UIoutputStream = new FileOutputStream(fd);
+
+            // create a thread, passing it the USB input stream and this task's handler object
+            UIhandlerThread = new USB_ACTIVITY_Thread(UIHandler, UIinputStream);
+            UIhandlerThread.start();
+            Log.d("openAccessory", "opened UIaccessory: " + UIusbReceiver);
+        } else {
+            Log.d("openAccessory", "UIaccessory open fail: " + UIusbReceiver);
+        }
+    }
+
+    // Close the connected UIaccessory (either unplugged or normal
+    private void closeAccessory() {
+        // try to close the UIinputStream, UIoutputStream, and UIfileDescriptor
+        try {
+            UIfileDescriptor.close();
+        } catch (IOException ex) {}
+        try {
+            UIinputStream.close();
+        } catch (IOException ex) {}
+        try {
+            UIoutputStream.close();
+        } catch (IOException ex) {}
+
+        // afterwards, set them all to null
+        UIfileDescriptor = null;
+        UIinputStream = null;
+        UIoutputStream = null;
+
+        // afterwards (?), stop execution of program
+        System.exit(0); // XXX ??
+    }
+
+    /*
+   * This receiver monitors for the event of a user granting permission to use
+   * the attached UIaccessory.  If the user has checked to always allow, this will
+   * be generated following attachment without further user interaction.
+   * Source : http://www.java2s.com/Open-Source/Android_Free_Code/Example/code/com_examples_accessory_controllerMainUsbActivity_java.htm
+   */
+    private final BroadcastReceiver UIusbReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (ACTION_USB_PERMISSION.equals(action)) {
+                synchronized (this) {
+                    UsbAccessory accessory = (UsbAccessory) intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
+                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+                        openAccessory(accessory);
+                    } else {
+                        Log.d("USB", "permission denied for UIaccessory "+ accessory);
+                    }
+                    UIPermissionRequestPending = false;
+                }
+            } else if (UsbManager.ACTION_USB_ACCESSORY_DETACHED.equals(action)) {
+                UsbAccessory accessory = (UsbAccessory) intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
+                if (accessory != null && accessory.equals(UIaccessory)) {
+                    closeAccessory();
+                }
+            }
+        }
+    };
+
+    private class USB_ACTIVITY_Thread extends Thread {
+
+        Handler USBhandler;
+        FileInputStream USBInuptStream;
+
+        USB_ACTIVITY_Thread(Handler h, FileInputStream fI) {
+            USBhandler = h;
+            USBInuptStream = fI;
+        }
+
+        @Override
+        public void run() {
+            byte[] data_recieved = new byte[10];
+            int data_recieved_len;
+
+            while(true) {
+                try {
+                    if(USBInuptStream != null) {
+                        data_recieved_len = USBInuptStream.read(data_recieved,0,5); // change later
+                        if (data_recieved_len < 6) {
+                            Log.d("USBTask", "Error: did not read enough data from USB");
+                        }
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d("USBTask", "Error: could not read data from USB");
+                    break;
+                }
+
+                Message mss = Message.obtain(USBhandler); // XXX can also pass objects/input data with messages (obtain function is overloaded)
+                // XXX fill in this with input functionality (interpreting the input data stream, then calling a )
+                // XXX
+                // XXX
+                // XXX Temporary: save the input data in the message (to spit back to USB device)
+                mss.obj = data_recieved.clone();
+                // afterwards, post message to handler (so main task can deal with data)
+                USBhandler.sendMessage(mss);
+            }
+        }
+    }
+
+    // handler object to handle messages from the USB thread
+    Handler UIHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            // XXX perform functionality to handle message (and provide response to USB with UIoutputStream.write())
+            // XXX Temporary: spit back input data in message to USB
+
+            byte[] temp;
+
+            temp = (byte[]) msg.obj;
+            try {
+                UIoutputStream.write(temp);
+                UIoutputStream.flush(); // ???
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.d("UIHandler", "Error: could not write data to USB output");
+            }
+
+        }
+    };
+
 
     /**
      * Whether or not the system UI should be auto-hidden after
@@ -352,7 +521,9 @@ public class FullscreenActivity extends Activity {
         return supportActionBar;
     }
 
+
     /*public void onClick() {
         Log.d("BUTTON", "CLICKED YAY");
     }*/
 }
+
