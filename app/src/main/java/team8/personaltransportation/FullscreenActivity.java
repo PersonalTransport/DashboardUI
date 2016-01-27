@@ -43,7 +43,8 @@ import java.io.IOException;
 public class FullscreenActivity extends Activity {
 
     // Used to obtain USB permission from the host device (to communicate)
-    private static final String ACTION_USB_PERMISSION =    "FTDI.LED.USB_PERMISSION";  // XXX ??
+    private static final String ACTION_USB_PERMISSION =    "team8.personaltransportation.action.USB_PERMISSION";  // XXX ??
+    //private static final String ACTION_USB_PERMISSION =    "Manufactorer.Model.USB_PERMISSION";  // XXX ??
 
     // variables for USB communication
     public USB_ACTIVITY_Thread UIhandlerThread;
@@ -74,11 +75,11 @@ public class FullscreenActivity extends Activity {
 
         // XXX Setup USB communication items
         UIusbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
-        Log.d("LED", "usbmanager" +UIusbManager);
+        Log.d("onCreate", "usbmanager: " +UIusbManager);
         UIpermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
         IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
         filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
-        Log.d("LED", "filter" +filter);
+        Log.d("onCreate", "filter: " +filter);
         registerReceiver(UIusbReceiver, filter);
 
         // Set up the user interaction to manually show or hide the system UI.
@@ -218,6 +219,8 @@ public class FullscreenActivity extends Activity {
     public void onResume() {
         super.onResume();
 
+        Log.d("onResume", "resuming...");
+
         Intent intent = getIntent();
         if (UIinputStream != null && UIoutputStream != null) {
             return;
@@ -238,18 +241,21 @@ public class FullscreenActivity extends Activity {
                 }
             }
         } else {
-            Log.d("UI_USB_OnResume", "accessory is null");
+            Log.d("onResume", "accessory is null");
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        Log.d("onPause", "pausing...");
         closeAccessory();
     }
 
     @Override
     public void onDestroy() {
+        Log.d("onDestroy", "destroying...");
+
         unregisterReceiver(UIusbReceiver);
         super.onDestroy();
     }
@@ -278,6 +284,7 @@ public class FullscreenActivity extends Activity {
     // Close the connected UIaccessory (either unplugged or normal
     private void closeAccessory() {
         // try to close the UIinputStream, UIoutputStream, and UIfileDescriptor
+        Log.d("closeAccessory", "closing accessory...");
         try {
             UIfileDescriptor.close();
         } catch (IOException ex) {}
@@ -306,7 +313,11 @@ public class FullscreenActivity extends Activity {
     private final BroadcastReceiver UIusbReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.d("UIusbReceiver", "initializing...");
             String action = intent.getAction();
+
+            Log.d("UIusbReceiver", "action: " + action);
+
             if (ACTION_USB_PERMISSION.equals(action)) {
                 synchronized (this) {
                     UsbAccessory accessory = (UsbAccessory) intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
@@ -332,6 +343,9 @@ public class FullscreenActivity extends Activity {
         FileInputStream USBInuptStream;
 
         USB_ACTIVITY_Thread(Handler h, FileInputStream fI) {
+
+            Log.d("USB_ACTIVITY_Thread", "initializing...");
+
             USBhandler = h;
             USBInuptStream = fI;
         }
@@ -342,17 +356,18 @@ public class FullscreenActivity extends Activity {
             int data_recieved_len;
 
             while(true) {
+                Log.d("USB_Activity_Thread_run", "running...");
                 try {
                     if(USBInuptStream != null) {
                         data_recieved_len = USBInuptStream.read(data_recieved,0,5); // change later
                         if (data_recieved_len < 6) {
-                            Log.d("USBTask", "Error: did not read enough data from USB");
+                            Log.d("USB_Activity_Thread_run", "Error: did not read enough data from USB");
                         }
                     }
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.d("USBTask", "Error: could not read data from USB");
+                    Log.d("USB_Activity_Thread_run", "Error: could not read data from USB");
                     break;
                 }
 
@@ -374,6 +389,8 @@ public class FullscreenActivity extends Activity {
         public void handleMessage(Message msg) {
             // XXX perform functionality to handle message (and provide response to USB with UIoutputStream.write())
             // XXX Temporary: spit back input data in message to USB
+
+            Log.d("UIHandler", "handling message: " + msg);
 
             byte[] temp;
 
@@ -429,6 +446,7 @@ public class FullscreenActivity extends Activity {
     private final Runnable mShowPart2Runnable = new Runnable() {
         @Override
         public void run() {
+            Log.d("mShowPart2Runnable", "run...");
             // Delayed display of UI elements
             ActionBar actionBar = getSupportActionBar();
             if (actionBar != null) {
