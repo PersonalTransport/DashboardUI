@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -160,4 +163,26 @@ public class FullscreenActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+
+    Animation myFadeInAnimation;
+    Animation myFadeOutAnimation;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.scanning_view);
+
+        //grab the imageview and load the animations
+        ImageView myImageView = (ImageView) findViewById(R.id.blinkingView01);
+        Animation myFadeInAnimation = AnimationUtils.loadAnimation(null, R.anim.fade_in);
+        Animation myFadeOutAnimation = AnimationUtils.loadAnimation(null, R.anim.fade_out);
+
+//fade it in, and fade it out.
+        myImageView.startAnimation(myFadeInAnimation);
+        myImageView.startAnimation(myFadeOutAnimation);
+    }
+}
+
+
+
 }
