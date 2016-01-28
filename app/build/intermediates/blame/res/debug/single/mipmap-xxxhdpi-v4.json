@@ -2,5 +2,9 @@
     {
         "merged": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi-v4/ic_launcher.png",
         "source": "/Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/mingxia/Desktop/StudioProjects/DashboardUI/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi-v4/ic_launcher.png",
+        "source": "/Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
     }
 ]

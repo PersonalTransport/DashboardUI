@@ -1,61 +1,74 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:2:1-24:12
-	package
-		ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:3:5-43
-		INJECTED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml
-		INJECTED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml
-	android:versionName
-		INJECTED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml
-		INJECTED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml
+ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:2:1-29:12
 	xmlns:android
-		ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:2:11-69
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:2:11-69
+	package
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:3:5-43
+		INJECTED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml
 	android:versionCode
-		INJECTED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml
-		INJECTED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml
 application
-ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:5:5-22:19
-MERGED from [com.android.support:appcompat-v7:23.1.1] /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
-	android:label
-		ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:8:9-41
+ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:5:5-27:19
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-appindexing:8.1.0] /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.1.0/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-basement:8.1.0] /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/AndroidManifest.xml:20:5-24:19
+MERGED from [com.android.support:support-v4:23.1.1] /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
 	android:supportsRtl
-		ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:9:9-35
-	android:allowBackup
-		ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:6:9-35
-	android:icon
-		ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:7:9-43
-	android:theme
-		ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:10:9-40
-activity#team8.personaltransportation.FullscreenActivity
-ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:11:9-21:20
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:9:9-35
 	android:label
-		ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:14:13-45
-	android:configChanges
-		ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:13:13-74
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:8:9-41
+	android:allowBackup
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:6:9-35
+	android:icon
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:7:9-43
 	android:theme
-		ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:15:13-51
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:10:9-40
+activity#team8.personaltransportation.FullscreenActivity
+ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:11:9-21:20
+	android:label
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:14:13-45
+	android:configChanges
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:13:13-74
+	android:theme
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:15:13-51
 	android:name
-		ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:12:13-47
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:12:13-47
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:16:13-20:29
+ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:16:13-20:29
 action#android.intent.action.MAIN
-ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:17:17-69
+ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:17:17-69
 	android:name
-		ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:17:25-66
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:17:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:19:17-77
+ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:19:17-77
 	android:name
-		ADDED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml:19:27-74
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:19:27-74
+meta-data#com.google.android.gms.version
+ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:24:9-26:69
+MERGED from [com.google.android.gms:play-services-basement:8.1.0] /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/AndroidManifest.xml:21:9-23:69
+	android:name
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:25:13-58
+	android:value
+		ADDED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml:26:13-66
 uses-sdk
-INJECTED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
-MERGED from [com.android.support:appcompat-v7:23.1.1] /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+INJECTED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.google.android.gms:play-services-appindexing:8.1.0] /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.1.0/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-basement:8.1.0] /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:support-v4:23.1.1] /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
 	android:targetSdkVersion
-		INJECTED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml
-		INJECTED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml
-		INJECTED from /Network/Servers/fs.labs.encs/Volumes/raid1/users_a/timrast/suite/projects/cs-capstone-car-gui/app/PersonalTransportation/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/mingxia/Desktop/StudioProjects/DashboardUI/app/src/main/AndroidManifest.xml
