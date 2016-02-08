@@ -34,11 +34,10 @@ import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Queue;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
 //public class FullscreenActivity extends AppCompatActivity {
 public class FullscreenActivity extends Activity {
 
@@ -57,6 +56,12 @@ public class FullscreenActivity extends Activity {
     public FileInputStream UIinputStream;
     public FileOutputStream UIoutputStream;
 
+    Thread testOutputThread;
+    Thread testInputThread;
+    Queue<USBMessage> inputQueue;
+    Lock inputQueueLock = new ReentrantLock();
+    Queue<USBMessage> outputQueue;
+    Lock outputQueueLock = new ReentrantLock();
 
     // variables for GUI interface
     boolean warningOn = false;
@@ -180,38 +185,6 @@ public class FullscreenActivity extends Activity {
             }
         });
 
-
-
-        // Obtain USB UIusbManager
-//        UIusbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
-//        UIaccessory = (UsbAccessory) getIntent().getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
-//
-//        String ACTION_USB_PERMISSION =
-//                "com.android.example.USB_PERMISSION";
-//
-//        permissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
-//        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
-//        registerReceiver(UIusbReceiver, filter);
-//
-//        UIusbManager.requestPermission(UIaccessory, permissionIntent);
-//
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while (true) {
-//                    try {
-//                        Thread.sleep(1000, 0);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    openAccessory();
-//                }
-//            }
-//        });
-//
-//        thread.run();
-
     }
 
     // source : http://www.java2s.com/Open-Source/Android_Free_Code/Example/code/com_examples_accessory_controllerMainUsbActivity_java.htm
@@ -272,9 +245,100 @@ public class FullscreenActivity extends Activity {
             UIinputStream = new FileInputStream(fd);
             UIoutputStream = new FileOutputStream(fd);
 
+            testOutputThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (true) {
+                        //outputQueueLock.lock();
+                        //USBMessage message = outputQueue.poll();
+                        //outputQueueLock.unlock();
+                        try {
+                            Thread.sleep(1000, 0);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        USBMessage message = new USBMessage();
+                        message.type = 10;
+                        message.data = new byte[6];
+                        message.data[0] = 'a';
+                        message.data[1] = 'b';
+                        message.data[2] = 'c';
+                        message.data[3] = 'd';
+                        message.data[4] = 'f';
+
+                        if (message != null) {
+                            int type = message.type;
+                            byte[] typeBuffer = new byte[4];
+                            typeBuffer[0] = (byte) (type >> 24);
+                            typeBuffer[1] = (byte) (type >> 16);
+                            typeBuffer[2] = (byte) (type >> 8);
+                            typeBuffer[3] = (byte) (type);
+                            byte[] lenBuffer = new byte[4];
+                            lenBuffer[0] = (byte) (message.data.length >> 24);
+                            lenBuffer[1] = (byte) (message.data.length >> 16);
+                            lenBuffer[2] = (byte) (message.data.length >> 8);
+                            lenBuffer[3] = (byte) (message.data.length);
+                            try {
+                                UIoutputStream.write(typeBuffer);
+                                UIoutputStream.write(lenBuffer);
+                                UIoutputStream.write(message.data);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+            testOutputThread.start();
+
+            testInputThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (true) {
+                        USBMessage message = new USBMessage();
+                        byte[] buffer = new byte[4];
+
+                        // Read message type
+                        try {
+                            UIinputStream.read(buffer);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        message.type = (((int) buffer[0]) << 24)
+                                     & (((int) buffer[1]) << 16)
+                                     & (((int) buffer[2]) << 8)
+                                     & ((int) buffer[3]);
+
+                        // Read message length
+                        try {
+                            UIinputStream.read(buffer);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        int length = (((int) buffer[0]) << 24)
+                                   & (((int) buffer[1]) << 16)
+                                   & (((int) buffer[2]) << 8)
+                                   & ((int) buffer[3]);
+                        // Read message data
+                        message.data = new byte[length];
+                        try {
+                            UIinputStream.read(message.data);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        outputQueueLock.lock();
+                        outputQueue.add(message);
+                        outputQueueLock.unlock();
+                    }
+                }
+            });
+            //testInputThread.start();
+
             // create a thread, passing it the USB input stream and this task's handler object
-            UIhandlerThread = new USB_ACTIVITY_Thread(UIHandler, UIinputStream);
-            UIhandlerThread.start();
+            //UIhandlerThread = new USB_ACTIVITY_Thread(UIHandler, UIinputStream);
+            //UIhandlerThread.start();
             Log.d("openAccessory", "opened UIaccessory: " + UIusbReceiver);
         } else {
             Log.d("openAccessory", "UIaccessory open fail: " + UIusbReceiver);
@@ -340,14 +404,14 @@ public class FullscreenActivity extends Activity {
     private class USB_ACTIVITY_Thread extends Thread {
 
         Handler USBhandler;
-        FileInputStream USBInuptStream;
+        FileInputStream USBInputStream;
 
         USB_ACTIVITY_Thread(Handler h, FileInputStream fI) {
 
             Log.d("USB_ACTIVITY_Thread", "initializing...");
 
             USBhandler = h;
-            USBInuptStream = fI;
+            USBInputStream = fI;
         }
 
         @Override
@@ -358,8 +422,8 @@ public class FullscreenActivity extends Activity {
             while(true) {
                 Log.d("USB_Activity_Thread_run", "running...");
                 try {
-                    if(USBInuptStream != null) {
-                        data_recieved_len = USBInuptStream.read(data_recieved,0,5); // change later
+                    if(USBInputStream != null) {
+                        data_recieved_len = USBInputStream.read(data_recieved,0,5); // change later
                         if (data_recieved_len < 6) {
                             Log.d("USB_Activity_Thread_run", "Error: did not read enough data from USB");
                         }
@@ -378,7 +442,8 @@ public class FullscreenActivity extends Activity {
                 // XXX Temporary: save the input data in the message (to spit back to USB device)
                 mss.obj = data_recieved.clone();
                 // afterwards, post message to handler (so main task can deal with data)
-                USBhandler.sendMessage(mss);
+                //USBhandler.sendMessage(mss);
+                USBhandler.handleMessage(mss);
             }
         }
     }
