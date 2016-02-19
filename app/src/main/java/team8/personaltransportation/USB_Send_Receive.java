@@ -31,7 +31,6 @@ public class USB_Send_Receive {
 
     // variables for USB communication
     private static final String ACTION_USB_PERMISSION =    "team8.personaltransportation.action.USB_PERMISSION";
-    public USB_ACTIVITY_Thread UIhandlerThread;
     public UsbManager UIusbManager;
     public UsbAccessory UIaccessory;
     public PendingIntent UIpermissionIntent;
@@ -47,6 +46,8 @@ public class USB_Send_Receive {
     Lock inputQueueLock = new ReentrantLock();
     Queue<USBMessage> outputQueue;
     Lock outputQueueLock = new ReentrantLock();
+
+    USB_ACTIVITY_Thread UIhandlerThread;
 
     public void onCreate(Activity activity) {
 
@@ -115,14 +116,15 @@ public class USB_Send_Receive {
                 @Override
                 public void run() {
                     while (true) {
-                        //outputQueueLock.lock();
-                        //USBMessage message = outputQueue.poll();
-                        //outputQueueLock.unlock();
+                        outputQueueLock.lock();
+                        USBMessage message = outputQueue.poll();
+                        outputQueueLock.unlock();
                         try {
                             Thread.sleep(1000, 0);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        /*
                         USBMessage message = new USBMessage();
                         message.type = 10;
                         message.data = new byte[6];
@@ -131,6 +133,7 @@ public class USB_Send_Receive {
                         message.data[2] = 'c';
                         message.data[3] = 'd';
                         message.data[4] = 'f';
+                        */
 
                         if (message != null) {
                             int type = message.type;
@@ -156,7 +159,7 @@ public class USB_Send_Receive {
                     }
                 }
             });
-            testOutputThread.start();
+            //testOutputThread.start();
 
             testInputThread = new Thread(new Runnable() {
                 @Override
@@ -203,8 +206,8 @@ public class USB_Send_Receive {
             //testInputThread.start();
 
             // create a thread, passing it the USB input stream and this task's handler object
-            //UIhandlerThread = new USB_ACTIVITY_Thread(UIHandler, UIinputStream);
-            //UIhandlerThread.start();
+            UIhandlerThread = new USB_ACTIVITY_Thread(UIHandler, UIinputStream);
+            UIhandlerThread.start();
             Log.d("openAccessory", "opened UIaccessory: " + UIusbReceiver);
         } else {
             Log.d("openAccessory", "UIaccessory open fail: " + UIusbReceiver);

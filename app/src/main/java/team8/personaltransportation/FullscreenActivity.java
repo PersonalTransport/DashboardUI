@@ -119,22 +119,20 @@ public class FullscreenActivity extends Activity {
                 if (wiperswitch == 0) {
                     wiperButton.setImageResource(R.drawable.wipers1);
                     wiperswitch = 1;
-                }
-                else if(wiperswitch == 1){
+                } else if (wiperswitch == 1) {
                     wiperButton.setImageResource(R.drawable.wipers2);
                     wiperswitch = 2;
-                }
-                else if(wiperswitch == 2){
+                } else if (wiperswitch == 2) {
                     wiperButton.setImageResource(R.drawable.wipers3);
                     wiperswitch = 3;
-                }
-                else {
+                } else {
                     wiperButton.setImageResource(R.drawable.wipers);
                     wiperswitch = 0;
                 }
             }
         });
 
+        usb_send_receive = new USB_Send_Receive();
         usb_send_receive.onCreate(this);
     }
 
