@@ -13,7 +13,9 @@ import android.annotation.SuppressLint;
 //import android.app.ActivityManager;
 //import android.app.ActivityOptions;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.hardware.usb.UsbAccessory;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
@@ -31,35 +33,15 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 //public class FullscreenActivity extends AppCompatActivity {
-public class FullscreenActivity extends USB_Send_Receive {
-
-    // Used to obtain USB permission from the host device (to communicate)
-    private static final String ACTION_USB_PERMISSION =    "team8.personaltransportation.action.USB_PERMISSION";  // XXX ??
-    //private static final String ACTION_USB_PERMISSION =    "Manufactorer.Model.USB_PERMISSION";  // XXX ??
-
-    // variables for USB communication
-//    public USB_ACTIVITY_Thread UIhandlerThread;
-    public UsbManager UIusbManager;
-    public UsbAccessory UIaccessory;
-    public PendingIntent UIpermissionIntent;
-    private boolean UIPermissionRequestPending = true;
-
-    public ParcelFileDescriptor UIfileDescriptor;
-    public FileInputStream UIinputStream;
-    public FileOutputStream UIoutputStream;
-
-    Thread testOutputThread;
-    Thread testInputThread;
-    Queue<USBMessage> inputQueue;
-    Lock inputQueueLock = new ReentrantLock();
-    Queue<USBMessage> outputQueue;
-    Lock outputQueueLock = new ReentrantLock();
+public class FullscreenActivity extends Activity {
 
     // variables for GUI interface
     boolean warningOn = false;
     boolean headlampOn = false;
     int wiperswitch = 0;
     int defrostswitch = 0;
+
+    USB_Send_Receive usb_send_receive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,30 +51,6 @@ public class FullscreenActivity extends USB_Send_Receive {
 
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
-
-        // XXX Setup USB communication items  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-//        UIusbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
-//        Log.d("onCreate", "usbmanager: " +UIusbManager);
-//        UIpermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
-//        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
-//        filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
-//        Log.d("onCreate", "filter: " +filter);
-//        registerReceiver(UIusbReceiver, filter);
-
-        // Set up the user interaction to manually show or hide the system UI.
-        /*
-        mContentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggle();
-            }
-        });
-        */
-
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
         final ImageButton warningButton = (ImageButton) findViewById(R.id.warning);
         warningButton.setImageResource(R.drawable.warningoff);
@@ -177,11 +135,37 @@ public class FullscreenActivity extends USB_Send_Receive {
             }
         });
 
+        usb_send_receive.onCreate(this);
     }
 
 // *********************************************************************************************************
 // ******************End Cut Here******************************************************************************
 // *********************************************************************************************************
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        usb_send_receive.onResume(getIntent());
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        usb_send_receive.onPause();
+    }
+
+
+    @Override
+    public void onDestroy() {
+
+        usb_send_receive.onDestroy(this);
+
+        super.onDestroy();
+    }
+
 
 // *********************************************************************************************************
 // ******************End Cut Here******************************************************************************
@@ -318,9 +302,5 @@ public class FullscreenActivity extends USB_Send_Receive {
         return supportActionBar;
     }
 
-
-    /*public void onClick() {
-        Log.d("BUTTON", "CLICKED YAY");
-    }*/
 }
 

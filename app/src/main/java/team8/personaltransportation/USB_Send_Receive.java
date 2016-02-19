@@ -27,7 +27,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Created by Joseph O on 2/1/2016.
  */
-public class USB_Send_Receive extends Activity{
+public class USB_Send_Receive {
 
     // variables for USB communication
     private static final String ACTION_USB_PERMISSION =    "team8.personaltransportation.action.USB_PERMISSION";
@@ -48,29 +48,23 @@ public class USB_Send_Receive extends Activity{
     Queue<USBMessage> outputQueue;
     Lock outputQueueLock = new ReentrantLock();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(Activity activity) {
 
         // XXX Setup USB communication items  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        UIusbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
+        UIusbManager = (UsbManager) activity.getSystemService(Context.USB_SERVICE);
         Log.d("onCreate", "usbmanager: " + UIusbManager);
-        UIpermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+        UIpermissionIntent = PendingIntent.getBroadcast(activity, 0, new Intent(ACTION_USB_PERMISSION), 0);
         IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
         filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
         Log.d("onCreate", "filter: " + filter);
-        registerReceiver(UIusbReceiver, filter);
+        activity.registerReceiver(UIusbReceiver, filter);
     }
 
 
     // source : http://www.java2s.com/Open-Source/Android_Free_Code/Example/code/com_examples_accessory_controllerMainUsbActivity_java.htm
-    @Override
-    public void onResume() {
-        super.onResume();
+    public void onResume(Intent intent) {
 
         Log.d("onResume", "resuming...");
-
-        Intent intent = getIntent();
         if (UIinputStream != null && UIoutputStream != null) {
             return;
         }
@@ -94,19 +88,15 @@ public class USB_Send_Receive extends Activity{
         }
     }
 
-    @Override
     public void onPause() {
-        super.onPause();
         Log.d("onPause", "pausing...");
         closeAccessory();
     }
 
-    @Override
-    public void onDestroy() {
+    public void onDestroy(Activity activity) {
         Log.d("onDestroy", "destroying...");
 
-        unregisterReceiver(UIusbReceiver);
-        super.onDestroy();
+        activity.unregisterReceiver(UIusbReceiver);
     }
 
     // source : http://www.java2s.com/Open-Source/Android_Free_Code/Example/code/com_examples_accessory_controllerMainUsbActivity_java.htm
