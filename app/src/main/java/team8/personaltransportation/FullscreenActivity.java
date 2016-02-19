@@ -31,7 +31,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 //public class FullscreenActivity extends AppCompatActivity {
-public class FullscreenActivity extends USN_Send_Receive {
+public class FullscreenActivity extends USB_Send_Receive {
 
     // Used to obtain USB permission from the host device (to communicate)
     private static final String ACTION_USB_PERMISSION =    "team8.personaltransportation.action.USB_PERMISSION";  // XXX ??

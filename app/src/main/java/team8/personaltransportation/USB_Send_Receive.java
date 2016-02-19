@@ -27,7 +27,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Created by Joseph O on 2/1/2016.
  */
-public class USN_Send_Receive extends Activity{
+public class USB_Send_Receive extends Activity{
 
     // variables for USB communication
     private static final String ACTION_USB_PERMISSION =    "team8.personaltransportation.action.USB_PERMISSION";
