@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
+import android.widget.ImageButton;
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -49,7 +50,10 @@ public class USB_Send_Receive {
 
     USB_ACTIVITY_Thread UIhandlerThread;
 
-    public void onCreate(Activity activity) {
+    Handler UIHandler;
+    Handler outputHandler;
+
+    public void onCreate(final FullscreenActivity activity) {
 
         // XXX Setup USB communication items  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         UIusbManager = (UsbManager) activity.getSystemService(Context.USB_SERVICE);
@@ -59,6 +63,59 @@ public class USB_Send_Receive {
         filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
         Log.d("onCreate", "filter: " + filter);
         activity.registerReceiver(UIusbReceiver, filter);
+
+        // Handles incoming messages
+        UIHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+
+                // XXX perform functionality to handle message (and provide response to USB with UIoutputStream.write())
+                // XXX Temporary: spit back input data in message to USB
+
+                Log.d("UIHandler", "handling message: " + msg);
+
+
+                final ImageButton warningButton = (ImageButton) activity.findViewById(R.id.warning);
+                warningButton.setImageResource(R.drawable.warningon); // Example that images can be set in these handlers
+
+
+                byte[] temp;
+
+                temp = (byte[]) msg.obj;
+                try {
+                    UIoutputStream.write(temp);
+                    UIoutputStream.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d("UIHandler", "Error: could not write data to USB output");
+                }
+
+            }
+        };
+
+        // Handles outgoing messages (Currently not being used)
+        outputHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+
+                // XXX outputs a command through USB
+                Log.d("outputHandler", "handling message: " + msg);
+
+                byte[] temp;
+
+                temp = (byte[]) msg.obj;
+                try {
+                    UIoutputStream.write(temp);
+                    UIoutputStream.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d("outputHandler", "Error: could not write data to USB output");
+                }
+            }
+        };
+
     }
 
 
@@ -112,6 +169,7 @@ public class USB_Send_Receive {
             UIinputStream = new FileInputStream(fd);
             UIoutputStream = new FileOutputStream(fd);
 
+            /*
             testOutputThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -124,7 +182,7 @@ public class USB_Send_Receive {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        /*
+
                         USBMessage message = new USBMessage();
                         message.type = 10;
                         message.data = new byte[6];
@@ -133,7 +191,6 @@ public class USB_Send_Receive {
                         message.data[2] = 'c';
                         message.data[3] = 'd';
                         message.data[4] = 'f';
-                        */
 
                         if (message != null) {
                             int type = message.type;
@@ -204,6 +261,7 @@ public class USB_Send_Receive {
                 }
             });
             //testInputThread.start();
+            */
 
             // create a thread, passing it the USB input stream and this task's handler object
             UIhandlerThread = new USB_ACTIVITY_Thread(UIHandler, UIinputStream);
@@ -270,6 +328,7 @@ public class USB_Send_Receive {
         }
     };
 
+    // Private thread class inside of USB_Send_Receive class
     private class USB_ACTIVITY_Thread extends Thread {
 
         Handler USBhandler;
@@ -283,6 +342,7 @@ public class USB_Send_Receive {
             USBInputStream = fI;
         }
 
+        // Receives input and handles it
         @Override
         public void run() {
             byte[] data_recieved = new byte[10];
@@ -311,36 +371,10 @@ public class USB_Send_Receive {
                 // XXX Temporary: save the input data in the message (to spit back to USB device)
                 mss.obj = data_recieved.clone();
                 // afterwards, post message to handler (so main task can deal with data)
-                //USBhandler.sendMessage(mss);
-                USBhandler.handleMessage(mss);
+                USBhandler.sendMessage(mss);
+                //USBhandler.handleMessage(mss);
             }
         }
     }
-
-    // handler object to handle messages from the USB thread
-    Handler UIHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            // XXX perform functionality to handle message (and provide response to USB with UIoutputStream.write())
-            // XXX Temporary: spit back input data in message to USB
-
-            Log.d("UIHandler", "handling message: " + msg);
-
-            byte[] temp;
-
-            temp = (byte[]) msg.obj;
-            try {
-                UIoutputStream.write(temp);
-                UIoutputStream.flush(); // ???
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d("UIHandler", "Error: could not write data to USB output");
-            }
-
-        }
-    };
-
-
-
 
 }
