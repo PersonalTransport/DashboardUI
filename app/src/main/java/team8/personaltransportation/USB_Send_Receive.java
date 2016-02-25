@@ -76,15 +76,23 @@ public class USB_Send_Receive {
                 Log.d("UIHandler", "handling message: " + msg);
 
 
-                final ImageButton warningButton = (ImageButton) activity.findViewById(R.id.warning);
-                warningButton.setImageResource(R.drawable.warningon); // Example that images can be set in these handlers
+                //final ImageButton warningButton = (ImageButton) activity.findViewById(R.id.warning);
+                //warningButton.setImageResource(R.drawable.warningon); // Example that images can be set in these handlers
 
 
-                byte[] temp;
+                USBMessage usbMessage = (USBMessage) msg.obj;
 
-                temp = (byte[]) msg.obj;
+                //byte[] bytes = new byte[4];
+                //bytes[0] = 'b';
+                //bytes[1] = 'c';
+                //bytes[2] = 'd';
+                //bytes[3] = 'e';
+
+                //byte[] buffer = String.valueOf(usbMessage.type).getBytes();
+
                 try {
-                    UIoutputStream.write(temp);
+                    UIoutputStream.write(usbMessage.serialize());
+                    //UIoutputStream.write(bytes);
                     UIoutputStream.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -345,15 +353,15 @@ public class USB_Send_Receive {
         // Receives input and handles it
         @Override
         public void run() {
-            byte[] data_recieved = new byte[10];
+            byte[] data_recieved = new byte[12];
             int data_recieved_len;
 
             while(true) {
                 Log.d("USB_Activity_Thread_run", "running...");
                 try {
                     if(USBInputStream != null) {
-                        data_recieved_len = USBInputStream.read(data_recieved,0,5); // change later
-                        if (data_recieved_len < 6) {
+                        data_recieved_len = USBInputStream.read(data_recieved,0,12); // change later
+                        if (data_recieved_len < 8) {
                             Log.d("USB_Activity_Thread_run", "Error: did not read enough data from USB");
                         }
                     }
@@ -365,14 +373,21 @@ public class USB_Send_Receive {
                 }
 
                 Message mss = Message.obtain(USBhandler); // XXX can also pass objects/input data with messages (obtain function is overloaded)
+                //Message mss = Message.obtain(outputHandler);
                 // XXX fill in this with input functionality (interpreting the input data stream, then calling a )
                 // XXX
                 // XXX
                 // XXX Temporary: save the input data in the message (to spit back to USB device)
-                mss.obj = data_recieved.clone();
+                USBMessage usbMessage = new USBMessage();
+                usbMessage.create(data_recieved);
+                //usbMessage.type = (int) data_recieved[0];
+
+                mss.obj = usbMessage;
                 // afterwards, post message to handler (so main task can deal with data)
-                USBhandler.sendMessage(mss);
-                //USBhandler.handleMessage(mss);
+                //USBhandler.sendMessage(mss);
+
+                USBhandler.handleMessage(mss);
+                //outputHandler.handleMessage(mss);
             }
         }
     }
