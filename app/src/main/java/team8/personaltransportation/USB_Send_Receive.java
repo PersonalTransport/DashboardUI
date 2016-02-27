@@ -91,7 +91,7 @@ public class USB_Send_Receive {
                 //byte[] buffer = String.valueOf(usbMessage.type).getBytes();
 
                 try {
-                    UIoutputStream.write(usbMessage.serialize());
+                    UIoutputStream.write(usbMessage.serialize(), 0, usbMessage.length + USBMessage.MESSAGE_DATA_OFFSET);
                     //UIoutputStream.write(bytes);
                     UIoutputStream.flush();
                 } catch (IOException e) {
@@ -353,15 +353,15 @@ public class USB_Send_Receive {
         // Receives input and handles it
         @Override
         public void run() {
-            byte[] data_recieved = new byte[12];
+            byte[] data_recieved = new byte[262];
             int data_recieved_len;
 
             while(true) {
                 Log.d("USB_Activity_Thread_run", "running...");
                 try {
                     if(USBInputStream != null) {
-                        data_recieved_len = USBInputStream.read(data_recieved,0,12); // change later
-                        if (data_recieved_len < 8) {
+                        data_recieved_len = USBInputStream.read(data_recieved,0,262); // change later
+                        if (data_recieved_len < USBMessage.MESSAGE_DATA_OFFSET) {
                             Log.d("USB_Activity_Thread_run", "Error: did not read enough data from USB");
                         }
                     }
@@ -383,6 +383,7 @@ public class USB_Send_Receive {
                 //usbMessage.type = (int) data_recieved[0];
 
                 mss.obj = usbMessage;
+                //mss.obj =
                 // afterwards, post message to handler (so main task can deal with data)
                 //USBhandler.sendMessage(mss);
 
