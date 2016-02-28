@@ -15,6 +15,7 @@ import android.os.Message;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.util.Queue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.Arrays;
 
 
 /**
@@ -53,6 +55,8 @@ public class USB_Send_Receive {
     Handler UIHandler;
     Handler outputHandler;
 
+    //static USBMessage usbMessage;
+
     public void onCreate(final FullscreenActivity activity) {
 
         // XXX Setup USB communication items  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -80,7 +84,45 @@ public class USB_Send_Receive {
                 //warningButton.setImageResource(R.drawable.warningon); // Example that images can be set in these handlers
 
 
-                USBMessage usbMessage = (USBMessage) msg.obj;
+                FullscreenActivity.usbMessage = (USBMessage) msg.obj;
+
+                // TEST _ JOSEPH
+                if (FullscreenActivity.usbMessage.comm == USBMessage.COMM_SET_VAR) {
+                    if (FullscreenActivity.usbMessage.sid == USBMessage.SID_BATTERY){
+//                        int RecievedBatteryData_TEST = usbMessage.getData_asInt();
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String Data_IN_TEST = FullscreenActivity.usbMessage.data.toString();
+                                //String Data_String_TEST = Arrays.copyOfRange(FullscreenActivity.usbMessage.data, 0, 2).toString();
+                                Toast.makeText(activity.getApplicationContext(), "TEST - CHANGED Battery::", Toast.LENGTH_SHORT).show();
+                                if (FullscreenActivity.batButtonSwitch == 0) {
+                                    FullscreenActivity.batButton.setImageResource(R.drawable.battery00);
+                                    FullscreenActivity.batButtonSwitch = 1;
+                                } else if (FullscreenActivity.batButtonSwitch == 1) {
+                                    FullscreenActivity.batButton.setImageResource(R.drawable.battery10);
+                                    FullscreenActivity.batButtonSwitch = 2;
+                                } else if (FullscreenActivity.batButtonSwitch == 2) {
+                                    FullscreenActivity.batButton.setImageResource(R.drawable.battery50);
+                                    FullscreenActivity.batButtonSwitch = 3;
+                                } else {
+                                    FullscreenActivity.batButton.setImageResource(R.drawable.battery75);
+                                    FullscreenActivity.batButtonSwitch = 0;
+                                }
+                            }
+                        });
+//                        FullscreenActivity.batButtonSwitch
+//                        FullscreenActivity.batButton.setImageResource(R.drawable.battery00);
+                    } else if (FullscreenActivity.usbMessage.sid == USBMessage.SID_LIGHTS) {
+
+                    } else if (FullscreenActivity.usbMessage.sid == USBMessage.SID_SPEED) {
+
+                    } else {
+
+                    }
+
+                }
+
 
                 //byte[] bytes = new byte[4];
                 //bytes[0] = 'b';
@@ -91,7 +133,7 @@ public class USB_Send_Receive {
                 //byte[] buffer = String.valueOf(usbMessage.type).getBytes();
 
                 try {
-                    UIoutputStream.write(usbMessage.serialize(), 0, usbMessage.length + USBMessage.MESSAGE_DATA_OFFSET);
+                    UIoutputStream.write(FullscreenActivity.usbMessage.serialize(), 0, FullscreenActivity.usbMessage.length + USBMessage.MESSAGE_DATA_OFFSET);
                     //UIoutputStream.write(bytes);
                     UIoutputStream.flush();
                 } catch (IOException e) {

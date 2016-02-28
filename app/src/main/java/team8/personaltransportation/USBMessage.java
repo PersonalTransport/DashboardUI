@@ -5,6 +5,8 @@ package team8.personaltransportation;
  * status bar and navigation/system bar) with user interaction.
  */
 
+import java.nio.ByteBuffer;
+
 public class USBMessage {
 
     // Definitions for the comm portion of the instruction format (temporary)
@@ -48,6 +50,16 @@ public class USBMessage {
         this.sid = newsid;
         this.length = newlength;
         this.data = newdata.clone();
+    }
+
+    public int getData_asInt () {
+        byte TempByte;
+        for (int ix = 0; ix < this.data.length/2; ix++){
+            TempByte = this.data[ix];
+            this.data[ix] = this.data[this.data.length - ix - 1];
+            this.data[this.data.length - ix - 1] = TempByte;
+        }
+        return ByteBuffer.wrap(this.data).getInt();
     }
 
     // Populate message struct from raw data

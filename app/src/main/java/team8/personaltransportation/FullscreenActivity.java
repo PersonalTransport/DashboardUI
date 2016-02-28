@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -42,6 +43,11 @@ public class FullscreenActivity extends Activity {
     int defrostswitch = 0;
 
     USB_Send_Receive usb_send_receive;
+
+    // TEST _ JOSEPH
+    static ImageView batButton;
+    static int batButtonSwitch = 0;
+    static USBMessage usbMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +137,10 @@ public class FullscreenActivity extends Activity {
                 }
             }
         });
+
+        /*************************** working ********************************************/
+        batButton = (ImageView) findViewById(R.id.batteryLife);
+        batButton.setImageResource(R.drawable.battery100);
 
         usb_send_receive = new USB_Send_Receive();
         usb_send_receive.onCreate(this);
