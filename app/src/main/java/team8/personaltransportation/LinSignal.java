@@ -59,9 +59,9 @@ public class LinSignal {
     private void create(byte[] rawdata,int size) {
         this.command = rawdata[0];
         this.sid = ((((int) rawdata[1]) >> 24) & 0xFF000000)
-                | ((((int) rawdata[2]) >> 16) & 0x00FF0000)
-                | ((((int) rawdata[3]) >> 8)  & 0x0000FF00)
-                | (((int) rawdata[4])         & 0x000000FF);
+                 | ((((int) rawdata[2]) >> 16) & 0x00FF0000)
+                 | ((((int) rawdata[3]) >> 8)  & 0x0000FF00)
+                 | (((int) rawdata[4])         & 0x000000FF);
         this.length = rawdata[5];
         int lenleft = size - HEADER_SIZE;
         // Error checking for data length

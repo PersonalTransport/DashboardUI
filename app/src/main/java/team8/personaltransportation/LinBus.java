@@ -27,12 +27,15 @@ public abstract class LinBus {
 
     public void update() throws IOException {
         byte [] rawData = new byte[LinSignal.MAX_SIZE];
+        // TODO split this up into two calls one for the header and one for the data.
         int size = inputStream.read(rawData,0,LinSignal.MAX_SIZE);
         receiveSignal(new LinSignal(rawData,size));
 
         synchronized (this.signals) {
-            for (LinSignal signal:signals)
+            for (LinSignal signal:signals) {
                 outputStream.write(signal.serialize());
+                outputStream.flush();
+            }
             signals.clear();
         }
     }
