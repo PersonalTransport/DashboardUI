@@ -29,9 +29,6 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class USB_Send_Receive {
 
-    private int SID_BATTERY; // TODO fill this out with hash
-    private int SID_LIGHTS; // TODO fill this out with hash
-    private int SID_SPEED; // TODO fill this out with hash
 
     // variables for USB communication
     private static final String ACTION_USB_PERMISSION =    "team8.personaltransportation.action.USB_PERMISSION";
@@ -41,25 +38,22 @@ public class USB_Send_Receive {
     private boolean UIPermissionRequestPending = true;
 
     public ParcelFileDescriptor UIfileDescriptor;
-    public FileInputStream UIinputStream;
-    public FileOutputStream UIoutputStream;
 
-    Thread testOutputThread;
-    Thread testInputThread;
-    Queue<LinSignal> inputQueue;
-    Lock inputQueueLock = new ReentrantLock();
-    Queue<LinSignal> outputQueue;
-    Lock outputQueueLock = new ReentrantLock();
+    UsbCommThread usbCommThread;
 
-    USB_ACTIVITY_Thread UIhandlerThread;
+    Handler uiHandler;
 
-    Handler UIHandler;
-    Handler outputHandler;
+    FileInputStream inputStream;
+    FileOutputStream outputStream;
+
+    LinBus linBus;
 
     //static LinSignal linSignal;
 
-    public void onCreate(final FullscreenActivity activity) {
+    public void onCreate(final FullscreenActivity activity, Handler uiHandler, LinBus linBus) {
         // XXX Setup USB communication items  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        this.uiHandler = uiHandler;
+        this.linBus = linBus;
         UIusbManager = (UsbManager) activity.getSystemService(Context.USB_SERVICE);
         Log.d("onCreate", "usbmanager: " + UIusbManager);
         UIpermissionIntent = PendingIntent.getBroadcast(activity, 0, new Intent(ACTION_USB_PERMISSION), 0);
@@ -67,105 +61,6 @@ public class USB_Send_Receive {
         filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
         Log.d("onCreate", "filter: " + filter);
         activity.registerReceiver(UIusbReceiver, filter);
-
-        // Handles incoming messages
-        UIHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-
-                // XXX perform functionality to handle message (and provide response to USB with UIoutputStream.write())
-                // XXX Temporary: spit back input data in message to USB
-
-                Log.d("UIHandler", "handling message: " + msg);
-
-
-                //final ImageButton warningButton = (ImageButton) activity.findViewById(R.id.warning);
-                //warningButton.setImageResource(R.drawable.warningon); // Example that images can be set in these handlers
-
-
-                FullscreenActivity.linSignal = (LinSignal) msg.obj;
-
-                // TEST _ JOSEPH
-                if (FullscreenActivity.linSignal.command == LinSignal.COMM_SET_VAR) {
-                    if (FullscreenActivity.linSignal.sid == SID_BATTERY){
-//                        int RecievedBatteryData_TEST = linSignal.getData_asInt();
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                String Data_IN_TEST = FullscreenActivity.linSignal.data.toString();
-                                //String Data_String_TEST = Arrays.copyOfRange(FullscreenActivity.linSignal.data, 0, 2).toString();
-                                Toast.makeText(activity.getApplicationContext(), "TEST - CHANGED Battery::", Toast.LENGTH_SHORT).show();
-                                if (FullscreenActivity.batButtonSwitch == 0) {
-                                    FullscreenActivity.batButton.setImageResource(R.drawable.battery00);
-                                    FullscreenActivity.batButtonSwitch = 1;
-                                } else if (FullscreenActivity.batButtonSwitch == 1) {
-                                    FullscreenActivity.batButton.setImageResource(R.drawable.battery10);
-                                    FullscreenActivity.batButtonSwitch = 2;
-                                } else if (FullscreenActivity.batButtonSwitch == 2) {
-                                    FullscreenActivity.batButton.setImageResource(R.drawable.battery50);
-                                    FullscreenActivity.batButtonSwitch = 3;
-                                } else {
-                                    FullscreenActivity.batButton.setImageResource(R.drawable.battery75);
-                                    FullscreenActivity.batButtonSwitch = 0;
-                                }
-                            }
-                        });
-//                        FullscreenActivity.batButtonSwitch
-//                        FullscreenActivity.batButton.setImageResource(R.drawable.battery00);
-                    } else if (FullscreenActivity.linSignal.sid == SID_LIGHTS) {
-
-                    } else if (FullscreenActivity.linSignal.sid == SID_SPEED) {
-
-                    } else {
-
-                    }
-
-                }
-
-
-                //byte[] bytes = new byte[4];
-                //bytes[0] = 'b';
-                //bytes[1] = 'c';
-                //bytes[2] = 'd';
-                //bytes[3] = 'e';
-
-                //byte[] buffer = String.valueOf(linSignal.type).getBytes();
-
-                try {
-                    UIoutputStream.write(FullscreenActivity.linSignal.serialize(), 0, FullscreenActivity.linSignal.length + LinSignal.HEADER_SIZE);
-                    //UIoutputStream.write(bytes);
-                    UIoutputStream.flush();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.d("UIHandler", "Error: could not write data to USB output");
-                }
-
-            }
-        };
-
-        // Handles outgoing messages (Currently not being used)
-        outputHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-
-                // XXX outputs a command through USB
-                Log.d("outputHandler", "handling message: " + msg);
-
-                byte[] temp;
-
-                temp = (byte[]) msg.obj;
-                try {
-                    UIoutputStream.write(temp);
-                    UIoutputStream.flush();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.d("outputHandler", "Error: could not write data to USB output");
-                }
-            }
-        };
-
     }
 
 
@@ -173,7 +68,7 @@ public class USB_Send_Receive {
     public void onResume(Intent intent) {
 
         Log.d("onResume", "resuming...");
-        if (UIinputStream != null && UIoutputStream != null) {
+        if (inputStream != null && outputStream != null) {
             return;
         }
 
@@ -216,106 +111,11 @@ public class USB_Send_Receive {
         if (UIfileDescriptor != null) {
             UIaccessory = accessory;
             FileDescriptor fd = UIfileDescriptor.getFileDescriptor();
-            UIinputStream = new FileInputStream(fd);
-            UIoutputStream = new FileOutputStream(fd);
-
-            /*
-            testOutputThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (true) {
-                        outputQueueLock.lock();
-                        LinSignal message = outputQueue.poll();
-                        outputQueueLock.unlock();
-                        try {
-                            Thread.sleep(1000, 0);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        LinSignal message = new LinSignal();
-                        message.type = 10;
-                        message.data = new byte[6];
-                        message.data[0] = 'a';
-                        message.data[1] = 'b';
-                        message.data[2] = 'c';
-                        message.data[3] = 'd';
-                        message.data[4] = 'f';
-
-                        if (message != null) {
-                            int type = message.type;
-                            byte[] typeBuffer = new byte[4];
-                            typeBuffer[0] = (byte) (type >> 24);
-                            typeBuffer[1] = (byte) (type >> 16);
-                            typeBuffer[2] = (byte) (type >> 8);
-                            typeBuffer[3] = (byte) (type);
-                            byte[] lenBuffer = new byte[4];
-                            lenBuffer[0] = (byte) (message.data.length >> 24);
-                            lenBuffer[1] = (byte) (message.data.length >> 16);
-                            lenBuffer[2] = (byte) (message.data.length >> 8);
-                            lenBuffer[3] = (byte) (message.data.length);
-                            try {
-                                UIoutputStream.write(typeBuffer);
-                                UIoutputStream.write(lenBuffer);
-                                UIoutputStream.write(message.data);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                break;
-                            }
-                        }
-                    }
-                }
-            });
-            //testOutputThread.start();
-
-            testInputThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (true) {
-                        LinSignal message = new LinSignal();
-                        byte[] buffer = new byte[4];
-
-                        // Read message type
-                        try {
-                            UIinputStream.read(buffer);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        message.type = (((int) buffer[0]) << 24)
-                                & (((int) buffer[1]) << 16)
-                                & (((int) buffer[2]) << 8)
-                                & ((int) buffer[3]);
-
-                        // Read message length
-                        try {
-                            UIinputStream.read(buffer);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        int length = (((int) buffer[0]) << 24)
-                                & (((int) buffer[1]) << 16)
-                                & (((int) buffer[2]) << 8)
-                                & ((int) buffer[3]);
-                        // Read message data
-                        message.data = new byte[length];
-                        try {
-                            UIinputStream.read(message.data);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        outputQueueLock.lock();
-                        outputQueue.add(message);
-                        outputQueueLock.unlock();
-                    }
-                }
-            });
-            //testInputThread.start();
-            */
-
-            // create a thread, passing it the USB input stream and this task's handler object
-            UIhandlerThread = new USB_ACTIVITY_Thread(UIHandler, UIinputStream);
-            UIhandlerThread.start();
+            inputStream = new FileInputStream(fd);
+            outputStream = new FileOutputStream(fd);
+            linBus.initializeStreams(inputStream, outputStream);
+            usbCommThread = new UsbCommThread(linBus, inputStream, outputStream);
+            usbCommThread.start();
             Log.d("openAccessory", "opened UIaccessory: " + UIusbReceiver);
         } else {
             Log.d("openAccessory", "UIaccessory open fail: " + UIusbReceiver);
@@ -330,16 +130,16 @@ public class USB_Send_Receive {
             UIfileDescriptor.close();
         } catch (IOException ex) {}
         try {
-            UIinputStream.close();
+            inputStream.close();
         } catch (IOException ex) {}
         try {
-            UIoutputStream.close();
+            outputStream.close();
         } catch (IOException ex) {}
 
         // afterwards, set them all to null
         UIfileDescriptor = null;
-        UIinputStream = null;
-        UIoutputStream = null;
+        inputStream = null;
+        outputStream = null;
 
         // afterwards (?), stop execution of program
         System.exit(0); // XXX ??
@@ -378,63 +178,29 @@ public class USB_Send_Receive {
         }
     };
 
-    // Private thread class inside of USB_Send_Receive class
-    private class USB_ACTIVITY_Thread extends Thread {
+    private class UsbCommThread extends Thread {
 
-        Handler USBhandler;
-        FileInputStream USBInputStream;
+        FileInputStream inputStream;
+        FileOutputStream outputStream;
+        LinBus linBus;
 
-        USB_ACTIVITY_Thread(Handler h, FileInputStream fI) {
-
-            Log.d("USB_ACTIVITY_Thread", "initializing...");
-
-            USBhandler = h;
-            USBInputStream = fI;
+        UsbCommThread(LinBus newLinBus, FileInputStream newInputStream, FileOutputStream newOutputStream) {
+            this.inputStream = newInputStream;
+            this.outputStream = newOutputStream;
+            this.linBus = newLinBus;
         }
 
-        // Receives input and handles it
         @Override
         public void run() {
-            byte[] data_recieved = new byte[262];
-            int data_recieved_len;
-
-            while(true) {
-                Log.d("USB_Activity_Thread_run", "running...");
+            while (!interrupted()) {
                 try {
-                    if(USBInputStream != null) {
-                        data_recieved_len = USBInputStream.read(data_recieved,0,262); // change later
-                        if (data_recieved_len < LinSignal.HEADER_SIZE) {
-                            Log.d("USB_Activity_Thread_run", "Error: did not read enough data from USB");
-                        }
-                    }
-
-                } catch (IOException e) {
+                    linBus.update();
+                } catch (Exception e) {
                     e.printStackTrace();
-                    Log.d("USB_Activity_Thread_run", "Error: could not read data from USB");
-                    break;
                 }
-
-                Message mss = Message.obtain(USBhandler); // XXX can also pass objects/input data with messages (obtain function is overloaded)
-                //Message mss = Message.obtain(outputHandler);
-                // XXX fill in this with input functionality (interpreting the input data stream, then calling a )
-                // XXX
-                // XXX
-                // XXX Temporary: save the input data in the message (to spit back to USB device)
-                /* TODO Remove all old functionality associated with code in comment block
-                LinSignal linSignal = new LinSignal();
-                linSignal.create(data_recieved);
-
-                //linSignal.type = (int) data_recieved[0];
-
-                mss.obj = linSignal;*/
-                //mss.obj =
-                // afterwards, post message to handler (so main task can deal with data)
-                //USBhandler.sendMessage(mss);
-
-                USBhandler.handleMessage(mss);
-                //outputHandler.handleMessage(mss);
             }
         }
+
     }
 
 }

@@ -11,8 +11,18 @@ public abstract class LinBus {
     private OutputStream outputStream;
     private final List<LinSignal> signals;
 
+    public LinBus() {
+        this.signals = new ArrayList<LinSignal>();
+        this.inputStream = null;
+        this.outputStream = null;
+    }
+
     public LinBus(InputStream inputStream,OutputStream outputStream) {
         this.signals = new ArrayList<LinSignal>();
+        initializeStreams(inputStream, outputStream);
+    }
+
+    public void initializeStreams(InputStream inputStream, OutputStream outputStream) {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
     }
@@ -26,6 +36,10 @@ public abstract class LinBus {
     }
 
     public void update() throws IOException {
+
+        if (inputStream == null || outputStream == null)
+            return;
+
         byte [] rawData = new byte[LinSignal.MAX_SIZE];
         // TODO split this up into two calls one for the header and one for the data.
         int size = inputStream.read(rawData,0,LinSignal.MAX_SIZE);

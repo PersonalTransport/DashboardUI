@@ -28,21 +28,20 @@ public class LinSignal {
     }
 
     // newsid must be hashed useing signalHash
-    public LinSignal(int newsid, byte newlength, byte[] newdata) {
-        this.command = COMM_SET_VAR;
-        this.sid = newsid;
-        this.length = newlength;
-        this.data = newdata.clone();
+    public LinSignal(byte command, int sid, byte length, byte[] data) {
+        this.command = command;
+        this.sid = sid;
+        this.length = length;
+        this.data = data.clone();
     }
 
     // Serialize message struct into raw data
     public byte[] serialize() {
         byte[] buffer = new byte[HEADER_SIZE + data.length];
         buffer[0] = (byte) this.command;
-        buffer[1] = (byte) ((this.sid >> 24) & 0xFF);
-        buffer[2] = (byte) ((this.sid >> 16) & 0xFF);
-        buffer[3] = (byte) ((this.sid >> 8) & 0xFF);
-        buffer[4] = (byte) ((this.sid) & 0xFF);
+        byte[] sidBytes = packIntToBytes(this.sid);
+        for (int i = 0; i < 4; i++)
+            buffer[i + 1] = sidBytes[i];
         buffer[5] = (byte) this.data.length;
         for (int i = 0; i < this.data.length; i++)
             buffer[i + HEADER_SIZE] = this.data[i];
@@ -50,18 +49,10 @@ public class LinSignal {
         return buffer;
     }
 
-    //http://www.cse.yorku.ca/~oz/hash.html
-    public int signalHash(byte [] input,int i) {
-        return (input.length == i) ? ((int)input[i]) + 33 * signalHash(input,i+1) : 5381;
-    }
-
     // Populate message struct from raw data
     private void create(byte[] rawdata,int size) {
         this.command = rawdata[0];
-        this.sid = ((((int) rawdata[1]) >> 24) & 0xFF000000)
-                 | ((((int) rawdata[2]) >> 16) & 0x00FF0000)
-                 | ((((int) rawdata[3]) >> 8)  & 0x0000FF00)
-                 | (((int) rawdata[4])         & 0x000000FF);
+        this.sid = unpackBytesToInt(rawdata[1], rawdata[2], rawdata[3], rawdata[4]);
         this.length = rawdata[5];
         int lenleft = size - HEADER_SIZE;
         // Error checking for data length
@@ -70,5 +61,28 @@ public class LinSignal {
         this.data = new byte[this.length];
         for (int i = 0; i < this.length; i++)
             this.data[i] = rawdata[HEADER_SIZE + i];
+    }
+
+    //http://www.cse.yorku.ca/~oz/hash.html
+    public static int signalHash(byte [] input,int i) {
+        return (input.length == i) ? ((int)input[i]) + 33 * signalHash(input,i+1) : 5381;
+    }
+
+    public static int unpackBytesToInt(byte byte1, byte byte2, byte byte3, byte byte4) {
+        return ((((int) byte1) >> 24) & 0xFF000000)
+             | ((((int) byte2) >> 16) & 0x00FF0000)
+             | ((((int) byte3) >> 8)  & 0x0000FF00)
+             | (((int) byte4)         & 0x000000FF);
+    }
+
+    public static byte[] packIntToBytes(int input) {
+        byte[] bytes = new byte[4];
+
+        bytes[0] = (byte) ((input >> 24) & 0xFF);
+        bytes[1] = (byte) ((input >> 16) & 0xFF);
+        bytes[2] = (byte) ((input >> 8) & 0xFF);
+        bytes[3] = (byte) ((input) & 0xFF);
+
+        return bytes;
     }
 }

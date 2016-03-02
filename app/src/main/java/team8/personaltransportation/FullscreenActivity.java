@@ -16,16 +16,27 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.io.IOException;
 
 //public class FullscreenActivity extends AppCompatActivity {
 public class FullscreenActivity extends Activity {
 
+
+    private int SID_BATTERY; // TODO fill this out with hash
+    private int SID_LIGHTS; // TODO fill this out with hash
+    private int SID_SPEED; // TODO fill this out with hash
+
+
     // variables for GUI interface
+    int batteryLife = 0;
     boolean warningOn = false;
     boolean headlampOn = false;
     int wiperswitch = 0;
@@ -34,9 +45,11 @@ public class FullscreenActivity extends Activity {
     USB_Send_Receive usb_send_receive;
 
     // TEST _ JOSEPH
-    static ImageView batButton;
-    static int batButtonSwitch = 0;
-    static LinSignal linSignal;
+    ImageView batButton;
+    int batButtonSwitch = 0;
+
+    Handler usbInputHandler;
+    LinBus linBus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,8 +144,97 @@ public class FullscreenActivity extends Activity {
         batButton = (ImageView) findViewById(R.id.batteryLife);
         batButton.setImageResource(R.drawable.battery100);
 
+
+        // Handles incoming messages
+        usbInputHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+
+                // XXX perform functionality to handle message (and provide response to USB with UIoutputStream.write())
+                // XXX Temporary: spit back input data in message to USB
+
+                Log.d("UIHandler", "handling message: " + msg);
+
+
+                //final ImageButton warningButton = (ImageButton) activity.findViewById(R.id.warning);
+                //warningButton.setImageResource(R.drawable.warningon); // Example that images can be set in these handlers
+
+
+                LinSignal signal = (LinSignal) msg.obj;
+
+                if (LinSignal.signalHash("BATTERY".getBytes(), 0) == signal.sid) {
+
+                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                        // TODO: setting battery is not finished
+                        String Data_IN_TEST = signal.data.toString();
+                        //String Data_String_TEST = Arrays.copyOfRange(FullscreenActivity.linSignal.data, 0, 2).toString();
+                        Toast.makeText(getApplicationContext(), "TEST - CHANGED Battery::", Toast.LENGTH_SHORT).show();
+                        if (batButtonSwitch == 0) {
+                            batButton.setImageResource(R.drawable.battery00);
+                            batButtonSwitch = 1;
+                        } else if (batButtonSwitch == 1) {
+                            batButton.setImageResource(R.drawable.battery10);
+                            batButtonSwitch = 2;
+                        } else if (batButtonSwitch == 2) {
+                            batButton.setImageResource(R.drawable.battery50);
+                            batButtonSwitch = 3;
+                        } else {
+                            batButton.setImageResource(R.drawable.battery75);
+                            batButtonSwitch = 0;
+                        }
+
+                        batteryLife = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
+                    }
+                    else if (signal.command == LinSignal.COMM_GET_VAR) {
+                        LinSignal sendSig = new LinSignal(LinSignal.COMM_GET_VAR, signal.sid, (byte) 4, LinSignal.packIntToBytes(batteryLife));
+                        linBus.sendSignal(sendSig);
+                    }
+                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                        // TODO
+                    }
+
+                }
+                else if (LinSignal.signalHash("SPEED".getBytes(), 0) == signal.sid) {
+                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                        // TODO
+                    }
+                    else if (signal.command == LinSignal.COMM_GET_VAR) {
+                        // TODO
+                    }
+                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                        // TODO
+                    }
+
+                }
+                else if (LinSignal.signalHash("LIGHTS".getBytes(), 0) == signal.sid) {
+                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                        // TODO
+                    }
+                    else if (signal.command == LinSignal.COMM_GET_VAR) {
+                        // TODO
+                    }
+                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                        // TODO
+                    }
+
+                }
+
+            }
+        };
+
+
+        linBus = new LinBus() {
+            @Override
+            public void receiveSignal(LinSignal signal) {
+                Message msg = Message.obtain(usbInputHandler);
+                msg.obj = signal;
+                usbInputHandler.sendMessage(msg);
+            }
+        };
+
         usb_send_receive = new USB_Send_Receive();
-        usb_send_receive.onCreate(this);
+        usb_send_receive.onCreate(this, usbInputHandler, linBus);
     }
 
 // *********************************************************************************************************
