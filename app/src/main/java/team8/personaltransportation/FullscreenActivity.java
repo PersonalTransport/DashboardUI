@@ -14,24 +14,13 @@ import android.annotation.SuppressLint;
 //import android.app.ActivityOptions;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.hardware.usb.UsbAccessory;
-import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.util.Queue;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 //public class FullscreenActivity extends AppCompatActivity {
 public class FullscreenActivity extends Activity {
@@ -47,7 +36,7 @@ public class FullscreenActivity extends Activity {
     // TEST _ JOSEPH
     static ImageView batButton;
     static int batButtonSwitch = 0;
-    static USBMessage usbMessage;
+    static LinSignal linSignal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

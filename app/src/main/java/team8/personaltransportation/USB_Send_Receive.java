@@ -9,12 +9,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.usb.UsbAccessory;
 import android.hardware.usb.UsbManager;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.FileDescriptor;
@@ -24,13 +22,16 @@ import java.io.IOException;
 import java.util.Queue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.Arrays;
 
 
 /**
  * Created by Joseph O on 2/1/2016.
  */
 public class USB_Send_Receive {
+
+    private int SID_BATTERY; // TODO fill this out with hash
+    private int SID_LIGHTS; // TODO fill this out with hash
+    private int SID_SPEED; // TODO fill this out with hash
 
     // variables for USB communication
     private static final String ACTION_USB_PERMISSION =    "team8.personaltransportation.action.USB_PERMISSION";
@@ -45,9 +46,9 @@ public class USB_Send_Receive {
 
     Thread testOutputThread;
     Thread testInputThread;
-    Queue<USBMessage> inputQueue;
+    Queue<LinSignal> inputQueue;
     Lock inputQueueLock = new ReentrantLock();
-    Queue<USBMessage> outputQueue;
+    Queue<LinSignal> outputQueue;
     Lock outputQueueLock = new ReentrantLock();
 
     USB_ACTIVITY_Thread UIhandlerThread;
@@ -55,10 +56,9 @@ public class USB_Send_Receive {
     Handler UIHandler;
     Handler outputHandler;
 
-    //static USBMessage usbMessage;
+    //static LinSignal linSignal;
 
     public void onCreate(final FullscreenActivity activity) {
-
         // XXX Setup USB communication items  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         UIusbManager = (UsbManager) activity.getSystemService(Context.USB_SERVICE);
         Log.d("onCreate", "usbmanager: " + UIusbManager);
@@ -84,17 +84,17 @@ public class USB_Send_Receive {
                 //warningButton.setImageResource(R.drawable.warningon); // Example that images can be set in these handlers
 
 
-                FullscreenActivity.usbMessage = (USBMessage) msg.obj;
+                FullscreenActivity.linSignal = (LinSignal) msg.obj;
 
                 // TEST _ JOSEPH
-                if (FullscreenActivity.usbMessage.comm == USBMessage.COMM_SET_VAR) {
-                    if (FullscreenActivity.usbMessage.sid == USBMessage.SID_BATTERY){
-//                        int RecievedBatteryData_TEST = usbMessage.getData_asInt();
+                if (FullscreenActivity.linSignal.command == LinSignal.COMM_SET_VAR) {
+                    if (FullscreenActivity.linSignal.sid == SID_BATTERY){
+//                        int RecievedBatteryData_TEST = linSignal.getData_asInt();
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                String Data_IN_TEST = FullscreenActivity.usbMessage.data.toString();
-                                //String Data_String_TEST = Arrays.copyOfRange(FullscreenActivity.usbMessage.data, 0, 2).toString();
+                                String Data_IN_TEST = FullscreenActivity.linSignal.data.toString();
+                                //String Data_String_TEST = Arrays.copyOfRange(FullscreenActivity.linSignal.data, 0, 2).toString();
                                 Toast.makeText(activity.getApplicationContext(), "TEST - CHANGED Battery::", Toast.LENGTH_SHORT).show();
                                 if (FullscreenActivity.batButtonSwitch == 0) {
                                     FullscreenActivity.batButton.setImageResource(R.drawable.battery00);
@@ -113,9 +113,9 @@ public class USB_Send_Receive {
                         });
 //                        FullscreenActivity.batButtonSwitch
 //                        FullscreenActivity.batButton.setImageResource(R.drawable.battery00);
-                    } else if (FullscreenActivity.usbMessage.sid == USBMessage.SID_LIGHTS) {
+                    } else if (FullscreenActivity.linSignal.sid == SID_LIGHTS) {
 
-                    } else if (FullscreenActivity.usbMessage.sid == USBMessage.SID_SPEED) {
+                    } else if (FullscreenActivity.linSignal.sid == SID_SPEED) {
 
                     } else {
 
@@ -130,10 +130,10 @@ public class USB_Send_Receive {
                 //bytes[2] = 'd';
                 //bytes[3] = 'e';
 
-                //byte[] buffer = String.valueOf(usbMessage.type).getBytes();
+                //byte[] buffer = String.valueOf(linSignal.type).getBytes();
 
                 try {
-                    UIoutputStream.write(FullscreenActivity.usbMessage.serialize(), 0, FullscreenActivity.usbMessage.length + USBMessage.MESSAGE_DATA_OFFSET);
+                    UIoutputStream.write(FullscreenActivity.linSignal.serialize(), 0, FullscreenActivity.linSignal.length + LinSignal.HEADER_SIZE);
                     //UIoutputStream.write(bytes);
                     UIoutputStream.flush();
                 } catch (IOException e) {
@@ -225,7 +225,7 @@ public class USB_Send_Receive {
                 public void run() {
                     while (true) {
                         outputQueueLock.lock();
-                        USBMessage message = outputQueue.poll();
+                        LinSignal message = outputQueue.poll();
                         outputQueueLock.unlock();
                         try {
                             Thread.sleep(1000, 0);
@@ -233,7 +233,7 @@ public class USB_Send_Receive {
                             e.printStackTrace();
                         }
 
-                        USBMessage message = new USBMessage();
+                        LinSignal message = new LinSignal();
                         message.type = 10;
                         message.data = new byte[6];
                         message.data[0] = 'a';
@@ -272,7 +272,7 @@ public class USB_Send_Receive {
                 @Override
                 public void run() {
                     while (true) {
-                        USBMessage message = new USBMessage();
+                        LinSignal message = new LinSignal();
                         byte[] buffer = new byte[4];
 
                         // Read message type
@@ -403,7 +403,7 @@ public class USB_Send_Receive {
                 try {
                     if(USBInputStream != null) {
                         data_recieved_len = USBInputStream.read(data_recieved,0,262); // change later
-                        if (data_recieved_len < USBMessage.MESSAGE_DATA_OFFSET) {
+                        if (data_recieved_len < LinSignal.HEADER_SIZE) {
                             Log.d("USB_Activity_Thread_run", "Error: did not read enough data from USB");
                         }
                     }
@@ -420,11 +420,13 @@ public class USB_Send_Receive {
                 // XXX
                 // XXX
                 // XXX Temporary: save the input data in the message (to spit back to USB device)
-                USBMessage usbMessage = new USBMessage();
-                usbMessage.create(data_recieved);
-                //usbMessage.type = (int) data_recieved[0];
+                /* TODO Remove all old functionality associated with code in comment block
+                LinSignal linSignal = new LinSignal();
+                linSignal.create(data_recieved);
 
-                mss.obj = usbMessage;
+                //linSignal.type = (int) data_recieved[0];
+
+                mss.obj = linSignal;*/
                 //mss.obj =
                 // afterwards, post message to handler (so main task can deal with data)
                 //USBhandler.sendMessage(mss);
