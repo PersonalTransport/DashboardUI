@@ -5,11 +5,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 public abstract class LinBus {
     private InputStream inputStream;
     private OutputStream outputStream;
     private final List<LinSignal> signals;
+
+    private final Semaphore waitForSendSignal = new Semaphore(0);
 
     public LinBus() {
         this.signals = new ArrayList<LinSignal>();
@@ -33,21 +36,27 @@ public abstract class LinBus {
         synchronized (this.signals) {
             this.signals.add(signal);
         }
+        waitForSendSignal.release();
     }
 
-    public void update() throws IOException {
+    public void update() throws IOException, InterruptedException {
 
         if (inputStream == null || outputStream == null)
             return;
 
         byte [] rawData = new byte[LinSignal.MAX_SIZE];
+
         // TODO split this up into two calls one for the header and one for the data.
-        int size = inputStream.read(rawData,0,LinSignal.MAX_SIZE);
-        receiveSignal(new LinSignal(rawData,size));
+
+
+        int size = inputStream.read(rawData, 0, LinSignal.MAX_SIZE);
+        receiveSignal(new LinSignal(rawData, size));
+
+        waitForSendSignal.acquire();
 
         synchronized (this.signals) {
-            for (LinSignal signal:signals) {
-                outputStream.write(signal.serialize());
+            for (LinSignal signal : signals) {
+                outputStream.write(signal.serialize(), 0, signal.length + LinSignal.HEADER_SIZE);
                 outputStream.flush();
             }
             signals.clear();

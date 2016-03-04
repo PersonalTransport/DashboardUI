@@ -195,6 +195,7 @@ public class USB_Send_Receive {
             while (!interrupted()) {
                 try {
                     linBus.update();
+                    Thread.sleep(1, 0);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

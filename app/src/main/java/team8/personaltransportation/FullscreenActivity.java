@@ -163,6 +163,8 @@ public class FullscreenActivity extends Activity {
 
                 LinSignal signal = (LinSignal) msg.obj;
 
+                Toast.makeText(getApplicationContext(), String.valueOf(LinSignal.signalHash("BATTERY".getBytes(), 0)) + ", " + String.valueOf(signal.sid), Toast.LENGTH_LONG).show();
+
                 if (LinSignal.signalHash("BATTERY".getBytes(), 0) == signal.sid) {
 
                     if (signal.command == LinSignal.COMM_SET_VAR) {
@@ -170,25 +172,46 @@ public class FullscreenActivity extends Activity {
                         String Data_IN_TEST = signal.data.toString();
                         //String Data_String_TEST = Arrays.copyOfRange(FullscreenActivity.linSignal.data, 0, 2).toString();
                         Toast.makeText(getApplicationContext(), "TEST - CHANGED Battery::", Toast.LENGTH_SHORT).show();
-                        if (batButtonSwitch == 0) {
-                            batButton.setImageResource(R.drawable.battery00);
-                            batButtonSwitch = 1;
-                        } else if (batButtonSwitch == 1) {
-                            batButton.setImageResource(R.drawable.battery10);
-                            batButtonSwitch = 2;
-                        } else if (batButtonSwitch == 2) {
-                            batButton.setImageResource(R.drawable.battery50);
-                            batButtonSwitch = 3;
-                        } else {
-                            batButton.setImageResource(R.drawable.battery75);
-                            batButtonSwitch = 0;
-                        }
 
                         batteryLife = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
-                    }
-                    else if (signal.command == LinSignal.COMM_GET_VAR) {
-                        LinSignal sendSig = new LinSignal(LinSignal.COMM_GET_VAR, signal.sid, (byte) 4, LinSignal.packIntToBytes(batteryLife));
-                        linBus.sendSignal(sendSig);
+
+                        if (batteryLife < 5) {
+                            batButton.setImageResource(R.drawable.battery00);
+                        }
+                        else if (batteryLife < 15) {
+                            batButton.setImageResource(R.drawable.battery10);
+                        }
+                        else if (batteryLife < 25) {
+                            batButton.setImageResource(R.drawable.battery20);
+                        }
+                        else if (batteryLife < 35) {
+                            batButton.setImageResource(R.drawable.battery30);
+                        }
+                        else if (batteryLife < 45) {
+                            batButton.setImageResource(R.drawable.battery40);
+                        }
+                        else if (batteryLife < 55) {
+                            batButton.setImageResource(R.drawable.battery50);
+                        }
+                        else if (batteryLife < 65) {
+                            batButton.setImageResource(R.drawable.battery60);
+                        }
+                        else if (batteryLife < 75) {
+                            batButton.setImageResource(R.drawable.battery70);
+                        }
+                        else if (batteryLife < 85) {
+                            batButton.setImageResource(R.drawable.battery80);
+                        }
+                        else if (batteryLife < 95) {
+                            batButton.setImageResource(R.drawable.battery90);
+                        }
+                        else {
+                            batButton.setImageResource(R.drawable.battery100);
+                        }
+
+                        //LinSignal sendSig = new LinSignal(LinSignal.COMM_SET_VAR, signal.sid, (byte) 4, LinSignal.packIntToBytes(batteryLife));
+                        //linBus.sendSignal(sendSig);
+                        linBus.sendSignal(signal);
                     }
                     else if (signal.command == LinSignal.COMM_WARN_VAR) {
                         // TODO
@@ -199,9 +222,6 @@ public class FullscreenActivity extends Activity {
                     if (signal.command == LinSignal.COMM_SET_VAR) {
                         // TODO
                     }
-                    else if (signal.command == LinSignal.COMM_GET_VAR) {
-                        // TODO
-                    }
                     else if (signal.command == LinSignal.COMM_WARN_VAR) {
                         // TODO
                     }
@@ -209,9 +229,6 @@ public class FullscreenActivity extends Activity {
                 }
                 else if (LinSignal.signalHash("LIGHTS".getBytes(), 0) == signal.sid) {
                     if (signal.command == LinSignal.COMM_SET_VAR) {
-                        // TODO
-                    }
-                    else if (signal.command == LinSignal.COMM_GET_VAR) {
                         // TODO
                     }
                     else if (signal.command == LinSignal.COMM_WARN_VAR) {
@@ -224,7 +241,7 @@ public class FullscreenActivity extends Activity {
         };
 
 
-        linBus = new LinBus() {
+        linBus = new LinBus() { // LinBus.java
             @Override
             public void receiveSignal(LinSignal signal) {
                 Message msg = Message.obtain(usbInputHandler);

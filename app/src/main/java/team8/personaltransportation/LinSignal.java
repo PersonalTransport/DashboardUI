@@ -69,9 +69,9 @@ public class LinSignal {
     }
 
     public static int unpackBytesToInt(byte byte1, byte byte2, byte byte3, byte byte4) {
-        return ((((int) byte1) >> 24) & 0xFF000000)
-             | ((((int) byte2) >> 16) & 0x00FF0000)
-             | ((((int) byte3) >> 8)  & 0x0000FF00)
+        return ((((int) byte1) << 24) & 0xFF000000)
+             | ((((int) byte2) << 16) & 0x00FF0000)
+             | ((((int) byte3) << 8)  & 0x0000FF00)
              | (((int) byte4)         & 0x000000FF);
     }
 
