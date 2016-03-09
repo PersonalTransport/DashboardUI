@@ -24,19 +24,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.io.IOException;
+import java.util.Hashtable;
 
 //public class FullscreenActivity extends AppCompatActivity {
 public class FullscreenActivity extends Activity {
 
-
-    private int SID_BATTERY; // TODO fill this out with hash
-    private int SID_LIGHTS; // TODO fill this out with hash
-    private int SID_SPEED; // TODO fill this out with hash
-
+    private int SID_BATTERY = LinSignal.signalHash("BATTERY".getBytes(), 0);
+    private int SID_LIGHTS = LinSignal.signalHash("LIGHTS".getBytes(), 0);
+    private int SID_SPEED = LinSignal.signalHash("SPEED".getBytes(), 0);
+    private int SID_TURNSIGNAL = LinSignal.signalHash("TURN_SIGNAL".getBytes(), 0);
+    private int SID_HAZARD = LinSignal.signalHash("HAZARD".getBytes(), 0);
+    private int SID_DEFROST = LinSignal.signalHash("DEFROST".getBytes(), 0);
+    private int SID_WIPERS = LinSignal.signalHash("WIPERS".getBytes(), 0);
 
     // variables for GUI interface
-    int batteryLife = 0;
     boolean warningOn = false;
     boolean headlampOn = false;
     int wiperswitch = 0;
@@ -44,9 +45,20 @@ public class FullscreenActivity extends Activity {
 
     USB_Send_Receive usb_send_receive;
 
-    // TEST _ JOSEPH
-    ImageView batButton;
-    int batButtonSwitch = 0;
+    /********************* Variables for DEFROST (AC) *********************/
+    Hashtable<Integer,Integer> Hazard_hash;
+    /********************* Variables for WIPERS *********************/
+    Hashtable<Integer,Integer> Wiper_hash;
+    /********************* Variables for BATTERY *********************/
+    ImageView Battery_handle;
+    Hashtable<Integer,Integer> Battery_hash;
+    int batteryLife = 0;
+
+    /********************* Variables for SPEEDOMETER *********************/
+    ImageView Speed_handle1;
+    ImageView Speed_handle2;
+    Hashtable<Integer,Integer> Speed_hash;
+    int currentSpeed = 0;
 
     Handler usbInputHandler;
     LinBus linBus;
@@ -60,6 +72,7 @@ public class FullscreenActivity extends Activity {
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
 
+        /************************** WarningButton **************************************/
         final ImageButton warningButton = (ImageButton) findViewById(R.id.warning);
         warningButton.setImageResource(R.drawable.warningoff);
         warningButton.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +89,7 @@ public class FullscreenActivity extends Activity {
                 }
             }
         });
+        /************************** HEADLAMP **************************************/
         final ImageButton headlampButton = (ImageButton) findViewById(R.id.headlampoff);
         headlampButton.setImageResource(R.drawable.headlamp_off);
         headlampButton.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +106,13 @@ public class FullscreenActivity extends Activity {
                 }
             }
         });
-        /*************************** working on this ********************************************/
+        /*************************** Defrost (AC) ********************************************/
         final ImageButton defrostButton = (ImageButton) findViewById(R.id.defrost);
+        Hazard_hash = new Hashtable<>();
+        Hazard_hash.put(1, R.drawable.defrost1);
+        Hazard_hash.put(2, R.drawable.defrost2);
+        Hazard_hash.put(3, R.drawable.defrost3);
+        Hazard_hash.put(0, R.drawable.defrost);
         defrostButton.setImageResource(R.drawable.defrost);
         defrostButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -117,8 +136,13 @@ public class FullscreenActivity extends Activity {
                 }
             }
         });
-        /*************************** working ********************************************/
+        /*************************** Wiper ********************************************/
         final ImageButton wiperButton = (ImageButton) findViewById(R.id.wipers);
+        Wiper_hash = new Hashtable<>();
+        Wiper_hash.put(1,R.drawable.wipers1);
+        Wiper_hash.put(2,R.drawable.wipers2);
+        Wiper_hash.put(3,R.drawable.wipers3);
+        Wiper_hash.put(0,R.drawable.wipers);
         wiperButton.setImageResource(R.drawable.wipers);
         wiperButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -140,10 +164,60 @@ public class FullscreenActivity extends Activity {
             }
         });
 
-        /*************************** working ********************************************/
-        batButton = (ImageView) findViewById(R.id.batteryLife);
-        batButton.setImageResource(R.drawable.battery100);
+        /*************************** Battery ********************************************/
+        Battery_handle = (ImageView) findViewById(R.id.batteryLife);
+        Battery_handle.setImageResource(R.drawable.battery100);
+        Battery_hash = new Hashtable<>();
+        for (int i = 0; i < 5; i++) {
+            Battery_hash.put(i, R.drawable.battery00);
+        }
+        for (int i = 5; i < 15; i++) {
+            Battery_hash.put(i, R.drawable.battery10);
+        }
+        for (int i = 15; i < 25; i++) {
+            Battery_hash.put(i, R.drawable.battery20);
+        }
+        for (int i = 25; i < 35; i++) {
+            Battery_hash.put(i, R.drawable.battery30);
+        }
+        for (int i = 35; i < 45; i++) {
+            Battery_hash.put(i, R.drawable.battery40);
+        }
+        for (int i = 45; i < 55; i++) {
+            Battery_hash.put(i, R.drawable.battery50);
+        }
+        for (int i = 55; i < 65; i++) {
+            Battery_hash.put(i, R.drawable.battery60);
+        }
+        for (int i = 65; i < 75; i++) {
+            Battery_hash.put(i, R.drawable.battery70);
+        }
+        for (int i = 75; i < 85; i++) {
+            Battery_hash.put(i, R.drawable.battery80);
+        }
+        for (int i = 85; i < 95; i++) {
+            Battery_hash.put(i, R.drawable.battery90);
+        }
+        for (int i = 95; i < 100; i++) {
+            Battery_hash.put(i, R.drawable.battery100);
+        }
 
+        /*************************** Speedometer ******************************************/
+        Speed_handle1 = (ImageView) findViewById(R.id.speedleft);
+        Speed_handle2 = (ImageView) findViewById(R.id.speedright);
+        Speed_handle1.setImageResource(R.drawable.zero_tmp);
+        Speed_handle2.setImageResource(R.drawable.zero_tmp);
+        Speed_hash = new Hashtable<>();
+        Speed_hash.put(0, R.drawable.zero_tmp);
+        Speed_hash.put(1, R.drawable.one_tmp);
+        Speed_hash.put(2, R.drawable.two_tmp);
+        Speed_hash.put(3, R.drawable.three_tmp);
+        Speed_hash.put(4, R.drawable.four_tmp);
+        Speed_hash.put(5, R.drawable.five_tmp);
+        Speed_hash.put(6, R.drawable.six_tmp);
+        Speed_hash.put(7, R.drawable.seven_tmp);
+        Speed_hash.put(8, R.drawable.eight_tmp);
+        Speed_hash.put(9, R.drawable.nine_tmp);
 
         // Handles incoming messages
         usbInputHandler = new Handler() {
@@ -151,92 +225,104 @@ public class FullscreenActivity extends Activity {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
 
-                // XXX perform functionality to handle message (and provide response to USB with UIoutputStream.write())
-                // XXX Temporary: spit back input data in message to USB
-
                 Log.d("UIHandler", "handling message: " + msg);
 
-
-                //final ImageButton warningButton = (ImageButton) activity.findViewById(R.id.warning);
-                //warningButton.setImageResource(R.drawable.warningon); // Example that images can be set in these handlers
-
-
+                // interpret current data
                 LinSignal signal = (LinSignal) msg.obj;
+                //batteryLife = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
+                //batteryLife = ((((int) signal.data[0]) << 24) & 0xFF000000) | ((((int) signal.data[1]) << 16) & 0x00FF0000) | ((((int) signal.data[2]) << 8) & 0x0000FF00) | (((int) signal.data[3]) & 0x000000FF);
+                // begin to prepare data to be sent back
+                LinSignal sendSig = new LinSignal(signal.command, signal.sid, signal.length, signal.data);
 
-                Toast.makeText(getApplicationContext(), String.valueOf(LinSignal.signalHash("BATTERY".getBytes(), 0)) + ", " + String.valueOf(signal.sid), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), String.valueOf(LinSignal.signalHash("BATTERY".getBytes(), 0)) + ", " + String.valueOf(signal.sid) + "; " + String.valueOf(LinSignal.COMM_SET_VAR) + ", " + String.valueOf(signal.command) + "; " + String.valueOf(signal.data), Toast.LENGTH_SHORT).show();
 
-                if (LinSignal.signalHash("BATTERY".getBytes(), 0) == signal.sid) {
+                if (SID_BATTERY == signal.sid) {
 
                     if (signal.command == LinSignal.COMM_SET_VAR) {
-                        // TODO: setting battery is not finished
-                        String Data_IN_TEST = signal.data.toString();
-                        //String Data_String_TEST = Arrays.copyOfRange(FullscreenActivity.linSignal.data, 0, 2).toString();
-                        Toast.makeText(getApplicationContext(), "TEST - CHANGED Battery::", Toast.LENGTH_SHORT).show();
+//                        String Data_IN_TEST = signal.data.toString();
 
                         batteryLife = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
 
-                        if (batteryLife < 5) {
-                            batButton.setImageResource(R.drawable.battery00);
-                        }
-                        else if (batteryLife < 15) {
-                            batButton.setImageResource(R.drawable.battery10);
-                        }
-                        else if (batteryLife < 25) {
-                            batButton.setImageResource(R.drawable.battery20);
-                        }
-                        else if (batteryLife < 35) {
-                            batButton.setImageResource(R.drawable.battery30);
-                        }
-                        else if (batteryLife < 45) {
-                            batButton.setImageResource(R.drawable.battery40);
-                        }
-                        else if (batteryLife < 55) {
-                            batButton.setImageResource(R.drawable.battery50);
-                        }
-                        else if (batteryLife < 65) {
-                            batButton.setImageResource(R.drawable.battery60);
-                        }
-                        else if (batteryLife < 75) {
-                            batButton.setImageResource(R.drawable.battery70);
-                        }
-                        else if (batteryLife < 85) {
-                            batButton.setImageResource(R.drawable.battery80);
-                        }
-                        else if (batteryLife < 95) {
-                            batButton.setImageResource(R.drawable.battery90);
-                        }
-                        else {
-                            batButton.setImageResource(R.drawable.battery100);
-                        }
+                        Toast.makeText(getApplicationContext(), "::Battery:: " + batteryLife, Toast.LENGTH_SHORT).show();
 
-                        //LinSignal sendSig = new LinSignal(LinSignal.COMM_SET_VAR, signal.sid, (byte) 4, LinSignal.packIntToBytes(batteryLife));
-                        //linBus.sendSignal(sendSig);
-                        linBus.sendSignal(signal);
+                        Battery_handle.setImageResource(Battery_hash.get(batteryLife));
+
                     }
                     else if (signal.command == LinSignal.COMM_WARN_VAR) {
-                        // TODO
+                        // TODO ?
                     }
 
                 }
-                else if (LinSignal.signalHash("SPEED".getBytes(), 0) == signal.sid) {
+                else if (SID_SPEED == signal.sid) {
                     if (signal.command == LinSignal.COMM_SET_VAR) {
-                        // TODO
+                        // set speed (similar to battery)
+                        currentSpeed = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
+                        Toast.makeText(getApplicationContext(), "::Speed:: " + currentSpeed, Toast.LENGTH_SHORT).show();
+
+                        Speed_handle1.setImageResource(Speed_hash.get(currentSpeed / 10));
+                        Speed_handle2.setImageResource(Speed_hash.get(currentSpeed%10));
+
                     }
                     else if (signal.command == LinSignal.COMM_WARN_VAR) {
-                        // TODO
+                        // TODO ?
                     }
 
                 }
-                else if (LinSignal.signalHash("LIGHTS".getBytes(), 0) == signal.sid) {
+                else if (SID_LIGHTS == signal.sid) {
                     if (signal.command == LinSignal.COMM_SET_VAR) {
-                        // TODO
+                        Toast.makeText(getApplicationContext(), "::Lights:: " + ((headlampOn)?1:0), Toast.LENGTH_SHORT).show();
+                        sendSig.data = LinSignal.packIntToBytes((headlampOn)?1:0);
+                    }
+                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                        // TODO ?
+                    }
+
+                }
+                else if (SID_HAZARD == signal.sid) {
+                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                        Toast.makeText(getApplicationContext(), "::Hazard:: " + ((warningOn)?1:0), Toast.LENGTH_SHORT).show();
+                        sendSig.data = LinSignal.packIntToBytes((warningOn)?1:0);
+                    }
+                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                        // TODO ?
+                    }
+                }
+                else if (SID_WIPERS == signal.sid) {
+                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                        Toast.makeText(getApplicationContext(), "::Wipers:: " + wiperswitch, Toast.LENGTH_SHORT).show();
+                        sendSig.data = LinSignal.packIntToBytes(wiperswitch);
+                    }
+                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                        // TODO ?
+                    }
+                }
+                else if (SID_DEFROST == signal.sid) {
+                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                        Toast.makeText(getApplicationContext(), "::Defrost:: " + defrostswitch, Toast.LENGTH_SHORT).show();
+                        sendSig.data = LinSignal.packIntToBytes(defrostswitch);
+                    }
+                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                        // TODO ?
+                    }
+                }
+                else if (SID_TURNSIGNAL == signal.sid) {
+                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                        Toast.makeText(getApplicationContext(), "::Turn_Signal:: No Data", Toast.LENGTH_SHORT).show();
+                        //sendSig.data = LinSignal.packIntToBytes((warningOn)?1:0);
                     }
                     else if (signal.command == LinSignal.COMM_WARN_VAR) {
                         // TODO
                     }
-
+                }
+                else {
+                    // TODO
+                    // send dummy value (could not understand data sent)
+                    sendSig.command = LinSignal.COMM_WARN_VAR;
+                    Toast.makeText(getApplicationContext(), "::ERROR:: Did not understand inputs", Toast.LENGTH_SHORT).show();
                 }
 
+                // after we update the GUI/get updates from the GUI, send the update
+                linBus.sendSignal(sendSig);
             }
         };
 
