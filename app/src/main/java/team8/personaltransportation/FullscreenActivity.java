@@ -59,8 +59,7 @@ public class FullscreenActivity extends Activity {
 
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
-
-        final ImageButton warningButton = (ImageButton) findViewById(R.id.warning);
+        final ImageView warningButton = (ImageView) findViewById(R.id.warning);
         warningButton.setImageResource(R.drawable.warningoff);
         warningButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -76,7 +75,7 @@ public class FullscreenActivity extends Activity {
                 }
             }
         });
-        final ImageButton headlampButton = (ImageButton) findViewById(R.id.headlampoff);
+        final ImageView headlampButton = (ImageView) findViewById(R.id.headLamp);
         headlampButton.setImageResource(R.drawable.headlamp_off);
         headlampButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -93,7 +92,7 @@ public class FullscreenActivity extends Activity {
             }
         });
         /*************************** working on this ********************************************/
-        final ImageButton defrostButton = (ImageButton) findViewById(R.id.defrost);
+        final ImageView defrostButton = (ImageView) findViewById(R.id.defrost1);
         defrostButton.setImageResource(R.drawable.defrost);
         defrostButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -118,7 +117,7 @@ public class FullscreenActivity extends Activity {
             }
         });
         /*************************** working ********************************************/
-        final ImageButton wiperButton = (ImageButton) findViewById(R.id.wipers);
+        final ImageView wiperButton = (ImageView) findViewById(R.id.wiper);
         wiperButton.setImageResource(R.drawable.wipers);
         wiperButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

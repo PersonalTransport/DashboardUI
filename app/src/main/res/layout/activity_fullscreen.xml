@@ -1,113 +1,161 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:orientation="vertical"
+    android:keepScreenOn="true"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#292929"
+    android:id="@+id/fullscreen_content"
     tools:context="team8.personaltransportation.FullscreenActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <TextView
+    <!--<TextView
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:textColor="#33b5e5"
+        android:textColor="#000000"
         android:textSize="50sp"
-        android:textStyle="bold" />
+        android:textStyle="bold" />-->
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
+
+    <!--<LinearLayout
+        android:id="@+id/fullscreen_content_controls"
+        style="?metaButtonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@color/black_overlay"
+        tools:ignore="UselessParent"
+        android:orientation="horizontal">
+
+    </LinearLayout>-->
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:layout_gravity="right|bottom">
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="200dp"
-            android:layout_marginLeft="220dp"
-            android:layout_marginBottom="50dp"
-            android:id="@+id/speedleft"
-            android:layout_gravity="left|center_vertical"
-            android:src="@drawable/zero" />
+
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="200dp"
-            android:layout_marginRight="220dp"
-            android:layout_marginBottom="50dp"
-            android:id="@+id/speedright"
-            android:layout_gravity="right|center_vertical"
-            android:src="@drawable/zero" />
+            android:layout_width="125px"
+            android:layout_height="125px"
+            android:layout_marginLeft="100px"
+            android:layout_marginTop="80px"
+            android:id="@+id/phoneconnbutn"
+            android:src="@drawable/cirbuttonmpc" />
 
         <ImageView
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="25dp"
+            android:layout_width="125px"
+            android:layout_height="125px"
+            android:layout_marginLeft="100px"
+            android:layout_marginTop="250px"
+            android:id="@+id/phoneconnbutn2"
+            android:src="@drawable/cirbuttonmc" />
+        <ImageView
+            android:layout_width="125px"
+            android:layout_height="125px"
+            android:layout_marginLeft="585px"
+            android:layout_marginTop="975px"
+            android:id="@+id/phoneconnbutn3"
+            android:src="@drawable/cirbuttonmsc" />
+
+        <ImageView
+            android:layout_width="460px"
+            android:layout_height="200px"
+            android:layout_marginRight="110px"
             android:id="@+id/batteryLife"
+            android:layout_marginBottom="30px"
             android:layout_gravity="center_horizontal|bottom"
-            android:src="@drawable/battery95" />
+            android:src="@drawable/battery100c" />
 
 
 
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="25dp"
-            android:layout_marginLeft="115dp"
-            android:id="@+id/wipers"
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="475px"
+            android:layout_marginLeft="525px"
+            android:layout_gravity="left|top"
+            android:id="@+id/leftspeedo"
+            android:src="@drawable/speedobezelc" />
+
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="475px"
+            android:layout_marginRight="290px"
+            android:id="@+id/rightspeedo"
+            android:layout_gravity="right|top"
+            android:src="@drawable/speedobezelc" />
+
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="225px"
+            android:layout_marginRight="50px"
+            android:layout_marginTop="450px"
+            android:id="@+id/rightTurn"
+            android:layout_gravity="right|top"
+            android:src="@drawable/rightturnsignalc" />
+
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="225px"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="450px"
+            android:id="@+id/leftTurn"
+            android:layout_gravity="left|top"
+            android:src="@drawable/leftturnsignalc" />
+
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="225px"
+            android:layout_marginLeft="287px"
+            android:layout_marginTop="450px"
+            android:id="@+id/warning"
+            android:layout_gravity="left|top"
+            android:src="@drawable/warningoffc" />
+
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="225px"
+            android:layout_marginLeft="287px"
+            android:id="@+id/wiper"
             android:layout_gravity="left|bottom"
+            android:layout_marginBottom="250px"
             android:src="@drawable/wipers" />
 
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginRight="115dp"
-            android:layout_marginBottom="25dp"
-            android:id="@+id/defrost"
-            android:src="@drawable/defrost"
-            android:layout_gravity="right|bottom" />
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="225px"
+            android:layout_marginRight="50px"
+            android:id="@+id/defrost1"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="250px"
+            android:src="@drawable/defrost1c" />
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="115dp"
-            android:layout_marginBottom="105dp"
-            android:id="@+id/leftTurn"
-            android:layout_gravity="left|center_vertical"
-            android:src="@drawable/left_turn_signal" />
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginRight="115dp"
-            android:layout_marginBottom="105dp"
-            android:id="@+id/rightTurn"
-            android:layout_gravity="right|center_vertical"
-            android:src="@drawable/right_turn_signal" />
-
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginRight="115dp"
-            android:id="@+id/warning"
-            android:layout_gravity="right|center_vertical"
-            android:src="@drawable/warning"
-            android:clickable="true" />
-
-        <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="115dp"
-            android:id="@+id/headlampoff"
-            android:src="@drawable/headlamp_off"
-            android:layout_gravity="left|center_vertical"
-            android:clickable="true"/>
+            android:layout_width="225px"
+            android:layout_height="225px"
+            android:layout_marginLeft="50px"
+            android:id="@+id/headLamp"
+            android:layout_gravity="left|bottom"
+            android:layout_marginBottom="250px"
+            android:src="@drawable/headlamponc" />
 
     </FrameLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:layout_gravity="left|top" />
+
+    <!--</LinearLayout>-->
 
 </FrameLayout>
