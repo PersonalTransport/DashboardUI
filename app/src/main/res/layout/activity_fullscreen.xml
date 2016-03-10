@@ -1,40 +1,37 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:keepScreenOn="true"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#292929"
-    android:id="@+id/fullscreen_content"
     tools:context="team8.personaltransportation.FullscreenActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <!--<TextView
+    <TextView
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:textColor="#000000"
+        android:textColor="#33b5e5"
         android:textSize="50sp"
-        android:textStyle="bold" />-->
+        android:textStyle="bold" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
 
-    <!--<LinearLayout
+    <LinearLayout
         android:id="@+id/fullscreen_content_controls"
         style="?metaButtonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:background="@color/black_overlay"
-        tools:ignore="UselessParent"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
-    </LinearLayout>-->
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -77,13 +74,12 @@
             android:src="@drawable/battery100c" />
 
 
-
         <ImageView
             android:layout_width="225px"
             android:layout_height="475px"
             android:layout_marginLeft="525px"
-            android:layout_gravity="left|top"
             android:id="@+id/leftspeedo"
+            android:layout_gravity="left|top"
             android:src="@drawable/speedobezelc" />
 
         <ImageView
@@ -128,7 +124,7 @@
             android:id="@+id/wiper"
             android:layout_gravity="left|bottom"
             android:layout_marginBottom="250px"
-            android:src="@drawable/wipers" />
+            android:src="@drawable/wipersoffc" />
 
         <ImageView
             android:layout_width="225px"
@@ -137,7 +133,7 @@
             android:id="@+id/defrost1"
             android:layout_gravity="right|bottom"
             android:layout_marginBottom="250px"
-            android:src="@drawable/defrost1c" />
+            android:src="@drawable/defrostoffc" />
 
         <ImageView
             android:layout_width="225px"
@@ -146,7 +142,7 @@
             android:id="@+id/headLamp"
             android:layout_gravity="left|bottom"
             android:layout_marginBottom="250px"
-            android:src="@drawable/headlamponc" />
+            android:src="@drawable/headlampoffc" />
 
     </FrameLayout>
 
@@ -156,6 +152,5 @@
         android:id="@+id/imageButton"
         android:layout_gravity="left|top" />
 
-    <!--</LinearLayout>-->
-
 </FrameLayout>
+

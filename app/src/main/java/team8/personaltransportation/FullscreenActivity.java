@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -60,80 +61,80 @@ public class FullscreenActivity extends Activity {
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
         final ImageView warningButton = (ImageView) findViewById(R.id.warning);
-        warningButton.setImageResource(R.drawable.warningoff);
+        warningButton.setImageResource(R.drawable.warningoffc);
         warningButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("BUTTON", "I clicked it!");
 
                 if (warningOn) {
-                    warningButton.setImageResource(R.drawable.warningoff);
+                    warningButton.setImageResource(R.drawable.warningoffc);
                     warningOn = false;
                 }
                 else {
-                    warningButton.setImageResource(R.drawable.warningon);
+                    warningButton.setImageResource(R.drawable.warningonc);
                     warningOn = true;
                 }
             }
         });
         final ImageView headlampButton = (ImageView) findViewById(R.id.headLamp);
-        headlampButton.setImageResource(R.drawable.headlamp_off);
+        headlampButton.setImageResource(R.drawable.headlampoffc);
         headlampButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("BUTTON", "I clicked it!");
 
                 if (headlampOn) {
-                    headlampButton.setImageResource(R.drawable.headlamp_off);
+                    headlampButton.setImageResource(R.drawable.headlampoffc);
                     headlampOn = false;
                 }
                 else {
-                    headlampButton.setImageResource(R.drawable.headlamp_on);
+                    headlampButton.setImageResource(R.drawable.headlamponc);
                     headlampOn = true;
                 }
             }
         });
         /*************************** working on this ********************************************/
         final ImageView defrostButton = (ImageView) findViewById(R.id.defrost1);
-        defrostButton.setImageResource(R.drawable.defrost);
+        defrostButton.setImageResource(R.drawable.defrostoffc);
         defrostButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("BUTTON", "I clicked it!");
 
                 if (defrostswitch == 0) {
-                    defrostButton.setImageResource(R.drawable.defrost1);
+                    defrostButton.setImageResource(R.drawable.defrost1c);
                     defrostswitch = 1;
                 }
                 else if(defrostswitch == 1){
-                    defrostButton.setImageResource(R.drawable.defrost2);
+                    defrostButton.setImageResource(R.drawable.defrost2c);
                     defrostswitch = 2;
                 }
                 else if(defrostswitch == 2){
-                    defrostButton.setImageResource(R.drawable.defrost3);
+                    defrostButton.setImageResource(R.drawable.defrost3c);
                     defrostswitch = 3;
                 }
                 else {
-                    defrostButton.setImageResource(R.drawable.defrost);
+                    defrostButton.setImageResource(R.drawable.defrostoffc);
                     defrostswitch = 0;
                 }
             }
         });
         /*************************** working ********************************************/
         final ImageView wiperButton = (ImageView) findViewById(R.id.wiper);
-        wiperButton.setImageResource(R.drawable.wipers);
+        wiperButton.setImageResource(R.drawable.wipersoffc);
         wiperButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("BUTTON", "I clicked it!");
 
                 if (wiperswitch == 0) {
-                    wiperButton.setImageResource(R.drawable.wipers1);
+                    wiperButton.setImageResource(R.drawable.wipers1c);
                     wiperswitch = 1;
                 } else if (wiperswitch == 1) {
-                    wiperButton.setImageResource(R.drawable.wipers2);
+                    wiperButton.setImageResource(R.drawable.wipers2c);
                     wiperswitch = 2;
                 } else if (wiperswitch == 2) {
-                    wiperButton.setImageResource(R.drawable.wipers3);
+                    wiperButton.setImageResource(R.drawable.wipers3c);
                     wiperswitch = 3;
                 } else {
-                    wiperButton.setImageResource(R.drawable.wipers);
+                    wiperButton.setImageResource(R.drawable.wipersoffc);
                     wiperswitch = 0;
                 }
             }
@@ -141,7 +142,7 @@ public class FullscreenActivity extends Activity {
 
         /*************************** working ********************************************/
         batButton = (ImageView) findViewById(R.id.batteryLife);
-        batButton.setImageResource(R.drawable.battery100);
+        batButton.setImageResource(R.drawable.batter100b);
 
 
         // Handles incoming messages
