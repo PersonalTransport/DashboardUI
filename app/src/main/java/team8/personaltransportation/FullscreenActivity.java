@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 //import android.app.ActivityOptions;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -64,29 +65,47 @@ public class FullscreenActivity extends Activity {
         warningButton.setImageResource(R.drawable.warningoffc);
         warningButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("BUTTON", "I clicked it!");
+                //Log.d("BUTTON", "I clicked it!");
 
                 if (warningOn) {
+                    Toast.makeText(FullscreenActivity.this, "Hazards Off", Toast.LENGTH_LONG).show();
                     warningButton.setImageResource(R.drawable.warningoffc);
                     warningOn = false;
-                }
-                else {
+                } else {
+                    Toast.makeText(FullscreenActivity.this, "Hazards On", Toast.LENGTH_LONG).show();
                     warningButton.setImageResource(R.drawable.warningonc);
                     warningOn = true;
                 }
             }
         });
+
+        final ImageView settingsButton = (ImageView) findViewById(R.id.settingsbutton);
+        settingsButton.setImageResource(R.drawable.cirbuttonmsc);
+        settingsButton.setOnClickListener(new View.OnClickListener(){
+          public void onClick(View v){
+              Toast.makeText(FullscreenActivity.this, "You Clicked Settings", Toast.LENGTH_LONG).show();
+
+              Intent i = new Intent(FullscreenActivity.this, activitysettings.class);
+              startActivity(i);
+              //Intent intent = new Intent();
+              //intent.setAction(Intent.ACTION_VIEW);
+              //startActivity(new Intent(FullscreenActivity.this, activitysettings.class));
+          }
+        });
+
         final ImageView headlampButton = (ImageView) findViewById(R.id.headLamp);
         headlampButton.setImageResource(R.drawable.headlampoffc);
         headlampButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("BUTTON", "I clicked it!");
+                //Log.d("BUTTON", "I clicked it!");
 
                 if (headlampOn) {
+                    Toast.makeText(FullscreenActivity.this, "Headlamps Off", Toast.LENGTH_LONG).show();
                     headlampButton.setImageResource(R.drawable.headlampoffc);
                     headlampOn = false;
                 }
                 else {
+                    Toast.makeText(FullscreenActivity.this, "Headlamps On", Toast.LENGTH_LONG).show();
                     headlampButton.setImageResource(R.drawable.headlamponc);
                     headlampOn = true;
                 }
@@ -97,21 +116,25 @@ public class FullscreenActivity extends Activity {
         defrostButton.setImageResource(R.drawable.defrostoffc);
         defrostButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("BUTTON", "I clicked it!");
+                //Log.d("BUTTON", "I clicked it!");
 
                 if (defrostswitch == 0) {
+                    Toast.makeText(FullscreenActivity.this, "Defrost Level 1", Toast.LENGTH_LONG).show();
                     defrostButton.setImageResource(R.drawable.defrost1c);
                     defrostswitch = 1;
                 }
                 else if(defrostswitch == 1){
+                    Toast.makeText(FullscreenActivity.this, "Defrost Level 2", Toast.LENGTH_LONG).show();
                     defrostButton.setImageResource(R.drawable.defrost2c);
                     defrostswitch = 2;
                 }
                 else if(defrostswitch == 2){
+                    Toast.makeText(FullscreenActivity.this, "Defrost Level 3", Toast.LENGTH_LONG).show();
                     defrostButton.setImageResource(R.drawable.defrost3c);
                     defrostswitch = 3;
                 }
                 else {
+                    Toast.makeText(FullscreenActivity.this, "Defrost Off", Toast.LENGTH_LONG).show();
                     defrostButton.setImageResource(R.drawable.defrostoffc);
                     defrostswitch = 0;
                 }
@@ -122,18 +145,22 @@ public class FullscreenActivity extends Activity {
         wiperButton.setImageResource(R.drawable.wipersoffc);
         wiperButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("BUTTON", "I clicked it!");
+                //Log.d("BUTTON", "I clicked it!");
 
                 if (wiperswitch == 0) {
+                    Toast.makeText(FullscreenActivity.this, "Wipers Level 1", Toast.LENGTH_LONG).show();
                     wiperButton.setImageResource(R.drawable.wipers1c);
                     wiperswitch = 1;
                 } else if (wiperswitch == 1) {
+                    Toast.makeText(FullscreenActivity.this, "Wipers Level 2", Toast.LENGTH_LONG).show();
                     wiperButton.setImageResource(R.drawable.wipers2c);
                     wiperswitch = 2;
                 } else if (wiperswitch == 2) {
+                    Toast.makeText(FullscreenActivity.this, "Wipers Level 3", Toast.LENGTH_LONG).show();
                     wiperButton.setImageResource(R.drawable.wipers3c);
                     wiperswitch = 3;
                 } else {
+                    Toast.makeText(FullscreenActivity.this, "Wipers Off", Toast.LENGTH_LONG).show();
                     wiperButton.setImageResource(R.drawable.wipersoffc);
                     wiperswitch = 0;
                 }
@@ -142,7 +169,7 @@ public class FullscreenActivity extends Activity {
 
         /*************************** working ********************************************/
         batButton = (ImageView) findViewById(R.id.batteryLife);
-        batButton.setImageResource(R.drawable.batter100b);
+        batButton.setImageResource(R.drawable.speedobezelc);        //switched this to a speed bezel for another view setup
 
 
         // Handles incoming messages

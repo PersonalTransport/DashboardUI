@@ -34,6 +34,17 @@
                  android:resource="@xml/accessory_filter">
              </meta-data>
           </activity>
+
+          <activity
+              android:name=".activitysettings"
+              android:label="Settings"
+              android:theme="@style/FullscreenTheme">
+              <intent-filter>
+                  <action android:name="android.intent.action.activitysettings" />
+                  <category android:name="android.intent.category.DEFAULT" />
+              </intent-filter>
+          </activity>
+
       </application>
 
   </manifest>
