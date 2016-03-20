@@ -6,6 +6,7 @@ package team8.personaltransportation;
 // http://www.java2s.com/Open-Source/Android_Free_Code/Example/code/com_examples_accessory_controllerMainUsbActivity_java.htm
 // http://www.ftdichip.com/Support/SoftwareExamples/Android_Projects.htm
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 //import android.support.v7.app.ActionBar;
 //import android.support.v7.app.AppCompatActivity;
@@ -15,16 +16,25 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -44,6 +54,10 @@ public class FullscreenActivity extends Activity {
     boolean headlampOn = false;
     int wiperswitch = 0;
     int defrostswitch = 0;
+    private ImageView GPSbutton;
+    private TextView GPStextview;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
 
     USB_Send_Receive usb_send_receive;
 
@@ -59,9 +73,47 @@ public class FullscreenActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_fullscreen);
-        
+
         // add sound to the button press
         final MediaPlayer pressButSound = MediaPlayer.create(FullscreenActivity.this, R.raw.horn);
+        GPSbutton = (ImageView) findViewById(R.id.phoneconnbutn2);
+        GPStextview = (TextView) findViewById(R.id.fullscreen_content);
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+
+            @Override
+            public void onLocationChanged(Location location) {
+                GPStextview.append("\n " + location.getLatitude() + " " + location.getLongitude());
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+        };
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                requestPermissions(new String[]{
+                       Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.INTERNET
+                }, 10);
+                return;
+            }
+        }
+        else {
+            configureButton();
+        }
 
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
@@ -87,17 +139,17 @@ public class FullscreenActivity extends Activity {
 
         final ImageView settingsButton = (ImageView) findViewById(R.id.settingsbutton);
         settingsButton.setImageResource(R.drawable.cirbuttonmsc);
-        settingsButton.setOnClickListener(new View.OnClickListener(){
-          public void onClick(View v){
-              pressButSound.start();
-              Toast.makeText(FullscreenActivity.this, "You Clicked Settings", Toast.LENGTH_LONG).show();
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                pressButSound.start();
+                Toast.makeText(FullscreenActivity.this, "You Clicked Settings", Toast.LENGTH_LONG).show();
 
-              Intent i = new Intent(FullscreenActivity.this, activitysettings.class);
-              startActivity(i);
-              //Intent intent = new Intent();
-              //intent.setAction(Intent.ACTION_VIEW);
-              //startActivity(new Intent(FullscreenActivity.this, activitysettings.class));
-          }
+                Intent i = new Intent(FullscreenActivity.this, activitysettings.class);
+                startActivity(i);
+                //Intent intent = new Intent();
+                //intent.setAction(Intent.ACTION_VIEW);
+                //startActivity(new Intent(FullscreenActivity.this, activitysettings.class));
+            }
         });
 
         final ImageView headlampButton = (ImageView) findViewById(R.id.headLamp);
@@ -111,8 +163,7 @@ public class FullscreenActivity extends Activity {
                     Toast.makeText(FullscreenActivity.this, "Headlamps Off", Toast.LENGTH_LONG).show();
                     headlampButton.setImageResource(R.drawable.headlampoffc);
                     headlampOn = false;
-                }
-                else {
+                } else {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Headlamps On", Toast.LENGTH_LONG).show();
                     headlampButton.setImageResource(R.drawable.headlamponc);
@@ -132,20 +183,17 @@ public class FullscreenActivity extends Activity {
                     Toast.makeText(FullscreenActivity.this, "Defrost Level 1", Toast.LENGTH_LONG).show();
                     defrostButton.setImageResource(R.drawable.defrost1c);
                     defrostswitch = 1;
-                }
-                else if(defrostswitch == 1){
+                } else if (defrostswitch == 1) {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Defrost Level 2", Toast.LENGTH_LONG).show();
                     defrostButton.setImageResource(R.drawable.defrost2c);
                     defrostswitch = 2;
-                }
-                else if(defrostswitch == 2){
+                } else if (defrostswitch == 2) {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Defrost Level 3", Toast.LENGTH_LONG).show();
                     defrostButton.setImageResource(R.drawable.defrost3c);
                     defrostswitch = 3;
-                }
-                else {
+                } else {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Defrost Off", Toast.LENGTH_LONG).show();
                     defrostButton.setImageResource(R.drawable.defrostoffc);
@@ -221,61 +269,46 @@ public class FullscreenActivity extends Activity {
 
                         if (batteryLife < 5) {
                             batButton.setImageResource(R.drawable.battery00);
-                        }
-                        else if (batteryLife < 15) {
+                        } else if (batteryLife < 15) {
                             batButton.setImageResource(R.drawable.battery10);
-                        }
-                        else if (batteryLife < 25) {
+                        } else if (batteryLife < 25) {
                             batButton.setImageResource(R.drawable.battery20);
-                        }
-                        else if (batteryLife < 35) {
+                        } else if (batteryLife < 35) {
                             batButton.setImageResource(R.drawable.battery30);
-                        }
-                        else if (batteryLife < 45) {
+                        } else if (batteryLife < 45) {
                             batButton.setImageResource(R.drawable.battery40);
-                        }
-                        else if (batteryLife < 55) {
+                        } else if (batteryLife < 55) {
                             batButton.setImageResource(R.drawable.battery50);
-                        }
-                        else if (batteryLife < 65) {
+                        } else if (batteryLife < 65) {
                             batButton.setImageResource(R.drawable.battery60);
-                        }
-                        else if (batteryLife < 75) {
+                        } else if (batteryLife < 75) {
                             batButton.setImageResource(R.drawable.battery70);
-                        }
-                        else if (batteryLife < 85) {
+                        } else if (batteryLife < 85) {
                             batButton.setImageResource(R.drawable.battery80);
-                        }
-                        else if (batteryLife < 95) {
+                        } else if (batteryLife < 95) {
                             batButton.setImageResource(R.drawable.battery90);
-                        }
-                        else {
+                        } else {
                             batButton.setImageResource(R.drawable.battery100);
                         }
 
                         //LinSignal sendSig = new LinSignal(LinSignal.COMM_SET_VAR, signal.sid, (byte) 4, LinSignal.packIntToBytes(batteryLife));
                         //linBus.sendSignal(sendSig);
                         linBus.sendSignal(signal);
-                    }
-                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                    } else if (signal.command == LinSignal.COMM_WARN_VAR) {
                         // TODO
                     }
 
-                }
-                else if (LinSignal.signalHash("SPEED".getBytes(), 0) == signal.sid) {
+                } else if (LinSignal.signalHash("SPEED".getBytes(), 0) == signal.sid) {
                     if (signal.command == LinSignal.COMM_SET_VAR) {
                         // TODO
-                    }
-                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                    } else if (signal.command == LinSignal.COMM_WARN_VAR) {
                         // TODO
                     }
 
-                }
-                else if (LinSignal.signalHash("LIGHTS".getBytes(), 0) == signal.sid) {
+                } else if (LinSignal.signalHash("LIGHTS".getBytes(), 0) == signal.sid) {
                     if (signal.command == LinSignal.COMM_SET_VAR) {
                         // TODO
-                    }
-                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                    } else if (signal.command == LinSignal.COMM_WARN_VAR) {
                         // TODO
                     }
 
@@ -296,6 +329,24 @@ public class FullscreenActivity extends Activity {
 
         usb_send_receive = new USB_Send_Receive();
         usb_send_receive.onCreate(this, usbInputHandler, linBus);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+        switch (requestCode){
+            case 10:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    configureButton();
+                }
+                return;
+        }
+    }
+    private void configureButton() {
+        GPSbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                locationManager.requestLocationUpdates("gps",5000,0,locationListener);
+            }
+        });
     }
 
 // *********************************************************************************************************
