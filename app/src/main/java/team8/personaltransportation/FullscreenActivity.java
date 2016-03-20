@@ -15,6 +15,7 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -58,6 +59,9 @@ public class FullscreenActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_fullscreen);
+        
+        // add sound to the button press
+        final MediaPlayer pressButSound = MediaPlayer.create(FullscreenActivity.this, R.raw.horn);
 
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
@@ -68,10 +72,12 @@ public class FullscreenActivity extends Activity {
                 //Log.d("BUTTON", "I clicked it!");
 
                 if (warningOn) {
+                    pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Hazards Off", Toast.LENGTH_LONG).show();
                     warningButton.setImageResource(R.drawable.warningoffc);
                     warningOn = false;
                 } else {
+                    pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Hazards On", Toast.LENGTH_LONG).show();
                     warningButton.setImageResource(R.drawable.warningonc);
                     warningOn = true;
@@ -83,6 +89,7 @@ public class FullscreenActivity extends Activity {
         settingsButton.setImageResource(R.drawable.cirbuttonmsc);
         settingsButton.setOnClickListener(new View.OnClickListener(){
           public void onClick(View v){
+              pressButSound.start();
               Toast.makeText(FullscreenActivity.this, "You Clicked Settings", Toast.LENGTH_LONG).show();
 
               Intent i = new Intent(FullscreenActivity.this, activitysettings.class);
@@ -100,11 +107,13 @@ public class FullscreenActivity extends Activity {
                 //Log.d("BUTTON", "I clicked it!");
 
                 if (headlampOn) {
+                    pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Headlamps Off", Toast.LENGTH_LONG).show();
                     headlampButton.setImageResource(R.drawable.headlampoffc);
                     headlampOn = false;
                 }
                 else {
+                    pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Headlamps On", Toast.LENGTH_LONG).show();
                     headlampButton.setImageResource(R.drawable.headlamponc);
                     headlampOn = true;
@@ -119,21 +128,25 @@ public class FullscreenActivity extends Activity {
                 //Log.d("BUTTON", "I clicked it!");
 
                 if (defrostswitch == 0) {
+                    pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Defrost Level 1", Toast.LENGTH_LONG).show();
                     defrostButton.setImageResource(R.drawable.defrost1c);
                     defrostswitch = 1;
                 }
                 else if(defrostswitch == 1){
+                    pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Defrost Level 2", Toast.LENGTH_LONG).show();
                     defrostButton.setImageResource(R.drawable.defrost2c);
                     defrostswitch = 2;
                 }
                 else if(defrostswitch == 2){
+                    pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Defrost Level 3", Toast.LENGTH_LONG).show();
                     defrostButton.setImageResource(R.drawable.defrost3c);
                     defrostswitch = 3;
                 }
                 else {
+                    pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Defrost Off", Toast.LENGTH_LONG).show();
                     defrostButton.setImageResource(R.drawable.defrostoffc);
                     defrostswitch = 0;
@@ -148,18 +161,22 @@ public class FullscreenActivity extends Activity {
                 //Log.d("BUTTON", "I clicked it!");
 
                 if (wiperswitch == 0) {
+                    pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Wipers Level 1", Toast.LENGTH_LONG).show();
                     wiperButton.setImageResource(R.drawable.wipers1c);
                     wiperswitch = 1;
                 } else if (wiperswitch == 1) {
+                    pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Wipers Level 2", Toast.LENGTH_LONG).show();
                     wiperButton.setImageResource(R.drawable.wipers2c);
                     wiperswitch = 2;
                 } else if (wiperswitch == 2) {
+                    pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Wipers Level 3", Toast.LENGTH_LONG).show();
                     wiperButton.setImageResource(R.drawable.wipers3c);
                     wiperswitch = 3;
                 } else {
+                    pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Wipers Off", Toast.LENGTH_LONG).show();
                     wiperButton.setImageResource(R.drawable.wipersoffc);
                     wiperswitch = 0;
@@ -169,7 +186,7 @@ public class FullscreenActivity extends Activity {
 
         /*************************** working ********************************************/
         batButton = (ImageView) findViewById(R.id.batteryLife);
-        batButton.setImageResource(R.drawable.speedobezelc);        //switched this to a speed bezel for another view setup
+        batButton.setImageResource(R.drawable.battery100);        //switched this to a speed bezel for another view setup
 
 
         // Handles incoming messages

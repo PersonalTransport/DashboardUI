@@ -43,10 +43,17 @@
             android:layout_width="225px"
             android:layout_height="475px"
             android:layout_marginLeft="50px"
+            android:id="@+id/batteryLifeb"
+            android:layout_gravity="left|top"
+            android:src="@drawable/speedobezelc"/>
+        <ImageView
+            android:layout_width="200px"
+            android:layout_height="350px"
+            android:layout_marginLeft="65px"
+            android:layout_marginTop="65px"
             android:id="@+id/batteryLife"
             android:layout_gravity="left|top"
-            android:src="@drawable/speedobezelc" />
-
+            android:src="@drawable/battery00"/>
 
         <ImageView
             android:layout_width="225px"
