@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/fullscreen_content2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffddcc">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:textColor="#33b5e5"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="right|bottom">
+
+        <LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+            style="?metaButtonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="475px"
+            android:layout_marginLeft="50px"
+            android:id="@+id/batteryLifeb"
+            android:layout_gravity="left|top"
+            android:src="@drawable/speedobezelc"/>
+        <ImageView
+            android:layout_width="200px"
+            android:layout_height="350px"
+            android:layout_marginLeft="65px"
+            android:layout_marginTop="65px"
+            android:id="@+id/batteryLife"
+            android:layout_gravity="left|top"
+            android:src="@drawable/battery00"/>
+
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="475px"
+            android:layout_marginLeft="525px"
+            android:id="@+id/leftspeedo"
+            android:layout_gravity="left|top"
+            android:src="@drawable/speedobezelc" />
+
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="475px"
+            android:layout_marginRight="287px"
+            android:id="@+id/rightspeedo"
+            android:layout_gravity="right|top"
+            android:src="@drawable/speedobezelc" />
+
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="225px"
+            android:layout_marginRight="50px"
+            android:layout_marginTop="450px"
+            android:id="@+id/rightTurn"
+            android:layout_gravity="right|top"
+            android:src="@drawable/rightturnsignalc" />
+
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="225px"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="450px"
+            android:id="@+id/leftTurn"
+            android:layout_gravity="left|top"
+            android:src="@drawable/leftturnsignalc" />
+
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="225px"
+            android:layout_marginLeft="287px"
+            android:layout_marginTop="450px"
+            android:id="@+id/warning"
+            android:layout_gravity="left|top"
+            android:src="@drawable/warningoffc" />
+
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="225px"
+            android:layout_marginLeft="287px"
+            android:id="@+id/wiper"
+            android:layout_gravity="left|bottom"
+            android:layout_marginBottom="330px"
+            android:src="@drawable/wipersoffc" />
+
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="225px"
+            android:layout_marginRight="50px"
+            android:id="@+id/defrost1"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="330px"
+            android:src="@drawable/defrostoffc" />
+
+        <ImageView
+            android:layout_width="225px"
+            android:layout_height="225px"
+            android:layout_marginLeft="50px"
+            android:id="@+id/headLamp"
+            android:layout_gravity="left|bottom"
+            android:layout_marginBottom="330px"
+            android:src="@drawable/headlampoffc" />
+
+        <ImageView
+            android:layout_width="125px"
+            android:layout_height="125px"
+            android:layout_marginLeft="100px"
+            android:layout_marginTop="975px"
+            android:id="@+id/phoneconnbutn"
+            android:src="@drawable/cirbuttonmpc" />
+
+        <ImageView
+            android:layout_width="125px"
+            android:layout_height="125px"
+            android:layout_marginLeft="340px"
+            android:layout_marginTop="975px"
+            android:id="@+id/phoneconnbutn2"
+            android:src="@drawable/cirbuttonmc" />
+        <ImageView
+            android:layout_width="125px"
+            android:layout_height="125px"
+            android:layout_marginLeft="585px"
+            android:layout_marginTop="975px"
+            android:id="@+id/settingsbutton"
+            android:src="@drawable/cirbuttonmsc" />
+
+    </FrameLayout>
+
+</FrameLayout>

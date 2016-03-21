@@ -118,7 +118,7 @@ public class FullscreenActivity extends Activity {
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
         final ImageView warningButton = (ImageView) findViewById(R.id.warning);
-        warningButton.setImageResource(R.drawable.warningoffc);
+        warningButton.setImageResource(R.drawable.warningoffnew);
         warningButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Log.d("BUTTON", "I clicked it!");
@@ -126,12 +126,12 @@ public class FullscreenActivity extends Activity {
                 if (warningOn) {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Hazards Off", Toast.LENGTH_LONG).show();
-                    warningButton.setImageResource(R.drawable.warningoffc);
+                    warningButton.setImageResource(R.drawable.warningoffnew);
                     warningOn = false;
                 } else {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Hazards On", Toast.LENGTH_LONG).show();
-                    warningButton.setImageResource(R.drawable.warningonc);
+                    warningButton.setImageResource(R.drawable.warningonnew);
                     warningOn = true;
                 }
             }
@@ -153,7 +153,7 @@ public class FullscreenActivity extends Activity {
         });
 
         final ImageView headlampButton = (ImageView) findViewById(R.id.headLamp);
-        headlampButton.setImageResource(R.drawable.headlampoffc);
+        headlampButton.setImageResource(R.drawable.headlampoffnew);
         headlampButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Log.d("BUTTON", "I clicked it!");
@@ -161,19 +161,19 @@ public class FullscreenActivity extends Activity {
                 if (headlampOn) {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Headlamps Off", Toast.LENGTH_LONG).show();
-                    headlampButton.setImageResource(R.drawable.headlampoffc);
+                    headlampButton.setImageResource(R.drawable.headlampoffnew);
                     headlampOn = false;
                 } else {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Headlamps On", Toast.LENGTH_LONG).show();
-                    headlampButton.setImageResource(R.drawable.headlamponc);
+                    headlampButton.setImageResource(R.drawable.headlamponnew);
                     headlampOn = true;
                 }
             }
         });
         /*************************** working on this ********************************************/
         final ImageView defrostButton = (ImageView) findViewById(R.id.defrost1);
-        defrostButton.setImageResource(R.drawable.defrostoffc);
+        //defrostButton.setImageResource(R.drawable.defrostoffc);
         defrostButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Log.d("BUTTON", "I clicked it!");
@@ -203,7 +203,7 @@ public class FullscreenActivity extends Activity {
         });
         /*************************** working ********************************************/
         final ImageView wiperButton = (ImageView) findViewById(R.id.wiper);
-        wiperButton.setImageResource(R.drawable.wipersoffc);
+       // wiperButton.setImageResource(R.drawable.wipersoffc);
         wiperButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Log.d("BUTTON", "I clicked it!");
@@ -234,7 +234,7 @@ public class FullscreenActivity extends Activity {
 
         /*************************** working ********************************************/
         batButton = (ImageView) findViewById(R.id.batteryLife);
-        batButton.setImageResource(R.drawable.battery100);        //switched this to a speed bezel for another view setup
+        //batButton.setImageResource(R.drawable.battery100);        //switched this to a speed bezel for another view setup
 
 
         // Handles incoming messages
@@ -344,7 +344,7 @@ public class FullscreenActivity extends Activity {
         GPSbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                locationManager.requestLocationUpdates("gps",5000,0,locationListener);
+                //locationManager.requestLocationUpdates("gps",5000,0,locationListener);
             }
         });
     }

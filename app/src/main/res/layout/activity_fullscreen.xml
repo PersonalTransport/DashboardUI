@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/backgrounduw"
+    android:background="@drawable/dashboard3"
     tools:context="team8.personaltransportation.FullscreenActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -14,7 +14,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:textColor="#33b5e5"
         android:textSize="50sp"
         android:textStyle="bold" />
 
@@ -44,32 +43,29 @@
             android:layout_height="475px"
             android:layout_marginLeft="50px"
             android:id="@+id/batteryLifeb"
-            android:layout_gravity="left|top"
-            android:src="@drawable/speedobezelc"/>
+            android:layout_gravity="left|top"/>
+
         <ImageView
             android:layout_width="200px"
             android:layout_height="350px"
             android:layout_marginLeft="65px"
             android:layout_marginTop="65px"
             android:id="@+id/batteryLife"
-            android:layout_gravity="left|top"
-            android:src="@drawable/battery00"/>
+            android:layout_gravity="left|top"/>
 
         <ImageView
             android:layout_width="225px"
             android:layout_height="475px"
             android:layout_marginLeft="525px"
             android:id="@+id/leftspeedo"
-            android:layout_gravity="left|top"
-            android:src="@drawable/speedobezelc" />
+            android:layout_gravity="left|top"/>
 
         <ImageView
             android:layout_width="225px"
             android:layout_height="475px"
             android:layout_marginRight="287px"
             android:id="@+id/rightspeedo"
-            android:layout_gravity="right|top"
-            android:src="@drawable/speedobezelc" />
+            android:layout_gravity="right|top" />
 
         <ImageView
             android:layout_width="225px"
@@ -78,7 +74,7 @@
             android:layout_marginTop="450px"
             android:id="@+id/rightTurn"
             android:layout_gravity="right|top"
-            android:src="@drawable/rightturnsignalc" />
+            />
 
         <ImageView
             android:layout_width="225px"
@@ -87,16 +83,16 @@
             android:layout_marginTop="450px"
             android:id="@+id/leftTurn"
             android:layout_gravity="left|top"
-            android:src="@drawable/leftturnsignalc" />
+            />
 
         <ImageView
-            android:layout_width="225px"
-            android:layout_height="225px"
-            android:layout_marginLeft="287px"
-            android:layout_marginTop="450px"
+            android:layout_width="167px"
+            android:layout_height="144px"
+            android:layout_marginLeft="315px"
+            android:layout_marginTop="235px"
             android:id="@+id/warning"
             android:layout_gravity="left|top"
-            android:src="@drawable/warningoffc" />
+            android:src="@drawable/warningoffnew" />
 
         <ImageView
             android:layout_width="225px"
@@ -104,8 +100,7 @@
             android:layout_marginLeft="287px"
             android:id="@+id/wiper"
             android:layout_gravity="left|bottom"
-            android:layout_marginBottom="330px"
-            android:src="@drawable/wipersoffc" />
+            android:layout_marginBottom="330px" />
 
         <ImageView
             android:layout_width="225px"
@@ -113,23 +108,22 @@
             android:layout_marginRight="50px"
             android:id="@+id/defrost1"
             android:layout_gravity="right|bottom"
-            android:layout_marginBottom="330px"
-            android:src="@drawable/defrostoffc" />
+            android:layout_marginBottom="330px" />
 
         <ImageView
-            android:layout_width="225px"
-            android:layout_height="225px"
-            android:layout_marginLeft="50px"
+            android:layout_width="150px"
+            android:layout_height="125px"
+            android:layout_marginLeft="325px"
             android:id="@+id/headLamp"
             android:layout_gravity="left|bottom"
-            android:layout_marginBottom="330px"
-            android:src="@drawable/headlampoffc" />
+            android:layout_marginBottom="225px"
+            android:src="@drawable/headlampoffnew"/>
 
         <ImageView
             android:layout_width="125px"
             android:layout_height="125px"
             android:layout_marginLeft="100px"
-            android:layout_marginTop="975px"
+            android:layout_marginTop="1125px"
             android:id="@+id/phoneconnbutn"
             android:src="@drawable/cirbuttonmpc" />
 
@@ -137,20 +131,20 @@
             android:layout_width="125px"
             android:layout_height="125px"
             android:layout_marginLeft="340px"
-            android:layout_marginTop="975px"
+            android:layout_marginTop="1125px"
             android:id="@+id/phoneconnbutn2"
             android:src="@drawable/cirbuttonmc" />
         <ImageView
             android:layout_width="125px"
             android:layout_height="125px"
             android:layout_marginLeft="585px"
-            android:layout_marginTop="975px"
+            android:layout_marginTop="1125px"
             android:id="@+id/settingsbutton"
             android:src="@drawable/cirbuttonmsc" />
 
     </FrameLayout>
 
-    <!--<FrameLayout
+   <!-- <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
