@@ -181,29 +181,29 @@ public class FullscreenActivity extends Activity {
                 if (defrostswitch == 0) {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Defrost Level 1", Toast.LENGTH_LONG).show();
-                    defrostButton.setImageResource(R.drawable.defrost1c);
+                    defrostButton.setImageResource(R.drawable.defroston1new);
                     defrostswitch = 1;
                 } else if (defrostswitch == 1) {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Defrost Level 2", Toast.LENGTH_LONG).show();
-                    defrostButton.setImageResource(R.drawable.defrost2c);
+                    defrostButton.setImageResource(R.drawable.defroston2new);
                     defrostswitch = 2;
                 } else if (defrostswitch == 2) {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Defrost Level 3", Toast.LENGTH_LONG).show();
-                    defrostButton.setImageResource(R.drawable.defrost3c);
+                    defrostButton.setImageResource(R.drawable.defroston3new);
                     defrostswitch = 3;
                 } else {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Defrost Off", Toast.LENGTH_LONG).show();
-                    defrostButton.setImageResource(R.drawable.defrostoffc);
+                    defrostButton.setImageResource(R.drawable.defrostoffnew);
                     defrostswitch = 0;
                 }
             }
         });
         /*************************** working ********************************************/
         final ImageView wiperButton = (ImageView) findViewById(R.id.wiper);
-       // wiperButton.setImageResource(R.drawable.wipersoffc);
+        //wiperButton.setImageResource(R.drawable.wipersoffnew);
         wiperButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Log.d("BUTTON", "I clicked it!");
@@ -211,22 +211,22 @@ public class FullscreenActivity extends Activity {
                 if (wiperswitch == 0) {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Wipers Level 1", Toast.LENGTH_LONG).show();
-                    wiperButton.setImageResource(R.drawable.wipers1c);
+                    wiperButton.setImageResource(R.drawable.wiperson1new);
                     wiperswitch = 1;
                 } else if (wiperswitch == 1) {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Wipers Level 2", Toast.LENGTH_LONG).show();
-                    wiperButton.setImageResource(R.drawable.wipers2c);
+                    wiperButton.setImageResource(R.drawable.wiperson2new);
                     wiperswitch = 2;
                 } else if (wiperswitch == 2) {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Wipers Level 3", Toast.LENGTH_LONG).show();
-                    wiperButton.setImageResource(R.drawable.wipers3c);
+                    wiperButton.setImageResource(R.drawable.wiperson3new);
                     wiperswitch = 3;
                 } else {
                     pressButSound.start();
                     Toast.makeText(FullscreenActivity.this, "Wipers Off", Toast.LENGTH_LONG).show();
-                    wiperButton.setImageResource(R.drawable.wipersoffc);
+                    wiperButton.setImageResource(R.drawable.wipersoffnew);
                     wiperswitch = 0;
                 }
             }

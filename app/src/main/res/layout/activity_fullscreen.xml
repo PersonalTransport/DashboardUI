@@ -95,28 +95,30 @@
             android:src="@drawable/warningoffnew" />
 
         <ImageView
-            android:layout_width="225px"
-            android:layout_height="225px"
-            android:layout_marginLeft="287px"
+            android:layout_width="209px"
+            android:layout_height="237px"
+            android:layout_marginLeft="80px"
             android:id="@+id/wiper"
             android:layout_gravity="left|bottom"
-            android:layout_marginBottom="330px" />
+            android:layout_marginBottom="270px"
+            android:src="@drawable/wipersoffnew"/>
 
         <ImageView
-            android:layout_width="225px"
-            android:layout_height="225px"
-            android:layout_marginRight="50px"
+            android:layout_width="214px"
+            android:layout_height="239px"
+            android:layout_marginRight="74px"
             android:id="@+id/defrost1"
             android:layout_gravity="right|bottom"
-            android:layout_marginBottom="330px" />
+            android:layout_marginBottom="269px"
+            android:src="@drawable/defrostoffnew"/>
 
         <ImageView
-            android:layout_width="150px"
-            android:layout_height="125px"
-            android:layout_marginLeft="325px"
+            android:layout_width="292px"
+            android:layout_height="154px"
+            android:layout_marginLeft="255px"
             android:id="@+id/headLamp"
             android:layout_gravity="left|bottom"
-            android:layout_marginBottom="225px"
+            android:layout_marginBottom="217px"
             android:src="@drawable/headlampoffnew"/>
 
         <ImageView
