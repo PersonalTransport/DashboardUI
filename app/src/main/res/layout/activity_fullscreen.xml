@@ -74,7 +74,7 @@
             android:layout_marginTop="398px"
             android:id="@+id/rightTurn"
             android:layout_gravity="right|top"
-            android:src="@drawable/rightturnsignal3new"/>
+            android:src="@drawable/rightturnsignaloffnew"/>
 
         <ImageView
             android:layout_width="200px"
@@ -83,7 +83,7 @@
             android:layout_marginTop="399px"
             android:id="@+id/leftTurn"
             android:layout_gravity="left|top"
-            android:src="@drawable/leftturnsignal3new"/>
+            android:src="@drawable/leftturnsignaloffnew"/>
 
         <ImageView
             android:layout_width="167px"
@@ -93,6 +93,15 @@
             android:id="@+id/warning"
             android:layout_gravity="left|top"
             android:src="@drawable/warningoffnew" />
+
+        <ImageView
+            android:layout_width="75px"
+            android:layout_height="75px"
+            android:layout_marginLeft="363px"
+            android:layout_marginTop="135px"
+            android:id="@+id/brights"
+            android:layout_gravity="left|top"
+            android:src="@drawable/brightsoffnew" />
 
         <ImageView
             android:layout_width="209px"

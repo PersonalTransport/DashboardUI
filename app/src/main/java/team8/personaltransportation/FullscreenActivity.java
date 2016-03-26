@@ -52,6 +52,7 @@ public class FullscreenActivity extends Activity {
     int batteryLife = 0;
     boolean warningOn = false;
     boolean headlampOn = false;
+    boolean brightsOn = false;
     int wiperswitch = 0;
     int defrostswitch = 0;
     private ImageView GPSbutton;
@@ -171,6 +172,27 @@ public class FullscreenActivity extends Activity {
                 }
             }
         });
+
+        final ImageView brightsButton = (ImageView) findViewById(R.id.brights);
+        //headlampButton.setImageResource(R.drawable.brightsoffnew);
+        brightsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //Log.d("BUTTON", "I clicked it!");
+
+                if (brightsOn) {
+                    pressButSound.start();
+                    Toast.makeText(FullscreenActivity.this, "Brights Off", Toast.LENGTH_LONG).show();
+                    brightsButton.setImageResource(R.drawable.brightsoffnew);
+                    brightsOn = false;
+                } else {
+                    pressButSound.start();
+                    Toast.makeText(FullscreenActivity.this, "Brights On", Toast.LENGTH_LONG).show();
+                    brightsButton.setImageResource(R.drawable.brightsonnew);
+                    brightsOn = true;
+                }
+            }
+        });
+
         /*************************** working on this ********************************************/
         final ImageView defrostButton = (ImageView) findViewById(R.id.defrost1);
         //defrostButton.setImageResource(R.drawable.defrostoffc);
