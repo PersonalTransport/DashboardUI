@@ -29,11 +29,14 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -126,12 +129,22 @@ public class FullscreenActivity extends Activity {
 
                 if (warningOn) {
                     pressButSound.start();
-                    Toast.makeText(FullscreenActivity.this, "Hazards Off", Toast.LENGTH_LONG).show();
+                    Toast toast1 = Toast.makeText(FullscreenActivity.this, "Hazards Off", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast1.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast1.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast1.show();
                     warningButton.setImageResource(R.drawable.warningoffnew);
                     warningOn = false;
                 } else {
                     pressButSound.start();
-                    Toast.makeText(FullscreenActivity.this, "Hazards On", Toast.LENGTH_LONG).show();
+                    Toast toast2 = Toast.makeText(FullscreenActivity.this, "Hazards On, Contacting Emergency Services.", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast2.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast2.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast2.show();
                     warningButton.setImageResource(R.drawable.warningonnew);
                     warningOn = true;
                 }
@@ -143,8 +156,12 @@ public class FullscreenActivity extends Activity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 pressButSound.start();
-                Toast.makeText(FullscreenActivity.this, "You Clicked Settings", Toast.LENGTH_LONG).show();
-
+                Toast toast3 = Toast.makeText(FullscreenActivity.this, "You Clicked Settings", Toast.LENGTH_LONG);
+                LinearLayout toastLayout = (LinearLayout) toast3.getView();
+                TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                toast3.setGravity(Gravity.CENTER, 0, 0);
+                toastTV.setTextSize(30);
+                toast3.show();
                 Intent i = new Intent(FullscreenActivity.this, activitysettings.class);
                 startActivity(i);
                 //Intent intent = new Intent();
@@ -161,12 +178,22 @@ public class FullscreenActivity extends Activity {
 
                 if (headlampOn) {
                     pressButSound.start();
-                    Toast.makeText(FullscreenActivity.this, "Headlamps Off", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Headlamps Off", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast.show();
                     headlampButton.setImageResource(R.drawable.headlampoffnew);
                     headlampOn = false;
                 } else {
                     pressButSound.start();
-                    Toast.makeText(FullscreenActivity.this, "Headlamps On", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Headlamps On", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast.show();
                     headlampButton.setImageResource(R.drawable.headlamponnew);
                     headlampOn = true;
                 }
@@ -181,12 +208,22 @@ public class FullscreenActivity extends Activity {
 
                 if (brightsOn) {
                     pressButSound.start();
-                    Toast.makeText(FullscreenActivity.this, "Brights Off", Toast.LENGTH_LONG).show();
+                    Toast toast =  Toast.makeText(FullscreenActivity.this, "Brights Off", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast.show();
                     brightsButton.setImageResource(R.drawable.brightsoffnew);
                     brightsOn = false;
                 } else {
                     pressButSound.start();
-                    Toast.makeText(FullscreenActivity.this, "Brights On", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Brights On", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast.show();
                     brightsButton.setImageResource(R.drawable.brightsonnew);
                     brightsOn = true;
                 }
@@ -202,22 +239,42 @@ public class FullscreenActivity extends Activity {
 
                 if (defrostswitch == 0) {
                     pressButSound.start();
-                    Toast.makeText(FullscreenActivity.this, "Defrost Level 1", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost Level 1", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast.show();
                     defrostButton.setImageResource(R.drawable.defroston1new);
                     defrostswitch = 1;
                 } else if (defrostswitch == 1) {
                     pressButSound.start();
-                    Toast.makeText(FullscreenActivity.this, "Defrost Level 2", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost Level 2", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast.show();
                     defrostButton.setImageResource(R.drawable.defroston2new);
                     defrostswitch = 2;
                 } else if (defrostswitch == 2) {
                     pressButSound.start();
-                    Toast.makeText(FullscreenActivity.this, "Defrost Level 3", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost Level 3", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast.show();
                     defrostButton.setImageResource(R.drawable.defroston3new);
                     defrostswitch = 3;
                 } else {
                     pressButSound.start();
-                    Toast.makeText(FullscreenActivity.this, "Defrost Off", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost Off", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast.show();
                     defrostButton.setImageResource(R.drawable.defrostoffnew);
                     defrostswitch = 0;
                 }
@@ -232,22 +289,42 @@ public class FullscreenActivity extends Activity {
 
                 if (wiperswitch == 0) {
                     pressButSound.start();
-                    Toast.makeText(FullscreenActivity.this, "Wipers Level 1", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers Level 1", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast.show();
                     wiperButton.setImageResource(R.drawable.wiperson1new);
                     wiperswitch = 1;
                 } else if (wiperswitch == 1) {
                     pressButSound.start();
-                    Toast.makeText(FullscreenActivity.this, "Wipers Level 2", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers Level 2", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast.show();
                     wiperButton.setImageResource(R.drawable.wiperson2new);
                     wiperswitch = 2;
                 } else if (wiperswitch == 2) {
                     pressButSound.start();
-                    Toast.makeText(FullscreenActivity.this, "Wipers Level 3", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers Level 3", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast.show();
                     wiperButton.setImageResource(R.drawable.wiperson3new);
                     wiperswitch = 3;
                 } else {
                     pressButSound.start();
-                    Toast.makeText(FullscreenActivity.this, "Wipers Off", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers Off", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast.show();
                     wiperButton.setImageResource(R.drawable.wipersoffnew);
                     wiperswitch = 0;
                 }

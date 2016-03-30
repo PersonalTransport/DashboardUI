@@ -88,7 +88,7 @@
         <ImageView
             android:layout_width="167px"
             android:layout_height="144px"
-            android:layout_marginLeft="315px"
+            android:layout_marginLeft="317px"
             android:layout_marginTop="235px"
             android:id="@+id/warning"
             android:layout_gravity="left|top"
