@@ -139,7 +139,7 @@
             android:layout_width="125px"
             android:layout_height="125px"
             android:layout_marginLeft="100px"
-            android:layout_marginTop="1125px"
+            android:layout_marginTop="1110px"
             android:id="@+id/phoneconnbutn"
             android:src="@drawable/cirbuttonmpc" />
 
@@ -147,14 +147,14 @@
             android:layout_width="125px"
             android:layout_height="125px"
             android:layout_marginLeft="340px"
-            android:layout_marginTop="1125px"
+            android:layout_marginTop="1110px"
             android:id="@+id/phoneconnbutn2"
             android:src="@drawable/cirbuttonmc" />
         <ImageView
             android:layout_width="125px"
             android:layout_height="125px"
             android:layout_marginLeft="585px"
-            android:layout_marginTop="1125px"
+            android:layout_marginTop="1110px"
             android:id="@+id/settingsbutton"
             android:src="@drawable/cirbuttonmsc" />
 
