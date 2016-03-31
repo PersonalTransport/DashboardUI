@@ -230,6 +230,7 @@ public class FullscreenActivity extends Activity {
             }
         });
 
+
         /*************************** working on this ********************************************/
         final ImageView defrostButton = (ImageView) findViewById(R.id.defrost1);
         //defrostButton.setImageResource(R.drawable.defrostoffc);
@@ -246,7 +247,7 @@ public class FullscreenActivity extends Activity {
                     toastTV.setTextSize(30);
                     toast.show();
                     defrostButton.setImageResource(R.drawable.defroston1new);
-                    defrostswitch = 1;
+    defrostswitch = 1;
                 } else if (defrostswitch == 1) {
                     pressButSound.start();
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost Level 2", Toast.LENGTH_LONG);
@@ -278,6 +279,18 @@ public class FullscreenActivity extends Activity {
                     defrostButton.setImageResource(R.drawable.defrostoffnew);
                     defrostswitch = 0;
                 }
+            }
+        });
+
+        final ImageView batteryButton = (ImageView) findViewByID(R.id.batteryLife);
+        batteryButton.setOnClickListener(new View.OnClickListener() {
+            public void onCLick(View v){
+                Toast toast = Toast.makeText(FullscreenActivity.this, "Battery Level is at %", Toast.LENGTH_LONG);
+                LinearLayout toastLayout = (LinearLayout) toast.getView();
+                TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toastTV.setTextSize(30);
+                toast.show();
             }
         });
         /*************************** working ********************************************/
@@ -330,6 +343,7 @@ public class FullscreenActivity extends Activity {
                 }
             }
         });
+
 
         /*************************** working ********************************************/
         batButton = (ImageView) findViewById(R.id.batteryLife);

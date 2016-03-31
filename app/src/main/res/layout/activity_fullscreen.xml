@@ -42,7 +42,7 @@
             android:layout_width="225px"
             android:layout_height="475px"
             android:layout_marginLeft="50px"
-            android:id="@+id/batteryLifeb"
+            android:id="@+id/batteryLifebezel"
             android:layout_gravity="left|top"/>
 
         <ImageView
