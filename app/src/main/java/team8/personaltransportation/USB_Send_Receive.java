@@ -93,7 +93,7 @@ public class USB_Send_Receive {
 
     public void onPause() {
         Log.d("onPause", "pausing...");
-        //closeAccessory();
+        closeAccessory();
     }
 
     public void onDestroy(Activity activity) {

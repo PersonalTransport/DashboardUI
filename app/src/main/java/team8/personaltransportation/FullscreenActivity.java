@@ -282,9 +282,9 @@ public class FullscreenActivity extends Activity {
             }
         });
 
-        final ImageView batteryButton = (ImageView) findViewByID(R.id.batteryLife);
+        final ImageView batteryButton = (ImageView) findViewById(R.id.batteryLife);
         batteryButton.setOnClickListener(new View.OnClickListener() {
-            public void onCLick(View v){
+            public void onClick(View v) {
                 Toast toast = Toast.makeText(FullscreenActivity.this, "Battery Level is at %", Toast.LENGTH_LONG);
                 LinearLayout toastLayout = (LinearLayout) toast.getView();
                 TextView toastTV = (TextView) toastLayout.getChildAt(0);

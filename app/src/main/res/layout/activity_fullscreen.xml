@@ -51,7 +51,8 @@
             android:layout_marginLeft="65px"
             android:layout_marginTop="65px"
             android:id="@+id/batteryLife"
-            android:layout_gravity="left|top"/>
+            android:layout_gravity="left|top"
+            android:src="@drawable/battery100"/>
 
         <ImageView
             android:layout_width="225px"
