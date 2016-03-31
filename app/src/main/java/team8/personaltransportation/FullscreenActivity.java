@@ -381,27 +381,17 @@ public class FullscreenActivity extends Activity {
                         batteryLife = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
 
                         if (batteryLife < 5) {
-                            batButton.setImageResource(R.drawable.battery00);
-                        } else if (batteryLife < 15) {
-                            batButton.setImageResource(R.drawable.battery10);
-                        } else if (batteryLife < 25) {
-                            batButton.setImageResource(R.drawable.battery20);
-                        } else if (batteryLife < 35) {
-                            batButton.setImageResource(R.drawable.battery30);
-                        } else if (batteryLife < 45) {
-                            batButton.setImageResource(R.drawable.battery40);
-                        } else if (batteryLife < 55) {
-                            batButton.setImageResource(R.drawable.battery50);
-                        } else if (batteryLife < 65) {
-                            batButton.setImageResource(R.drawable.battery60);
-                        } else if (batteryLife < 75) {
-                            batButton.setImageResource(R.drawable.battery70);
-                        } else if (batteryLife < 85) {
-                            batButton.setImageResource(R.drawable.battery80);
-                        } else if (batteryLife < 95) {
-                            batButton.setImageResource(R.drawable.battery90);
+                            batButton.setImageResource(R.drawable.battery00new);
+                        } else if (batteryLife <= 20) {
+                            batButton.setImageResource(R.drawable.battery20new);
+                        } else if (batteryLife <= 40) {
+                            batButton.setImageResource(R.drawable.battery40new);
+                        } else if (batteryLife <= 60) {
+                            batButton.setImageResource(R.drawable.battery60new);
+                        } else if (batteryLife <= 80) {
+                            batButton.setImageResource(R.drawable.battery80new);
                         } else {
-                            batButton.setImageResource(R.drawable.battery100);
+                            batButton.setImageResource(R.drawable.battery100new);
                         }
 
                         //LinSignal sendSig = new LinSignal(LinSignal.COMM_SET_VAR, signal.sid, (byte) 4, LinSignal.packIntToBytes(batteryLife));
