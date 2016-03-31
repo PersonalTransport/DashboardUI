@@ -51,22 +51,26 @@
             android:layout_marginLeft="65px"
             android:layout_marginTop="65px"
             android:id="@+id/batteryLife"
-            android:layout_gravity="left|top"
-            android:src="@drawable/battery100"/>
-
-        <ImageView
-            android:layout_width="225px"
-            android:layout_height="475px"
-            android:layout_marginLeft="525px"
-            android:id="@+id/leftspeedo"
             android:layout_gravity="left|top"/>
+            <!--android:src="@drawable/battery100"/>-->
 
         <ImageView
-            android:layout_width="225px"
-            android:layout_height="475px"
-            android:layout_marginRight="287px"
+            android:layout_width="160px"
+            android:layout_height="320px"
+            android:layout_marginLeft="220px"
+            android:layout_marginTop="460px"
+            android:id="@+id/leftspeedo"
+            android:layout_gravity="left|top"
+            android:src="@drawable/zero"/>
+
+        <ImageView
+            android:layout_width="160px"
+            android:layout_height="320px"
+            android:layout_marginRight="220px"
+            android:layout_marginTop="460px"
             android:id="@+id/rightspeedo"
-            android:layout_gravity="right|top" />
+            android:layout_gravity="right|top"
+            android:src="@drawable/zeror"/>
 
         <ImageView
             android:layout_width="200px"
