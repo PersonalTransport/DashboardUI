@@ -65,7 +65,7 @@ public class LinSignal {
 
     //http://www.cse.yorku.ca/~oz/hash.html
     public static int signalHash(byte [] input,int i) {
-        return (input.length == i) ? ((int)input[i]) + 33 * signalHash(input,i+1) : 5381;
+        return (input.length != i) ? ((int)input[i]) + 33 * signalHash(input,i+1) : 5381;
     }
 
     public static int unpackBytesToInt(byte byte1, byte byte2, byte byte3, byte byte4) {
@@ -73,6 +73,7 @@ public class LinSignal {
              | ((((int) byte2) << 16) & 0x00FF0000)
              | ((((int) byte3) << 8)  & 0x0000FF00)
              | (((int) byte4)         & 0x000000FF);
+
     }
 
     public static byte[] packIntToBytes(int input) {
