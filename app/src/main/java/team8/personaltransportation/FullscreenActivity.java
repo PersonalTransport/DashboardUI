@@ -148,14 +148,21 @@ public class FullscreenActivity extends Activity {
         }
 
         hazardbut.setOnTouchListener(new View.OnTouchListener() {
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 // TODO Auto-generated method stub
 
+                pressButSound.start();
+                Toast toast2 = Toast.makeText(FullscreenActivity.this, "Hazards On, Contacting Emergency Services.", Toast.LENGTH_SHORT);
+                LinearLayout toastLayout = (LinearLayout) toast2.getView();
+                TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                toast2.setGravity(Gravity.CENTER, 240, -500);
+                toastTV.setTextSize(30);
+                toast2.show();
 
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
-
                         if (hazardAnim.isRunning()) {
                             hazardAnim.stop();
                             hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), hazarduration);
