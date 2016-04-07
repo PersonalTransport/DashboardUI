@@ -17,6 +17,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -72,6 +73,13 @@ public class FullscreenActivity extends Activity {
     Handler usbInputHandler;
     LinBus linBus;
 
+    AnimationDrawable rightAnim;
+    AnimationDrawable leftAnim;
+    AnimationDrawable hazardAnim;
+    int rightduration = 150;
+    int leftduration = 150;
+    int hazarduration = 200;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,9 +129,49 @@ public class FullscreenActivity extends Activity {
 
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
-        final ImageView warningButton = (ImageView) findViewById(R.id.warning);
-        warningButton.setImageResource(R.drawable.warningoffnew);
-        warningButton.setOnClickListener(new View.OnClickListener() {
+        mControlsView = findViewById(R.id.fullscreen_content_controls);
+        //final ImageView warningButton = (ImageView) findViewById(R.id.warning);
+        /*** Ming's ***/
+        final ImageView rightturn = (ImageView) this.findViewById(R.id.rightTurn);
+        final ImageView leftturn = (ImageView) this.findViewById(R.id.leftTurn);
+        final ImageView hazardbut = (ImageView) this.findViewById(R.id.warning);
+
+        hazardAnim = new AnimationDrawable();
+        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), hazarduration);
+        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningonbnew), hazarduration);
+        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningonnew), hazarduration);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            hazardbut.setBackgroundDrawable(hazardAnim);
+        } else {
+            hazardbut.setBackground(hazardAnim);
+        }
+
+        hazardbut.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+
+                        if (hazardAnim.isRunning()) {
+                            hazardAnim.stop();
+                            hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), hazarduration);
+                            return true;
+                        } else {
+                            hazardAnim.setOneShot(false);
+                            hazardAnim.start();
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+        //warningButton.setImageResource(R.drawable.warningoffnew);
+       /* warningButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Log.d("BUTTON", "I clicked it!");
 
@@ -132,7 +180,7 @@ public class FullscreenActivity extends Activity {
                     Toast toast1 = Toast.makeText(FullscreenActivity.this, "Hazards Off", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast1.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast1.setGravity(Gravity.CENTER, 0, 0);
+                    toast1.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast1.show();
                     warningButton.setImageResource(R.drawable.warningoffnew);
@@ -142,14 +190,91 @@ public class FullscreenActivity extends Activity {
                     Toast toast2 = Toast.makeText(FullscreenActivity.this, "Hazards On, Contacting Emergency Services.", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast2.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast2.setGravity(Gravity.CENTER, 0, 0);
+                    toast2.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast2.show();
                     warningButton.setImageResource(R.drawable.warningonnew);
                     warningOn = true;
                 }
             }
+        });*/
+
+        rightAnim = new AnimationDrawable();
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), rightduration);
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal1new), rightduration);
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal2new), rightduration);
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal3new), rightduration);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            rightturn.setBackgroundDrawable(rightAnim);
+        } else {
+            rightturn.setBackground(rightAnim);
+        }
+
+        rightturn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+
+                        if (rightAnim.isRunning()) {
+                            rightAnim.stop();
+                            rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), rightduration);
+                            return true;
+                        } else {
+                            rightAnim.setOneShot(false);
+                            rightAnim.start();
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
         });
+
+        leftAnim = new AnimationDrawable();
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), leftduration);
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal1new), leftduration);
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal2new), leftduration);
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal3new), leftduration);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            leftturn.setBackgroundDrawable(leftAnim);
+        } else {
+            leftturn.setBackground(leftAnim);
+        }
+
+        leftturn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+
+                        if (leftAnim.isRunning()) {
+                            leftAnim.stop();
+                            leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), leftduration);
+                            return true;
+                        } else {
+                            leftAnim.setOneShot(false);
+                            leftAnim.start();
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+
+        //client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+
 
         final ImageView settingsButton = (ImageView) findViewById(R.id.settingsbutton);
         settingsButton.setImageResource(R.drawable.cirbuttonmsc);
@@ -159,7 +284,7 @@ public class FullscreenActivity extends Activity {
                 Toast toast3 = Toast.makeText(FullscreenActivity.this, "You Clicked Settings", Toast.LENGTH_LONG);
                 LinearLayout toastLayout = (LinearLayout) toast3.getView();
                 TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                toast3.setGravity(Gravity.CENTER, 0, 0);
+                toast3.setGravity(Gravity.CENTER, 240, -500);
                 toastTV.setTextSize(30);
                 toast3.show();
                 Intent i = new Intent(FullscreenActivity.this, activitysettings.class);
@@ -181,7 +306,7 @@ public class FullscreenActivity extends Activity {
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Headlamps Off", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
                     headlampButton.setImageResource(R.drawable.headlampoffnew);
@@ -191,7 +316,7 @@ public class FullscreenActivity extends Activity {
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Headlamps On", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
                     headlampButton.setImageResource(R.drawable.headlamponnew);
@@ -211,7 +336,7 @@ public class FullscreenActivity extends Activity {
                     Toast toast =  Toast.makeText(FullscreenActivity.this, "Brights Off", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
                     brightsButton.setImageResource(R.drawable.brightsoffnew);
@@ -221,7 +346,7 @@ public class FullscreenActivity extends Activity {
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Brights On", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
                     brightsButton.setImageResource(R.drawable.brightsonnew);
@@ -240,30 +365,30 @@ public class FullscreenActivity extends Activity {
 
                 if (defrostswitch == 0) {
                     pressButSound.start();
-                    Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost Level 1", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost Low", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
                     defrostButton.setImageResource(R.drawable.defroston1new);
     defrostswitch = 1;
                 } else if (defrostswitch == 1) {
                     pressButSound.start();
-                    Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost Level 2", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost Medium", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
                     defrostButton.setImageResource(R.drawable.defroston2new);
                     defrostswitch = 2;
                 } else if (defrostswitch == 2) {
                     pressButSound.start();
-                    Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost Level 3", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost High", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
                     defrostButton.setImageResource(R.drawable.defroston3new);
@@ -273,7 +398,7 @@ public class FullscreenActivity extends Activity {
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost Off", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
                     defrostButton.setImageResource(R.drawable.defrostoffnew);
@@ -285,10 +410,10 @@ public class FullscreenActivity extends Activity {
         final ImageView batteryButton = (ImageView) findViewById(R.id.batteryLife);
         batteryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast toast = Toast.makeText(FullscreenActivity.this, "Battery Level is at %", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(FullscreenActivity.this, "Battery Level is at " + batteryLife + "%", Toast.LENGTH_LONG);
                 LinearLayout toastLayout = (LinearLayout) toast.getView();
                 TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.setGravity(Gravity.CENTER, 200, -500);
                 toastTV.setTextSize(30);
                 toast.show();
             }
@@ -302,30 +427,30 @@ public class FullscreenActivity extends Activity {
 
                 if (wiperswitch == 0) {
                     pressButSound.start();
-                    Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers Level 1", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers Low", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
                     wiperButton.setImageResource(R.drawable.wiperson1new);
                     wiperswitch = 1;
                 } else if (wiperswitch == 1) {
                     pressButSound.start();
-                    Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers Level 2", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers Medium", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
                     wiperButton.setImageResource(R.drawable.wiperson2new);
                     wiperswitch = 2;
                 } else if (wiperswitch == 2) {
                     pressButSound.start();
-                    Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers Level 3", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers High", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
                     wiperButton.setImageResource(R.drawable.wiperson3new);
@@ -335,7 +460,7 @@ public class FullscreenActivity extends Activity {
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers Off", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
                     wiperButton.setImageResource(R.drawable.wipersoffnew);
@@ -520,6 +645,7 @@ public class FullscreenActivity extends Activity {
                     | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
     };
+    private View mControlsView;
     private final Runnable mShowPart2Runnable = new Runnable() {
         @Override
         public void run() {
@@ -529,12 +655,13 @@ public class FullscreenActivity extends Activity {
             if (actionBar != null) {
                 actionBar.show();
             }
+            mControlsView.setVisibility(View.VISIBLE);
         }
-
         private ActionBar getSupportActionBar() {
             return null;
         }
     };
+
     private boolean mVisible;
     private final Runnable mHideRunnable = new Runnable() {
         @Override
