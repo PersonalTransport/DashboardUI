@@ -76,9 +76,12 @@ public class FullscreenActivity extends Activity {
     AnimationDrawable rightAnim;
     AnimationDrawable leftAnim;
     AnimationDrawable hazardAnim;
-    int rightduration = 150;
-    int leftduration = 150;
+    //AnimationDrawable hazardAnimOn;
+
+    int rightduration = 200;
+    int leftduration = 200;
     int hazarduration = 200;
+    int longduration = 350;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +90,12 @@ public class FullscreenActivity extends Activity {
         setContentView(R.layout.activity_fullscreen);
 
         // add sound to the button press
-        final MediaPlayer pressButSound = MediaPlayer.create(FullscreenActivity.this, R.raw.horn);
+        final MediaPlayer pressButSound = MediaPlayer.create(FullscreenActivity.this, R.raw.robotblip);
+        final MediaPlayer robot = MediaPlayer.create(FullscreenActivity.this, R.raw.horn);
+        final MediaPlayer robot2 = MediaPlayer.create(FullscreenActivity.this, R.raw.robotblip2);
+        final MediaPlayer pleasebut = MediaPlayer.create(FullscreenActivity.this, R.raw.pleaseturnoff);
+        final MediaPlayer pindrop = MediaPlayer.create(FullscreenActivity.this, R.raw.pindrop);
+
         GPSbutton = (ImageView) findViewById(R.id.phoneconnbutn2);
         GPStextview = (TextView) findViewById(R.id.fullscreen_content);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -137,9 +145,216 @@ public class FullscreenActivity extends Activity {
         final ImageView hazardbut = (ImageView) this.findViewById(R.id.warning);
 
         hazardAnim = new AnimationDrawable();
+        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), 200);
+        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningonnew), 200);
+
+        rightAnim = new AnimationDrawable();
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal1new), rightduration);
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal2new), rightduration);
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal3new), rightduration);
+
+        leftAnim = new AnimationDrawable();
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal1new), leftduration);
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal2new), leftduration);
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal3new), leftduration);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            hazardbut.setBackgroundDrawable(hazardAnim);
+        } else {
+            hazardbut.setBackground(hazardAnim);
+        }
+
+
+        hazardbut.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //Log.d("BUTTON", "I clicked it!");
+                if (warningOn) {
+                    //hazarblinkingeff.pause();
+                    hazardAnim.stop();
+                    hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), 0);
+
+                    leftAnim.stop();
+                    //leftblinkingeff.pause();
+                    leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
+
+
+                    rightAnim.stop();
+                    //rightblinkingeff.pause();
+                    rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
+
+                    Toast toast1 = Toast.makeText(FullscreenActivity.this, "Hazards Off", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast1.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast1.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast1.show();
+
+                    warningOn = false;
+
+                } else {
+                    hazardAnim.start();
+                    //hazardAnim.setLooping(true);
+                    Toast toast2 = Toast.makeText(FullscreenActivity.this, "Hazards On, Contacting Emergency Services.", Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast2.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toast2.setGravity(Gravity.CENTER, 0, 0);
+                    toastTV.setTextSize(30);
+                    toast2.show();
+
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                        hazardbut.setBackgroundDrawable(hazardAnim);
+                    } else {
+                        hazardbut.setBackground(hazardAnim);
+                    }
+
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                        rightturn.setBackgroundDrawable(rightAnim);
+                    } else {
+                        rightturn.setBackground(rightAnim);
+                    }
+
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                        leftturn.setBackgroundDrawable(leftAnim);
+                    } else {
+                        leftturn.setBackground(leftAnim);
+                    }
+
+                    if(rightAnim.isRunning()) {
+
+                        leftAnim.stop();
+                    }
+
+                    if(leftAnim.isRunning()) {
+
+                        rightAnim.stop();
+                    }
+
+                    hazardAnim.setOneShot(false);
+                    hazardAnim.start();
+
+                    rightAnim.setOneShot(false);
+                    rightAnim.start();
+
+                    leftAnim.setOneShot(false);
+                    leftAnim.start();
+
+                    warningOn = true;
+                }
+            }
+        });
+
+
+        /*setting for right turn animation*/
+        rightAnim = new AnimationDrawable();
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal1new), rightduration);
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal2new), rightduration);
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal3new), rightduration);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            rightturn.setBackgroundDrawable(rightAnim);
+        } else {
+            rightturn.setBackground(rightAnim);
+        }
+
+        rightturn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        if (rightAnim.isRunning()) {
+                            //rightblinkingeff.pause();
+                            rightAnim.stop();
+                            rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
+                            return true;
+                        } else {
+                            rightAnim.setOneShot(false);
+                            rightAnim.start();
+                            //rightblinkingeff.start();
+                            //rightblinkingeff.setLooping(true);
+                            if(leftAnim.isRunning()) {
+                                leftAnim.stop();
+                                leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
+                                //leftblinkingeff.pause();
+                            }
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+
+        /*setting for rightturn animation*/
+        /*setting for leftturn animation*/
+        leftAnim = new AnimationDrawable();
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal1new), leftduration);
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal2new), leftduration);
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal3new), leftduration);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            leftturn.setBackgroundDrawable(leftAnim);
+        } else {
+            leftturn.setBackground(leftAnim);
+        }
+
+        leftturn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        if (leftAnim.isRunning()) {
+                            //leftblinkingeff.pause();
+                            leftAnim.stop();
+                            leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
+                            return true;
+                        } else {
+                            leftAnim.setOneShot(false);
+                            leftAnim.start();
+                            //leftblinkingeff.start();
+                            //leftblinkingeff.setLooping(true);
+                            if(rightAnim.isRunning()) {
+                                rightAnim.stop();
+                                rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
+                                //rightAnim.pause();
+                            }
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }});
+
+        /**************************************************************************************
+        hazardAnim = new AnimationDrawable();
         hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), hazarduration);
-        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningonbnew), hazarduration);
-        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningonnew), hazarduration);
+        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), hazarduration);
+        //hazardAnim.stop();
+
+       // hazardAnimOn = new AnimationDrawable();
+       // hazardAnimOn.addFrame(getResources().getDrawable(R.drawable.warningonbnew), hazarduration);
+      //  hazardAnimOn.addFrame(getResources().getDrawable(R.drawable.warningonnew), hazarduration);
+      //  hazardAnimOn.start();
+
+        rightAnim = new AnimationDrawable();
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal1new), rightduration);
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal2new), rightduration);
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal3new), rightduration);
+
+        leftAnim = new AnimationDrawable();
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal1new), leftduration);
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal2new), leftduration);
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal3new), leftduration);
+
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             hazardbut.setBackgroundDrawable(hazardAnim);
@@ -153,7 +368,7 @@ public class FullscreenActivity extends Activity {
             public boolean onTouch(View v, MotionEvent event) {
                 // TODO Auto-generated method stub
 
-                pressButSound.start();
+                robot.start();
                 Toast toast2 = Toast.makeText(FullscreenActivity.this, "Hazards On, Contacting Emergency Services.", Toast.LENGTH_SHORT);
                 LinearLayout toastLayout = (LinearLayout) toast2.getView();
                 TextView toastTV = (TextView) toastLayout.getChildAt(0);
@@ -165,11 +380,25 @@ public class FullscreenActivity extends Activity {
                     case MotionEvent.ACTION_DOWN: {
                         if (hazardAnim.isRunning()) {
                             hazardAnim.stop();
-                            hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), hazarduration);
+                            hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), 0);
+
+                            rightAnim.stop();
+                            rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), longduration);
+
+                            leftAnim.stop();
+                            leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), longduration);
+
                             return true;
                         } else {
                             hazardAnim.setOneShot(false);
                             hazardAnim.start();
+
+                            leftAnim.setOneShot(false);
+                            leftAnim.start();
+
+                            rightAnim.setOneShot(false);
+                            rightAnim.start();
+
                             return true;
                         }
                     }
@@ -205,9 +434,9 @@ public class FullscreenActivity extends Activity {
                 }
             }
         });*/
-
+        /*
         rightAnim = new AnimationDrawable();
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), rightduration);
+        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), longduration);
         rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal1new), rightduration);
         rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal2new), rightduration);
         rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal3new), rightduration);
@@ -229,9 +458,14 @@ public class FullscreenActivity extends Activity {
 
                         if (rightAnim.isRunning()) {
                             rightAnim.stop();
-                            rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), rightduration);
+                            rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
                             return true;
                         } else {
+
+                            if(leftAnim.isRunning()){
+                                leftAnim.stop();
+                                leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
+                            }
                             rightAnim.setOneShot(false);
                             rightAnim.start();
                             return true;
@@ -243,7 +477,7 @@ public class FullscreenActivity extends Activity {
         });
 
         leftAnim = new AnimationDrawable();
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), leftduration);
+        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), longduration);
         leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal1new), leftduration);
         leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal2new), leftduration);
         leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal3new), leftduration);
@@ -266,9 +500,13 @@ public class FullscreenActivity extends Activity {
 
                         if (leftAnim.isRunning()) {
                             leftAnim.stop();
-                            leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), leftduration);
+                            leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
                             return true;
                         } else {
+                            if(rightAnim.isRunning()){
+                                rightAnim.stop();
+                                rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
+                            }
                             leftAnim.setOneShot(false);
                             leftAnim.start();
                             return true;
@@ -280,7 +518,7 @@ public class FullscreenActivity extends Activity {
         });
 
         //client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
+        *************************************************************************/
 
 
         final ImageView settingsButton = (ImageView) findViewById(R.id.settingsbutton);
@@ -401,7 +639,7 @@ public class FullscreenActivity extends Activity {
                     defrostButton.setImageResource(R.drawable.defroston3new);
                     defrostswitch = 3;
                 } else {
-                    pressButSound.start();
+                    pleasebut.start();
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost Off", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
@@ -417,6 +655,7 @@ public class FullscreenActivity extends Activity {
         final ImageView batteryButton = (ImageView) findViewById(R.id.batteryLife);
         batteryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                robot2.start();
                 Toast toast = Toast.makeText(FullscreenActivity.this, "Battery Level is at " + batteryLife + "%", Toast.LENGTH_LONG);
                 LinearLayout toastLayout = (LinearLayout) toast.getView();
                 TextView toastTV = (TextView) toastLayout.getChildAt(0);
@@ -433,7 +672,7 @@ public class FullscreenActivity extends Activity {
                 //Log.d("BUTTON", "I clicked it!");
 
                 if (wiperswitch == 0) {
-                    pressButSound.start();
+                    pindrop.start();
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers Low", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
@@ -443,7 +682,7 @@ public class FullscreenActivity extends Activity {
                     wiperButton.setImageResource(R.drawable.wiperson1new);
                     wiperswitch = 1;
                 } else if (wiperswitch == 1) {
-                    pressButSound.start();
+                    pindrop.start();
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers Medium", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
@@ -453,7 +692,7 @@ public class FullscreenActivity extends Activity {
                     wiperButton.setImageResource(R.drawable.wiperson2new);
                     wiperswitch = 2;
                 } else if (wiperswitch == 2) {
-                    pressButSound.start();
+                    pindrop.start();
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers High", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
@@ -463,7 +702,7 @@ public class FullscreenActivity extends Activity {
                     wiperButton.setImageResource(R.drawable.wiperson3new);
                     wiperswitch = 3;
                 } else {
-                    pressButSound.start();
+                    pindrop.start();
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers Off", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast.getView();
                     TextView toastTV = (TextView) toastLayout.getChildAt(0);
