@@ -37,7 +37,7 @@ public class ApplicationTest extends Activity {
 
                 //Change Image on button
                 ImageButton warning = (ImageButton) findViewById(R.id.warning);
-                warning.setImageResource(R.drawable.warningoff);
+                warning.setImageResource(R.drawable.warningoffnew);
             }
         });
     }
