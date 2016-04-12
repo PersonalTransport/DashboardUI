@@ -41,19 +41,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
+import java.util.Hashtable;
 
 //public class FullscreenActivity extends AppCompatActivity {
 public class FullscreenActivity extends Activity {
 
-
-    private int SID_BATTERY; // TODO fill this out with hash
-    private int SID_LIGHTS; // TODO fill this out with hash
-    private int SID_SPEED; // TODO fill this out with hash
-
+    private int SID_BATTERY = LinSignal.signalHash("BATTERY".getBytes(), 0);
+    private int SID_LIGHTS = LinSignal.signalHash("LIGHTS".getBytes(), 0);
+    private int SID_SPEED = LinSignal.signalHash("SPEED".getBytes(), 0);
+    private int SID_TURNSIGNAL = LinSignal.signalHash("TURN_SIGNAL".getBytes(), 0);
+    private int SID_HAZARD = LinSignal.signalHash("HAZARD".getBytes(), 0);
+    private int SID_DEFROST = LinSignal.signalHash("DEFROST".getBytes(), 0);
+    private int SID_WIPERS = LinSignal.signalHash("WIPERS".getBytes(), 0);
 
     // variables for GUI interface
-    int batteryLife = 0;
     boolean warningOn = false;
     boolean headlampOn = false;
     boolean brightsOn = false;
@@ -66,9 +67,21 @@ public class FullscreenActivity extends Activity {
 
     USB_Send_Receive usb_send_receive;
 
-    // TEST _ JOSEPH
+    /********************* Variables for DEFROST (AC) *********************/
+    Hashtable<Integer,Integer> Hazard_hash;
+    /********************* Variables for WIPERS *********************/
+    Hashtable<Integer,Integer> Wiper_hash;
+    /********************* Variables for BATTERY *********************/
+    Hashtable<Integer,Integer> Battery_hash;
+    int batteryLife = 0;
     ImageView batButton;
-    int batButtonSwitch = 0;
+
+    /********************* Variables for SPEEDOMETER *********************/
+    ImageView Speed_handle1;
+    ImageView Speed_handle2;
+    Hashtable<Integer,Integer> Speed_hash_left;
+    Hashtable<Integer,Integer> Speed_hash_right;
+    int currentSpeed = 0;
 
     Handler usbInputHandler;
     LinBus linBus;
@@ -540,6 +553,7 @@ public class FullscreenActivity extends Activity {
             }
         });
 
+        /************************** HEADLAMP **************************************/
         final ImageView headlampButton = (ImageView) findViewById(R.id.headLamp);
         headlampButton.setImageResource(R.drawable.headlampoffnew);
         headlampButton.setOnClickListener(new View.OnClickListener() {
@@ -603,7 +617,12 @@ public class FullscreenActivity extends Activity {
 
         /*************************** working on this ********************************************/
         final ImageView defrostButton = (ImageView) findViewById(R.id.defrost1);
-        //defrostButton.setImageResource(R.drawable.defrostoffc);
+        Hazard_hash = new Hashtable<>();
+        Hazard_hash.put(1, R.drawable.defroston1new);
+        Hazard_hash.put(2, R.drawable.defroston2new);
+        Hazard_hash.put(3, R.drawable.defroston3new);
+        Hazard_hash.put(0, R.drawable.defrostoffnew);
+        defrostButton.setImageResource(R.drawable.defrostoffnew);
         defrostButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Log.d("BUTTON", "I clicked it!");
@@ -666,7 +685,12 @@ public class FullscreenActivity extends Activity {
         });
         /*************************** working ********************************************/
         final ImageView wiperButton = (ImageView) findViewById(R.id.wiper);
-        //wiperButton.setImageResource(R.drawable.wipersoffnew);
+        Wiper_hash = new Hashtable<>();
+        Wiper_hash.put(1,R.drawable.wiperson1new);
+        Wiper_hash.put(2,R.drawable.wiperson2new);
+        Wiper_hash.put(3,R.drawable.wiperson3new);
+        Wiper_hash.put(0,R.drawable.wipersoffnew);
+        wiperButton.setImageResource(R.drawable.wipersoffnew);
         wiperButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Log.d("BUTTON", "I clicked it!");
@@ -715,11 +739,56 @@ public class FullscreenActivity extends Activity {
             }
         });
 
-
-        /*************************** working ********************************************/
+        /*************************** Battery ********************************************/
         batButton = (ImageView) findViewById(R.id.batteryLife);
         //batButton.setImageResource(R.drawable.battery100);        //switched this to a speed bezel for another view setup
+        Battery_hash = new Hashtable<>();
+        for (int i = 0; i < 5; i++) {
+            Battery_hash.put(i, R.drawable.battery00new);
+        }
+        for (int i = 5; i < 30; i++) {
+            Battery_hash.put(i, R.drawable.battery20new);
+        }
+        for (int i = 30; i < 50; i++) {
+            Battery_hash.put(i, R.drawable.battery40new);
+        }
+        for (int i = 50; i < 70; i++) {
+            Battery_hash.put(i, R.drawable.battery60new);
+        }
+        for (int i = 70; i < 95; i++) {
+            Battery_hash.put(i, R.drawable.battery80new);
+        }
+        for (int i = 95; i < 100; i++) {
+            Battery_hash.put(i, R.drawable.battery100new);
+        }
 
+        /*************************** Speedometer ******************************************/
+        Speed_handle1 = (ImageView) findViewById(R.id.leftspeedo);
+        Speed_handle2 = (ImageView) findViewById(R.id.rightspeedo);
+        Speed_handle1.setImageResource(R.drawable.zero);
+        Speed_handle2.setImageResource(R.drawable.zeror);
+        Speed_hash_left = new Hashtable<>();
+        Speed_hash_left.put(0, R.drawable.zero);
+        Speed_hash_left.put(1, R.drawable.onel);
+        Speed_hash_left.put(2, R.drawable.twol);
+        Speed_hash_left.put(3, R.drawable.threel);
+        Speed_hash_left.put(4, R.drawable.fourl);
+        Speed_hash_left.put(5, R.drawable.fivel);
+        Speed_hash_left.put(6, R.drawable.sixl);
+        Speed_hash_left.put(7, R.drawable.sevenl);
+        Speed_hash_left.put(8, R.drawable.eightl);
+        Speed_hash_left.put(9, R.drawable.ninel);
+        Speed_hash_right = new Hashtable<>();
+        Speed_hash_right.put(0, R.drawable.zeror);
+        Speed_hash_right.put(1, R.drawable.oner);
+        Speed_hash_right.put(2, R.drawable.twor);
+        Speed_hash_right.put(3, R.drawable.threer);
+        Speed_hash_right.put(4, R.drawable.fourr);
+        Speed_hash_right.put(5, R.drawable.fiver);
+        Speed_hash_right.put(6, R.drawable.sixr);
+        Speed_hash_right.put(7, R.drawable.sevenr);
+        Speed_hash_right.put(8, R.drawable.eightr);
+        Speed_hash_right.put(9, R.drawable.niner);
 
         // Handles incoming messages
         usbInputHandler = new Handler() {
@@ -727,67 +796,104 @@ public class FullscreenActivity extends Activity {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
 
-                // XXX perform functionality to handle message (and provide response to USB with UIoutputStream.write())
-                // XXX Temporary: spit back input data in message to USB
-
                 Log.d("UIHandler", "handling message: " + msg);
 
-
-                //final ImageButton warningButton = (ImageButton) activity.findViewById(R.id.warning);
-                //warningButton.setImageResource(R.drawable.warningon); // Example that images can be set in these handlers
-
-
+                // interpret current data
                 LinSignal signal = (LinSignal) msg.obj;
+                //batteryLife = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
+                //batteryLife = ((((int) signal.data[0]) << 24) & 0xFF000000) | ((((int) signal.data[1]) << 16) & 0x00FF0000) | ((((int) signal.data[2]) << 8) & 0x0000FF00) | (((int) signal.data[3]) & 0x000000FF);
+                // begin to prepare data to be sent back
+                LinSignal sendSig = new LinSignal(signal.command, signal.sid, signal.length, signal.data);
 
-                Toast.makeText(getApplicationContext(), String.valueOf(LinSignal.signalHash("BATTERY".getBytes(), 0)) + ", " + String.valueOf(signal.sid), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), String.valueOf(LinSignal.signalHash("BATTERY".getBytes(), 0)) + ", " + String.valueOf(signal.sid) + "; " + String.valueOf(LinSignal.COMM_SET_VAR) + ", " + String.valueOf(signal.command) + "; " + String.valueOf(signal.data), Toast.LENGTH_SHORT).show();
 
-                if (LinSignal.signalHash("BATTERY".getBytes(), 0) == signal.sid) {
+                if (SID_BATTERY == signal.sid) {
 
                     if (signal.command == LinSignal.COMM_SET_VAR) {
-                        // TODO: setting battery is not finished
-                        String Data_IN_TEST = signal.data.toString();
-                        //String Data_String_TEST = Arrays.copyOfRange(FullscreenActivity.linSignal.data, 0, 2).toString();
-                        Toast.makeText(getApplicationContext(), "TEST - CHANGED Battery::", Toast.LENGTH_SHORT).show();
+//                        String Data_IN_TEST = signal.data.toString();
 
                         batteryLife = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
 
-                        if (batteryLife < 5) {
-                            batButton.setImageResource(R.drawable.battery00new);
-                        } else if (batteryLife <= 20) {
-                            batButton.setImageResource(R.drawable.battery20new);
-                        } else if (batteryLife <= 40) {
-                            batButton.setImageResource(R.drawable.battery40new);
-                        } else if (batteryLife <= 60) {
-                            batButton.setImageResource(R.drawable.battery60new);
-                        } else if (batteryLife <= 80) {
-                            batButton.setImageResource(R.drawable.battery80new);
-                        } else {
-                            batButton.setImageResource(R.drawable.battery100new);
-                        }
+                        Toast.makeText(getApplicationContext(), "::Battery:: " + batteryLife, Toast.LENGTH_SHORT).show();
 
-                        //LinSignal sendSig = new LinSignal(LinSignal.COMM_SET_VAR, signal.sid, (byte) 4, LinSignal.packIntToBytes(batteryLife));
-                        //linBus.sendSignal(sendSig);
-                        linBus.sendSignal(signal);
-                    } else if (signal.command == LinSignal.COMM_WARN_VAR) {
-                        // TODO
+                        batButton.setImageResource(Battery_hash.get(batteryLife));
+
                     }
-
-                } else if (LinSignal.signalHash("SPEED".getBytes(), 0) == signal.sid) {
-                    if (signal.command == LinSignal.COMM_SET_VAR) {
-                        // TODO
-                    } else if (signal.command == LinSignal.COMM_WARN_VAR) {
-                        // TODO
-                    }
-
-                } else if (LinSignal.signalHash("LIGHTS".getBytes(), 0) == signal.sid) {
-                    if (signal.command == LinSignal.COMM_SET_VAR) {
-                        // TODO
-                    } else if (signal.command == LinSignal.COMM_WARN_VAR) {
-                        // TODO
+                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                        // TODO ?
                     }
 
                 }
+                else if (SID_SPEED == signal.sid) {
+                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                        // set speed (similar to battery)
+                        currentSpeed = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
+                        Toast.makeText(getApplicationContext(), "::Speed:: " + currentSpeed, Toast.LENGTH_SHORT).show();
 
+                        Speed_handle1.setImageResource(Speed_hash_left.get(currentSpeed / 10));
+                        Speed_handle2.setImageResource(Speed_hash_right.get(currentSpeed%10));
+
+                    }
+                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                        // TODO ?
+                    }
+
+                }
+                else if (SID_LIGHTS == signal.sid) {
+                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                        Toast.makeText(getApplicationContext(), "::Lights:: " + ((headlampOn)?1:0), Toast.LENGTH_SHORT).show();
+                        sendSig.data = LinSignal.packIntToBytes((headlampOn)?1:0);
+                    }
+                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                        // TODO ?
+                    }
+
+                }
+                else if (SID_HAZARD == signal.sid) {
+                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                        Toast.makeText(getApplicationContext(), "::Hazard:: " + ((warningOn)?1:0), Toast.LENGTH_SHORT).show();
+                        sendSig.data = LinSignal.packIntToBytes((warningOn)?1:0);
+                    }
+                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                        // TODO ?
+                    }
+                }
+                else if (SID_WIPERS == signal.sid) {
+                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                        Toast.makeText(getApplicationContext(), "::Wipers:: " + wiperswitch, Toast.LENGTH_SHORT).show();
+                        sendSig.data = LinSignal.packIntToBytes(wiperswitch);
+                    }
+                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                        // TODO ?
+                    }
+                }
+                else if (SID_DEFROST == signal.sid) {
+                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                        Toast.makeText(getApplicationContext(), "::Defrost:: " + defrostswitch, Toast.LENGTH_SHORT).show();
+                        sendSig.data = LinSignal.packIntToBytes(defrostswitch);
+                    }
+                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                        // TODO ?
+                    }
+                }
+                else if (SID_TURNSIGNAL == signal.sid) {
+                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                        Toast.makeText(getApplicationContext(), "::Turn_Signal:: No Data", Toast.LENGTH_SHORT).show();
+                        sendSig.data = LinSignal.packIntToBytes((warningOn)?1:0);
+                    }
+                    else if (signal.command == LinSignal.COMM_WARN_VAR) {
+                        // TODO
+                    }
+                }
+                else {
+                    // TODO
+                    // send dummy value (could not understand data sent)
+                    sendSig.command = LinSignal.COMM_WARN_VAR;
+                    Toast.makeText(getApplicationContext(), "::ERROR:: Did not understand inputs", Toast.LENGTH_SHORT).show();
+                }
+
+                // after we update the GUI/get updates from the GUI, send the update
+                linBus.sendSignal(sendSig);
             }
         };
 
