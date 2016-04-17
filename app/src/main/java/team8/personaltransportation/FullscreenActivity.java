@@ -89,6 +89,7 @@ public class FullscreenActivity extends Activity {
     AnimationDrawable rightAnim;
     AnimationDrawable leftAnim;
     AnimationDrawable hazardAnim;
+    AnimationDrawable hazardAnimOFF;
     //AnimationDrawable hazardAnimOn;
 
     int rightduration = 200;
@@ -158,8 +159,11 @@ public class FullscreenActivity extends Activity {
         final ImageView hazardbut = (ImageView) this.findViewById(R.id.warning);
 
         hazardAnim = new AnimationDrawable();
-        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), 200);
+        hazardAnimOFF = new AnimationDrawable();
+        hazardAnimOFF.addFrame(getResources().getDrawable(R.drawable.warningoffnew), 100);
+//        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), 200);
         hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningonnew), 200);
+        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningonbnew), 200);
 
         rightAnim = new AnimationDrawable();
         rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
@@ -179,23 +183,25 @@ public class FullscreenActivity extends Activity {
             hazardbut.setBackground(hazardAnim);
         }
 
+        hazardbut.setBackgroundResource(R.drawable.warningoffnew);
+
 
         hazardbut.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Log.d("BUTTON", "I clicked it!");
                 if (warningOn) {
-                    //hazarblinkingeff.pause();
                     hazardAnim.stop();
-                    hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), 0);
+                    hazardbut.setBackgroundResource(R.drawable.warningoffnew);
 
+                    //leftAnim.setVisible(true, true);
                     leftAnim.stop();
-                    //leftblinkingeff.pause();
-                    leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
+                    leftturn.setBackgroundResource(R.drawable.leftturnsignaloffnew);
+                    //leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
 
-
+                    //rightAnim.setVisible(true, true);
                     rightAnim.stop();
-                    //rightblinkingeff.pause();
-                    rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
+                    rightturn.setBackgroundResource(R.drawable.rightturnsignaloffnew);
+                    //rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
 
                     Toast toast1 = Toast.makeText(FullscreenActivity.this, "Hazards Off", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast1.getView();
@@ -207,7 +213,7 @@ public class FullscreenActivity extends Activity {
                     warningOn = false;
 
                 } else {
-                    hazardAnim.start();
+                    //hazardAnim.start();
                     //hazardAnim.setLooping(true);
                     Toast toast2 = Toast.makeText(FullscreenActivity.this, "Hazards On, Contacting Emergency Services.", Toast.LENGTH_LONG);
                     LinearLayout toastLayout = (LinearLayout) toast2.getView();
@@ -236,12 +242,17 @@ public class FullscreenActivity extends Activity {
 
                     if(rightAnim.isRunning()) {
 
-                        leftAnim.stop();
+                        rightAnim.stop();
                     }
 
                     if(leftAnim.isRunning()) {
 
-                        rightAnim.stop();
+                        leftAnim.stop();
+                    }
+
+                    if(hazardAnim.isRunning()) {
+
+                        hazardAnim.stop();
                     }
 
                     hazardAnim.setOneShot(false);
@@ -278,22 +289,26 @@ public class FullscreenActivity extends Activity {
                 // TODO Auto-generated method stub
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
-                        if (rightAnim.isRunning()) {
-                            //rightblinkingeff.pause();
-                            rightAnim.stop();
-                            rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
-                            return true;
-                        } else {
-                            rightAnim.setOneShot(false);
-                            rightAnim.start();
-                            //rightblinkingeff.start();
-                            //rightblinkingeff.setLooping(true);
-                            if(leftAnim.isRunning()) {
-                                leftAnim.stop();
-                                leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
-                                //leftblinkingeff.pause();
+                        if (!hazardAnim.isRunning()) {
+                            if (rightAnim.isRunning()) {
+                                rightAnim.stop();
+                                rightturn.setBackgroundResource(R.drawable.rightturnsignaloffnew);
+                                return true;
+                            } else {
+                                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                                    rightturn.setBackgroundDrawable(rightAnim);
+                                } else {
+                                    rightturn.setBackground(rightAnim);
+                                }
+                                rightAnim.setOneShot(false);
+                                rightAnim.start();
+
+                                if (leftAnim.isRunning()) {
+                                    leftAnim.stop();
+                                    leftturn.setBackgroundResource(R.drawable.leftturnsignaloffnew);
+                                }
+                                return true;
                             }
-                            return true;
                         }
                     }
                 }
@@ -323,22 +338,27 @@ public class FullscreenActivity extends Activity {
 
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
-                        if (leftAnim.isRunning()) {
-                            //leftblinkingeff.pause();
-                            leftAnim.stop();
-                            leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
-                            return true;
-                        } else {
-                            leftAnim.setOneShot(false);
-                            leftAnim.start();
-                            //leftblinkingeff.start();
-                            //leftblinkingeff.setLooping(true);
-                            if(rightAnim.isRunning()) {
-                                rightAnim.stop();
-                                rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
-                                //rightAnim.pause();
+                        if (!hazardAnim.isRunning()) {
+                            if (leftAnim.isRunning()) {
+                                leftAnim.stop();
+                                leftturn.setBackgroundResource(R.drawable.leftturnsignaloffnew);
+                                return true;
+                            } else {
+                                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                                    leftturn.setBackgroundDrawable(leftAnim);
+                                } else {
+                                    leftturn.setBackground(leftAnim);
+                                }
+                                leftAnim.setOneShot(false);
+                                leftAnim.start();
+
+                                if (rightAnim.isRunning()) {
+                                    rightAnim.stop();
+                                    rightturn.setBackgroundResource(R.drawable.rightturnsignaloffnew);
+                                    //rightAnim.pause();
+                                }
+                                return true;
                             }
-                            return true;
                         }
                     }
                 }
@@ -636,7 +656,7 @@ public class FullscreenActivity extends Activity {
                     toastTV.setTextSize(30);
                     toast.show();
                     defrostButton.setImageResource(R.drawable.defroston1new);
-    defrostswitch = 1;
+                    defrostswitch = 1;
                 } else if (defrostswitch == 1) {
                     pressButSound.start();
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost Medium", Toast.LENGTH_LONG);
