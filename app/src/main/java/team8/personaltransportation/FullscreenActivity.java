@@ -1,3 +1,39 @@
+/*********************************************************************************************
+ Brainstorming for format:
+
+ * Fixing getResources:
+ http://stackoverflow.com/questions/32765906/android-getdrawable-deprecated-how-to-use-android-getdrawable
+ http://stackoverflow.com/questions/29041027/android-getresources-getdrawable-deprecated-api-22/34750353
+ http://developer.android.com/reference/android/support/v4/content/ContextCompat.html
+
+ //        rightAnim.addFrame(ContextCompat.getDrawable(getActivity(), R.drawable.rightturnsignaloffnew), 0);
+ //        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
+
+
+ Module similarities between wipers, battery, speed, turn signals, hazard, ...
+ * Each has a button image/button clickable
+ * each changes their image when clicked
+ ** Buttons may have either animation or image background
+ if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+ leftturn.setBackgroundDrawable(leftAnim);
+ } else {
+ leftturn.setBackground(leftAnim);
+ }
+
+ * there may be dependencies between buttons - if they can be clicked/behaviour
+ ** Turn signals have dependance on whether hazard is on
+
+ * Different image when clicked, and different image when not clicked
+ * Functionality is tied to USB output
+ * setOnClickListener - initialization
+ * If on, turn off. If off, turn on.
+ * usbInputHander - functionality
+ *
+ *
+
+ *********************************************************************************************/
+/*********************************************************************************************/
+
 package team8.personaltransportation;
 
 // Sources:
@@ -18,6 +54,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -33,6 +70,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -41,6 +79,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 //public class FullscreenActivity extends AppCompatActivity {
@@ -67,6 +106,10 @@ public class FullscreenActivity extends Activity {
 
     USB_Send_Receive usb_send_receive;
 
+    /************************ Storage for Button classes *******************/
+    ArrayList<Abstract_Button> myButtons;
+    //WiperButton myWiperButton;
+    ArrayList<AnimationDrawable> onDrawArr_Wipers;
     /********************* Variables for DEFROST (AC) *********************/
     Hashtable<Integer,Integer> Hazard_hash;
     /********************* Variables for WIPERS *********************/
@@ -140,7 +183,7 @@ public class FullscreenActivity extends Activity {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 requestPermissions(new String[]{
-                       Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.INTERNET
+                        Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.INTERNET
                 }, 10);
                 return;
             }
@@ -153,6 +196,8 @@ public class FullscreenActivity extends Activity {
         mContentView = findViewById(R.id.fullscreen_content);
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         //final ImageView warningButton = (ImageView) findViewById(R.id.warning);
+        /*** setup button array ***/
+        myButtons = new ArrayList<>();
         /*** Ming's ***/
         final ImageView rightturn = (ImageView) this.findViewById(R.id.rightTurn);
         final ImageView leftturn = (ImageView) this.findViewById(R.id.leftTurn);
@@ -177,16 +222,16 @@ public class FullscreenActivity extends Activity {
         leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal2new), leftduration);
         leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal3new), leftduration);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+        /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             hazardbut.setBackgroundDrawable(hazardAnim);
         } else {
             hazardbut.setBackground(hazardAnim);
-        }
+        }*/
 
-        hazardbut.setBackgroundResource(R.drawable.warningoffnew);
+        //hazardbut.setBackgroundResource(R.drawable.warningoffnew);
 
 
-        hazardbut.setOnClickListener(new View.OnClickListener() {
+        /*hazardbut.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Log.d("BUTTON", "I clicked it!");
                 if (warningOn) {
@@ -267,7 +312,7 @@ public class FullscreenActivity extends Activity {
                     warningOn = true;
                 }
             }
-        });
+        });*/
 
 
         /*setting for right turn animation*/
@@ -277,46 +322,55 @@ public class FullscreenActivity extends Activity {
         rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal2new), rightduration);
         rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal3new), rightduration);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+        /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             rightturn.setBackgroundDrawable(rightAnim);
         } else {
             rightturn.setBackground(rightAnim);
-        }
+        }*/
+        ArrayList<AnimationDrawable> onDrawArr_RightTurn = new ArrayList<>();
+        AnimationDrawable rightAnim_off = new AnimationDrawable();
+        rightAnim_off.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
+        onDrawArr_RightTurn.add(0, rightAnim_off);
+        onDrawArr_RightTurn.add(1, rightAnim);
 
-        rightturn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
+        TurnSignalButton myTurnSignalButtonR = new TurnSignalButton(this, SID_TURNSIGNAL, rightturn, onDrawArr_RightTurn, true);
+
+
+/*        rightturn.setOnClickListener(new View.OnClickListener() {
+            // @Override
+            public void onClick(View v) {
                 // TODO Auto-generated method stub
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        if (!hazardAnim.isRunning()) {
-                            if (rightAnim.isRunning()) {
-                                rightAnim.stop();
-                                rightturn.setBackgroundResource(R.drawable.rightturnsignaloffnew);
-                                return true;
-                            } else {
-                                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                                    rightturn.setBackgroundDrawable(rightAnim);
-                                } else {
-                                    rightturn.setBackground(rightAnim);
-                                }
-                                rightAnim.setOneShot(false);
-                                rightAnim.start();
-
-                                if (leftAnim.isRunning()) {
-                                    leftAnim.stop();
-                                    leftturn.setBackgroundResource(R.drawable.leftturnsignaloffnew);
-                                }
-                                return true;
-                            }
+                //switch (event.getAction()) {
+                //    case MotionEvent.ACTION_DOWN: {
+                if (!hazardAnim.isRunning()) {
+                    if (rightAnim.isRunning()) {
+                        rightAnim.stop();
+                        rightturn.setBackgroundResource(R.drawable.rightturnsignaloffnew);
+                        //                    return true;
+                    } else {
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                            rightturn.setBackgroundDrawable(rightAnim);
+                        } else {
+                            rightturn.setBackground(rightAnim);
                         }
+                        rightAnim.setOneShot(false);
+                        rightAnim.start();
+
+                        if (leftAnim.isRunning()) {
+                            leftAnim.stop();
+                            leftturn.setBackgroundResource(R.drawable.leftturnsignaloffnew);
+                        }
+                        //                    return true;
                     }
                 }
-                return false;
+                //              }
+                //         }
+                //     return false;
             }
-        });
+        });*/
 
-        /*setting for rightturn animation*/
+
+
         /*setting for leftturn animation*/
         leftAnim = new AnimationDrawable();
         leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
@@ -324,13 +378,34 @@ public class FullscreenActivity extends Activity {
         leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal2new), leftduration);
         leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal3new), leftduration);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+/*        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             leftturn.setBackgroundDrawable(leftAnim);
         } else {
             leftturn.setBackground(leftAnim);
         }
+*/
+        ArrayList<AnimationDrawable> onDrawArr_LeftTurn = new ArrayList<>();
+        AnimationDrawable leftAnim_off = new AnimationDrawable();
+        leftAnim_off.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
+        onDrawArr_LeftTurn.add(0, leftAnim_off);
+        onDrawArr_LeftTurn.add(1, leftAnim);
 
-        leftturn.setOnTouchListener(new View.OnTouchListener() {
+        TurnSignalButton myTurnSignalButtonL = new TurnSignalButton(this, SID_TURNSIGNAL, leftturn, onDrawArr_LeftTurn, false);
+        myTurnSignalButtonL.otherTurnSignal = myTurnSignalButtonR;
+        myTurnSignalButtonR.otherTurnSignal = myTurnSignalButtonL;
+        myButtons.add(myTurnSignalButtonR);
+        myButtons.add(myTurnSignalButtonL);
+
+        /***** Hazard Button *********************************************/
+        ArrayList<AnimationDrawable> onDrawArr_Hazard = new ArrayList<>();
+        onDrawArr_Hazard.add(0, hazardAnimOFF);
+        onDrawArr_Hazard.add(1, hazardAnim);
+        HazardButton myHazardButton = new HazardButton(this, SID_HAZARD, hazardbut, onDrawArr_Hazard, myTurnSignalButtonL, myTurnSignalButtonR);
+        myButtons.add(myHazardButton);
+        //myTurnSignalButtonL.addParent(myHazardButton);
+        //myTurnSignalButtonR.addParent(myHazardButton);
+
+/*        leftturn.setOnTouchListener(new View.OnTouchListener() {
             @Override
 
             public boolean onTouch(View v, MotionEvent event) {
@@ -363,196 +438,7 @@ public class FullscreenActivity extends Activity {
                     }
                 }
                 return false;
-            }});
-
-        /**************************************************************************************
-        hazardAnim = new AnimationDrawable();
-        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), hazarduration);
-        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), hazarduration);
-        //hazardAnim.stop();
-
-       // hazardAnimOn = new AnimationDrawable();
-       // hazardAnimOn.addFrame(getResources().getDrawable(R.drawable.warningonbnew), hazarduration);
-      //  hazardAnimOn.addFrame(getResources().getDrawable(R.drawable.warningonnew), hazarduration);
-      //  hazardAnimOn.start();
-
-        rightAnim = new AnimationDrawable();
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal1new), rightduration);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal2new), rightduration);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal3new), rightduration);
-
-        leftAnim = new AnimationDrawable();
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal1new), leftduration);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal2new), leftduration);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal3new), leftduration);
-
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            hazardbut.setBackgroundDrawable(hazardAnim);
-        } else {
-            hazardbut.setBackground(hazardAnim);
-        }
-
-        hazardbut.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                // TODO Auto-generated method stub
-
-                robot.start();
-                Toast toast2 = Toast.makeText(FullscreenActivity.this, "Hazards On, Contacting Emergency Services.", Toast.LENGTH_SHORT);
-                LinearLayout toastLayout = (LinearLayout) toast2.getView();
-                TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                toast2.setGravity(Gravity.CENTER, 240, -500);
-                toastTV.setTextSize(30);
-                toast2.show();
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        if (hazardAnim.isRunning()) {
-                            hazardAnim.stop();
-                            hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningoffnew), 0);
-
-                            rightAnim.stop();
-                            rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), longduration);
-
-                            leftAnim.stop();
-                            leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), longduration);
-
-                            return true;
-                        } else {
-                            hazardAnim.setOneShot(false);
-                            hazardAnim.start();
-
-                            leftAnim.setOneShot(false);
-                            leftAnim.start();
-
-                            rightAnim.setOneShot(false);
-                            rightAnim.start();
-
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
-        });
-        //warningButton.setImageResource(R.drawable.warningoffnew);
-       /* warningButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //Log.d("BUTTON", "I clicked it!");
-
-                if (warningOn) {
-                    pressButSound.start();
-                    Toast toast1 = Toast.makeText(FullscreenActivity.this, "Hazards Off", Toast.LENGTH_LONG);
-                    LinearLayout toastLayout = (LinearLayout) toast1.getView();
-                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast1.setGravity(Gravity.CENTER, 240, -500);
-                    toastTV.setTextSize(30);
-                    toast1.show();
-                    warningButton.setImageResource(R.drawable.warningoffnew);
-                    warningOn = false;
-                } else {
-                    pressButSound.start();
-                    Toast toast2 = Toast.makeText(FullscreenActivity.this, "Hazards On, Contacting Emergency Services.", Toast.LENGTH_LONG);
-                    LinearLayout toastLayout = (LinearLayout) toast2.getView();
-                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast2.setGravity(Gravity.CENTER, 240, -500);
-                    toastTV.setTextSize(30);
-                    toast2.show();
-                    warningButton.setImageResource(R.drawable.warningonnew);
-                    warningOn = true;
-                }
-            }
-        });*/
-        /*
-        rightAnim = new AnimationDrawable();
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), longduration);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal1new), rightduration);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal2new), rightduration);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal3new), rightduration);
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            rightturn.setBackgroundDrawable(rightAnim);
-        } else {
-            rightturn.setBackground(rightAnim);
-        }
-
-        rightturn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                // TODO Auto-generated method stub
-
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-
-                        if (rightAnim.isRunning()) {
-                            rightAnim.stop();
-                            rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
-                            return true;
-                        } else {
-
-                            if(leftAnim.isRunning()){
-                                leftAnim.stop();
-                                leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
-                            }
-                            rightAnim.setOneShot(false);
-                            rightAnim.start();
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
-        });
-
-        leftAnim = new AnimationDrawable();
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), longduration);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal1new), leftduration);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal2new), leftduration);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal3new), leftduration);
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            leftturn.setBackgroundDrawable(leftAnim);
-        } else {
-            leftturn.setBackground(leftAnim);
-        }
-
-        leftturn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-
-            public boolean onTouch(View v, MotionEvent event) {
-                // TODO Auto-generated method stub
-
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-
-                        if (leftAnim.isRunning()) {
-                            leftAnim.stop();
-                            leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
-                            return true;
-                        } else {
-                            if(rightAnim.isRunning()){
-                                rightAnim.stop();
-                                rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
-                            }
-                            leftAnim.setOneShot(false);
-                            leftAnim.start();
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
-        });
-
-        //client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-        *************************************************************************/
-
+            }});*/
 
         final ImageView settingsButton = (ImageView) findViewById(R.id.settingsbutton);
         settingsButton.setImageResource(R.drawable.cirbuttonmsc);
@@ -567,9 +453,6 @@ public class FullscreenActivity extends Activity {
                 toast3.show();
                 Intent i = new Intent(FullscreenActivity.this, activitysettings.class);
                 startActivity(i);
-                //Intent intent = new Intent();
-                //intent.setAction(Intent.ACTION_VIEW);
-                //startActivity(new Intent(FullscreenActivity.this, activitysettings.class));
             }
         });
 
@@ -578,8 +461,6 @@ public class FullscreenActivity extends Activity {
         headlampButton.setImageResource(R.drawable.headlampoffnew);
         headlampButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Log.d("BUTTON", "I clicked it!");
-
                 if (headlampOn) {
                     pressButSound.start();
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Headlamps Off", Toast.LENGTH_LONG);
@@ -605,11 +486,8 @@ public class FullscreenActivity extends Activity {
         });
 
         final ImageView brightsButton = (ImageView) findViewById(R.id.brights);
-        //headlampButton.setImageResource(R.drawable.brightsoffnew);
         brightsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Log.d("BUTTON", "I clicked it!");
-
                 if (brightsOn) {
                     pressButSound.start();
                     Toast toast =  Toast.makeText(FullscreenActivity.this, "Brights Off", Toast.LENGTH_LONG);
@@ -645,8 +523,6 @@ public class FullscreenActivity extends Activity {
         defrostButton.setImageResource(R.drawable.defrostoffnew);
         defrostButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Log.d("BUTTON", "I clicked it!");
-
                 if (defrostswitch == 0) {
                     pressButSound.start();
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Defrost Low", Toast.LENGTH_LONG);
@@ -691,30 +567,37 @@ public class FullscreenActivity extends Activity {
             }
         });
 
-        final ImageView batteryButton = (ImageView) findViewById(R.id.batteryLife);
-        batteryButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                robot2.start();
-                Toast toast = Toast.makeText(FullscreenActivity.this, "Battery Level is at " + batteryLife + "%", Toast.LENGTH_LONG);
-                LinearLayout toastLayout = (LinearLayout) toast.getView();
-                TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                toast.setGravity(Gravity.CENTER, 200, -500);
-                toastTV.setTextSize(30);
-                toast.show();
-            }
-        });
-        /*************************** working ********************************************/
-        final ImageView wiperButton = (ImageView) findViewById(R.id.wiper);
-        Wiper_hash = new Hashtable<>();
-        Wiper_hash.put(1,R.drawable.wiperson1new);
-        Wiper_hash.put(2,R.drawable.wiperson2new);
-        Wiper_hash.put(3,R.drawable.wiperson3new);
-        Wiper_hash.put(0,R.drawable.wipersoffnew);
-        wiperButton.setImageResource(R.drawable.wipersoffnew);
-        wiperButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //Log.d("BUTTON", "I clicked it!");
 
+        /*************************** WiperButton: working ********************************************/
+        final ImageView wiperButton = (ImageView) findViewById(R.id.wiper);
+        // TODO: Test to see if I can get one of the new classes to work properly
+        wiperButton.setImageResource(0);    // make sure there are no images on the screen that will cover our images
+        // create an array of wiper states which can be displayed
+        onDrawArr_Wipers = new ArrayList<>();
+        AnimationDrawable offState_Wiper0 = new AnimationDrawable();
+        offState_Wiper0.addFrame(getResources().getDrawable(R.drawable.wipersoffnew), 0);
+
+        AnimationDrawable offState_Wiper1 = new AnimationDrawable();
+        offState_Wiper1.addFrame(getResources().getDrawable(R.drawable.wiperson1new), 0);
+
+        AnimationDrawable offState_Wiper2 = new AnimationDrawable();
+        offState_Wiper2.addFrame(getResources().getDrawable(R.drawable.wiperson2new), 0);
+
+        AnimationDrawable offState_Wiper3 = new AnimationDrawable();
+        offState_Wiper3.addFrame(getResources().getDrawable(R.drawable.wiperson3new), 0);
+        //leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
+
+        onDrawArr_Wipers.add(0, offState_Wiper0);
+        onDrawArr_Wipers.add(1, offState_Wiper1);
+        onDrawArr_Wipers.add(2, offState_Wiper2);
+        onDrawArr_Wipers.add(3, offState_Wiper3);
+
+        WiperButton myWiperButton = new WiperButton(this, SID_WIPERS, wiperButton, onDrawArr_Wipers, pindrop);
+        myButtons.add(myWiperButton);
+
+        //wiperButton.setImageResource(R.drawable.wipersoffnew);
+/*        wiperButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 if (wiperswitch == 0) {
                     pindrop.start();
                     Toast toast = Toast.makeText(FullscreenActivity.this, "Wipers Low", Toast.LENGTH_LONG);
@@ -723,7 +606,12 @@ public class FullscreenActivity extends Activity {
                     toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
-                    wiperButton.setImageResource(R.drawable.wiperson1new);
+                    //wiperButton.setImageResource(R.drawable.wiperson1new);
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                        wiperButton.setBackgroundDrawable(onDrawArr_Wipers.get(1));
+                    } else {
+                        wiperButton.setBackground(onDrawArr_Wipers.get(1));
+                    }
                     wiperswitch = 1;
                 } else if (wiperswitch == 1) {
                     pindrop.start();
@@ -733,7 +621,12 @@ public class FullscreenActivity extends Activity {
                     toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
-                    wiperButton.setImageResource(R.drawable.wiperson2new);
+                    //wiperButton.setImageResource(R.drawable.wiperson2new);
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                        wiperButton.setBackgroundDrawable(onDrawArr_Wipers.get(2));
+                    } else {
+                        wiperButton.setBackground(onDrawArr_Wipers.get(2));
+                    }
                     wiperswitch = 2;
                 } else if (wiperswitch == 2) {
                     pindrop.start();
@@ -743,7 +636,12 @@ public class FullscreenActivity extends Activity {
                     toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
-                    wiperButton.setImageResource(R.drawable.wiperson3new);
+                    //wiperButton.setImageResource(R.drawable.wiperson3new);
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                        wiperButton.setBackgroundDrawable(onDrawArr_Wipers.get(3));
+                    } else {
+                        wiperButton.setBackground(onDrawArr_Wipers.get(3));
+                    }
                     wiperswitch = 3;
                 } else {
                     pindrop.start();
@@ -753,39 +651,71 @@ public class FullscreenActivity extends Activity {
                     toast.setGravity(Gravity.CENTER, 240, -500);
                     toastTV.setTextSize(30);
                     toast.show();
-                    wiperButton.setImageResource(R.drawable.wipersoffnew);
+                    //wiperButton.setImageResource(R.drawable.wipersoffnew);
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                        wiperButton.setBackgroundDrawable(onDrawArr_Wipers.get(0));
+                    } else {
+                        wiperButton.setBackground(onDrawArr_Wipers.get(0));
+                    }
                     wiperswitch = 0;
                 }
             }
-        });
+        });*/
 
-        /*************************** Battery ********************************************/
+        /*************************** Battery set-up ********************************************/
         batButton = (ImageView) findViewById(R.id.batteryLife);
+        batButton.setImageResource(0);
+
         //batButton.setImageResource(R.drawable.battery100);        //switched this to a speed bezel for another view setup
+        Hashtable<Integer,Drawable> Battery_hash;
         Battery_hash = new Hashtable<>();
+
         for (int i = 0; i < 5; i++) {
-            Battery_hash.put(i, R.drawable.battery00new);
+            Battery_hash.put(i, getResources().getDrawable(R.drawable.battery00new));
         }
         for (int i = 5; i < 30; i++) {
-            Battery_hash.put(i, R.drawable.battery20new);
+            Battery_hash.put(i, getResources().getDrawable(R.drawable.battery20new));
         }
         for (int i = 30; i < 50; i++) {
-            Battery_hash.put(i, R.drawable.battery40new);
+            Battery_hash.put(i, getResources().getDrawable(R.drawable.battery40new));
         }
         for (int i = 50; i < 70; i++) {
-            Battery_hash.put(i, R.drawable.battery60new);
+            Battery_hash.put(i, getResources().getDrawable(R.drawable.battery60new));
         }
         for (int i = 70; i < 95; i++) {
-            Battery_hash.put(i, R.drawable.battery80new);
+            Battery_hash.put(i, getResources().getDrawable(R.drawable.battery80new));
         }
         for (int i = 95; i < 100; i++) {
-            Battery_hash.put(i, R.drawable.battery100new);
+            Battery_hash.put(i, getResources().getDrawable(R.drawable.battery100new));
         }
+
+        // add an initial state for start-image reasons
+        ArrayList<AnimationDrawable> onDrawArr_Battery = new ArrayList<>();
+        AnimationDrawable offState_battery = new AnimationDrawable();
+        offState_battery.addFrame(getResources().getDrawable(R.drawable.battery100new), 0);
+        onDrawArr_Battery.add(0, offState_battery);
+
+
+        BatteryButton myBatteryButton = new BatteryButton(this, SID_BATTERY, batButton, onDrawArr_Battery, Battery_hash, robot2);
+        myButtons.add(myBatteryButton);
+
+//        final ImageView batteryButton = (ImageView) findViewById(R.id.batteryLife);
+/*        batteryButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                robot2.start();
+                Toast toast = Toast.makeText(FullscreenActivity.this, "Battery Level is at " + batteryLife + "%", Toast.LENGTH_LONG);
+                LinearLayout toastLayout = (LinearLayout) toast.getView();
+                TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                toast.setGravity(Gravity.CENTER, 200, -500);
+                toastTV.setTextSize(30);
+                toast.show();
+            }
+        });*/
 
         /*************************** Speedometer ******************************************/
         Speed_handle1 = (ImageView) findViewById(R.id.leftspeedo);
         Speed_handle2 = (ImageView) findViewById(R.id.rightspeedo);
-        Speed_handle1.setImageResource(R.drawable.zero);
+        /*Speed_handle1.setImageResource(R.drawable.zero);
         Speed_handle2.setImageResource(R.drawable.zeror);
         Speed_hash_left = new Hashtable<>();
         Speed_hash_left.put(0, R.drawable.zero);
@@ -808,7 +738,48 @@ public class FullscreenActivity extends Activity {
         Speed_hash_right.put(6, R.drawable.sixr);
         Speed_hash_right.put(7, R.drawable.sevenr);
         Speed_hash_right.put(8, R.drawable.eightr);
-        Speed_hash_right.put(9, R.drawable.niner);
+        Speed_hash_right.put(9, R.drawable.niner);*/
+
+
+        // add an initial state for start-image reasons (left image)
+        ArrayList<AnimationDrawable> onDrawArr_Speedl = new ArrayList<>();
+        AnimationDrawable offState_speedl = new AnimationDrawable();
+        offState_speedl.addFrame(getResources().getDrawable(R.drawable.zero), 0);
+        onDrawArr_Speedl.add(0, offState_speedl);
+        // add an initial state for start-image reasons (left image)
+        ArrayList<AnimationDrawable> onDrawArr_Speedr = new ArrayList<>();
+        AnimationDrawable offState_speedr = new AnimationDrawable();
+        offState_speedr.addFrame(getResources().getDrawable(R.drawable.zeror), 0);
+        onDrawArr_Speedr.add(0, offState_speedr);
+
+        Hashtable<Integer,Drawable> Speed_hash_left_digit = new Hashtable<>();
+        Speed_hash_left_digit.put(0, getResources().getDrawable(R.drawable.zero));
+        Speed_hash_left_digit.put(1, getResources().getDrawable(R.drawable.onel));
+        Speed_hash_left_digit.put(2, getResources().getDrawable(R.drawable.twol));
+        Speed_hash_left_digit.put(3, getResources().getDrawable(R.drawable.threel));
+        Speed_hash_left_digit.put(4, getResources().getDrawable(R.drawable.fourl));
+        Speed_hash_left_digit.put(5, getResources().getDrawable(R.drawable.fivel));
+        Speed_hash_left_digit.put(6, getResources().getDrawable(R.drawable.sixl));
+        Speed_hash_left_digit.put(7, getResources().getDrawable(R.drawable.sevenl));
+        Speed_hash_left_digit.put(8, getResources().getDrawable(R.drawable.eightl));
+        Speed_hash_left_digit.put(9, getResources().getDrawable(R.drawable.ninel));
+        Hashtable<Integer,Drawable> Speed_hash_right_digit = new Hashtable<>();
+        Speed_hash_right_digit.put(0, getResources().getDrawable(R.drawable.zeror));
+        Speed_hash_right_digit.put(1, getResources().getDrawable(R.drawable.oner));
+        Speed_hash_right_digit.put(2, getResources().getDrawable(R.drawable.twor));
+        Speed_hash_right_digit.put(3, getResources().getDrawable(R.drawable.threer));
+        Speed_hash_right_digit.put(4, getResources().getDrawable(R.drawable.fourr));
+        Speed_hash_right_digit.put(5, getResources().getDrawable(R.drawable.fiver));
+        Speed_hash_right_digit.put(6, getResources().getDrawable(R.drawable.sixr));
+        Speed_hash_right_digit.put(7, getResources().getDrawable(R.drawable.sevenr));
+        Speed_hash_right_digit.put(8, getResources().getDrawable(R.drawable.eightr));
+        Speed_hash_right_digit.put(9, getResources().getDrawable(R.drawable.niner));
+
+        SpeedButton mySpeedButtonl = new SpeedButton(this, SID_SPEED, Speed_handle1, onDrawArr_Speedl, 0, true, Speed_hash_left_digit);
+        SpeedButton mySpeedButtonr = new SpeedButton(this, SID_SPEED, Speed_handle2, onDrawArr_Speedr, 0, false, Speed_hash_right_digit);
+
+        myButtons.add(mySpeedButtonl);
+        myButtons.add(mySpeedButtonr);
 
         // Handles incoming messages
         usbInputHandler = new Handler() {
@@ -820,32 +791,37 @@ public class FullscreenActivity extends Activity {
 
                 // interpret current data
                 LinSignal signal = (LinSignal) msg.obj;
-                //batteryLife = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
-                //batteryLife = ((((int) signal.data[0]) << 24) & 0xFF000000) | ((((int) signal.data[1]) << 16) & 0x00FF0000) | ((((int) signal.data[2]) << 8) & 0x0000FF00) | (((int) signal.data[3]) & 0x000000FF);
                 // begin to prepare data to be sent back
                 LinSignal sendSig = new LinSignal(signal.command, signal.sid, signal.length, signal.data);
 
                 Toast.makeText(getApplicationContext(), String.valueOf(LinSignal.signalHash("BATTERY".getBytes(), 0)) + ", " + String.valueOf(signal.sid) + "; " + String.valueOf(LinSignal.COMM_SET_VAR) + ", " + String.valueOf(signal.command) + "; " + String.valueOf(signal.data), Toast.LENGTH_SHORT).show();
 
+                for (Abstract_Button button : myButtons) {
+                    if (button.getSid() == signal.sid){
+                        button.update(signal);
+                    }
+                }
+
                 if (SID_BATTERY == signal.sid) {
-
-                    if (signal.command == LinSignal.COMM_SET_VAR) {
-//                        String Data_IN_TEST = signal.data.toString();
-
+                    //myButtons.get(1).update(signal);
+                 /*   if (signal.command == LinSignal.COMM_SET_VAR) {
                         batteryLife = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
-
                         Toast.makeText(getApplicationContext(), "::Battery:: " + batteryLife, Toast.LENGTH_SHORT).show();
-
-                        batButton.setImageResource(Battery_hash.get(batteryLife));
-
+                        // batButton.setImageResource(Battery_hash.get(batteryLife));
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                            batButton.setBackgroundDrawable(getResources().getDrawable(Battery_hash.get(batteryLife)));
+                        } else {
+                            batButton.setBackground(getResources().getDrawable(Battery_hash.get(batteryLife)));
+                        }
                     }
                     else if (signal.command == LinSignal.COMM_WARN_VAR) {
-                        // TODO ?
-                    }
-
+                        Toast.makeText(getApplicationContext(), "::Battery Error:: " + new String(signal.data), Toast.LENGTH_SHORT).show();
+                    }*/
                 }
                 else if (SID_SPEED == signal.sid) {
-                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                    //myButtons.get(2).update(signal);
+                    //myButtons.get(3).update(signal);
+/*                    if (signal.command == LinSignal.COMM_SET_VAR) {
                         // set speed (similar to battery)
                         currentSpeed = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
                         Toast.makeText(getApplicationContext(), "::Speed:: " + currentSpeed, Toast.LENGTH_SHORT).show();
@@ -855,9 +831,9 @@ public class FullscreenActivity extends Activity {
 
                     }
                     else if (signal.command == LinSignal.COMM_WARN_VAR) {
-                        // TODO ?
+                        Toast.makeText(getApplicationContext(), "::Speed Error:: " + new String(signal.data), Toast.LENGTH_SHORT).show();
                     }
-
+*/
                 }
                 else if (SID_LIGHTS == signal.sid) {
                     if (signal.command == LinSignal.COMM_SET_VAR) {
@@ -865,27 +841,26 @@ public class FullscreenActivity extends Activity {
                         sendSig.data = LinSignal.packIntToBytes((headlampOn)?1:0);
                     }
                     else if (signal.command == LinSignal.COMM_WARN_VAR) {
-                        // TODO ?
                     }
 
                 }
                 else if (SID_HAZARD == signal.sid) {
-                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                    /*if (signal.command == LinSignal.COMM_SET_VAR) {
                         Toast.makeText(getApplicationContext(), "::Hazard:: " + ((warningOn)?1:0), Toast.LENGTH_SHORT).show();
                         sendSig.data = LinSignal.packIntToBytes((warningOn)?1:0);
                     }
                     else if (signal.command == LinSignal.COMM_WARN_VAR) {
-                        // TODO ?
-                    }
+                    }*/
                 }
                 else if (SID_WIPERS == signal.sid) {
-                    if (signal.command == LinSignal.COMM_SET_VAR) {
+
+                    //myButtons.get(0).update(signal);
+/*                    if (signal.command == LinSignal.COMM_SET_VAR) {
                         Toast.makeText(getApplicationContext(), "::Wipers:: " + wiperswitch, Toast.LENGTH_SHORT).show();
                         sendSig.data = LinSignal.packIntToBytes(wiperswitch);
                     }
                     else if (signal.command == LinSignal.COMM_WARN_VAR) {
-                        // TODO ?
-                    }
+                    }*/
                 }
                 else if (SID_DEFROST == signal.sid) {
                     if (signal.command == LinSignal.COMM_SET_VAR) {
@@ -893,17 +868,16 @@ public class FullscreenActivity extends Activity {
                         sendSig.data = LinSignal.packIntToBytes(defrostswitch);
                     }
                     else if (signal.command == LinSignal.COMM_WARN_VAR) {
-                        // TODO ?
                     }
                 }
                 else if (SID_TURNSIGNAL == signal.sid) {
-                    if (signal.command == LinSignal.COMM_SET_VAR) {
+                    //myButtons.get(4).update(signal);
+     /*               if (signal.command == LinSignal.COMM_SET_VAR) {
                         Toast.makeText(getApplicationContext(), "::Turn_Signal:: No Data", Toast.LENGTH_SHORT).show();
                         sendSig.data = LinSignal.packIntToBytes((warningOn)?1:0);
                     }
                     else if (signal.command == LinSignal.COMM_WARN_VAR) {
-                        // TODO
-                    }
+                    }*/
                 }
                 else {
                     // TODO
