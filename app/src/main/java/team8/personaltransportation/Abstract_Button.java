@@ -79,14 +79,14 @@ abstract public class Abstract_Button extends ContextWrapper
     // when implementing abstract class to perform more functionality before/after turning on/off button.
     public void ModifyStateFromParent(int newState){
         if (newState != OFF_STATE) {
-            turnOff(1);
+            turnOff(buttonState);
             turnOn(newState);
             setNotClickable();
             //turnOff();	// should I do this first (to reset animations and stuff?)
 
         } else {
             setClickable();
-            turnOff(1);
+            turnOff(buttonState);
         }
     }
 
@@ -124,7 +124,7 @@ abstract public class Abstract_Button extends ContextWrapper
         if (nextState == myState() || !clickable)
             return;
         if (nextState == OFF_STATE) {
-            turnOff(0);
+            turnOff(buttonState);
             return;
         }
         for (Abstract_Button but : parentButtons) {
@@ -168,6 +168,6 @@ abstract public class Abstract_Button extends ContextWrapper
     }
 
     abstract void buttonClicked();
-    abstract byte[] update(LinSignal signal); // called outside when this button needs user input
+    abstract LinSignal update(LinSignal signal); // called outside when this button needs user input
 
 }

@@ -38,7 +38,8 @@ public class SpeedButton extends Abstract_Button {
     }
 
     @Override
-    byte[] update(LinSignal signal) {
+    public LinSignal update(LinSignal signal) {
+        LinSignal mySig = new LinSignal(signal.command, signal.sid, signal.length, signal.data);
         if (signal.command == LinSignal.COMM_SET_VAR) {
             digitnum = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
             Toast.makeText(this, "::Speed:: " + digitnum, Toast.LENGTH_SHORT).show();
@@ -51,8 +52,9 @@ public class SpeedButton extends Abstract_Button {
         }
         else if (signal.command == LinSignal.COMM_WARN_VAR) {
             Toast.makeText(this, "::Speed Error:: " + new String(signal.data), Toast.LENGTH_SHORT).show();
+            mySig.data = LinSignal.packIntToBytes(this.myState());
         }
-        return null;
+        return mySig;
     }
 
     // override function to affect the value which is passed to the buttonview

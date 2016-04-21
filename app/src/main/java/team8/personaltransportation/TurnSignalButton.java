@@ -38,7 +38,7 @@ public class TurnSignalButton extends Abstract_Button {
     }
 
     public void turnOff(int state) {
-        super.turnOff(0);
+        super.turnOff(buttonState);
         DrawStates.get(state).stop();
         buttonState = OFF_STATE;
     }
@@ -47,18 +47,20 @@ public class TurnSignalButton extends Abstract_Button {
     public void buttonClicked() {
         if (!clickable) return;
         if (this.myState() != OFF_STATE) {
-            this.turnOff(1);
+            this.turnOff(buttonState);
         } else {
-            this.turnOn(1);
-            otherTurnSignal.turnOff(1);
+            this.turnOn(buttonState + 1);
+            otherTurnSignal.turnOff(otherTurnSignal.buttonState);
         }
     }
 
     @Override
-    public byte[] update(LinSignal signal) {
+    public LinSignal update(LinSignal signal) {
+        LinSignal mySig = new LinSignal(signal.command, signal.sid, signal.length, signal.data);
         if (signal.command == LinSignal.COMM_SET_VAR) {
             Toast.makeText(this, "::" + ((direction == RIGHTTURN) ? "Right" : "Left") + "TurnSignal:: " + this.myState(), Toast.LENGTH_SHORT).show();
-            return LinSignal.packIntToBytes(this.myState());
+            mySig.data = LinSignal.packIntToBytes(this.myState());
+            return mySig;
         }
         else if (signal.command == LinSignal.COMM_WARN_VAR) {
             Toast.makeText(this, "::" + ((direction == RIGHTTURN) ? "Right" : "Left") + "TurnSignal Error:: " + new String(signal.data), Toast.LENGTH_SHORT).show();

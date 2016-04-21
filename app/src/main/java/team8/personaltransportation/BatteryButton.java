@@ -63,7 +63,8 @@ public class BatteryButton extends Abstract_Button {
     }
 
     @Override
-    byte[] update(LinSignal signal) {
+    public LinSignal update(LinSignal signal) {
+        LinSignal mySig = new LinSignal(signal.command, signal.sid, signal.length, signal.data);
         if (signal.command == LinSignal.COMM_SET_VAR) {
             batteryLife = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
             Toast.makeText(this, "::Battery:: " + batteryLife, Toast.LENGTH_SHORT).show();
@@ -75,8 +76,9 @@ public class BatteryButton extends Abstract_Button {
         }
         else if (signal.command == LinSignal.COMM_WARN_VAR) {
             Toast.makeText(this, "::Battery Error:: " + new String(signal.data), Toast.LENGTH_SHORT).show();
+            mySig.data = LinSignal.packIntToBytes(batteryLife);
         }
-        return null;
+        return mySig;
     }
 
 }

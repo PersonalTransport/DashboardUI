@@ -33,7 +33,7 @@ public class HazardButton extends Abstract_Button {
     }
 
     public void turnOff(int state) {
-        super.turnOff(0);
+        super.turnOff(this.myState());
         DrawStates.get(state).stop();
         buttonState = OFF_STATE;
     }
@@ -41,17 +41,17 @@ public class HazardButton extends Abstract_Button {
     @Override
     public void buttonClicked() {
         if (this.myState() != OFF_STATE) {
-            this.turnOff(1);
+            this.turnOff(this.myState());
 
             Toast toast1 = Toast.makeText(this, "Hazards Off", Toast.LENGTH_LONG);
             LinearLayout toastLayout = (LinearLayout) toast1.getView();
             TextView toastTV = (TextView) toastLayout.getChildAt(0);
-            toast1.setGravity(Gravity.CENTER, 0, 0);
+            toast1.setGravity(Gravity.CENTER, 240, -500);
             toastTV.setTextSize(30);
             toast1.show();
 
         } else {
-            this.turnOn(1);
+            this.turnOn(this.myState() + 1);
 
             Toast toast2 = Toast.makeText(this, "Hazards On, Contacting Emergency Services.", Toast.LENGTH_LONG);
             LinearLayout toastLayout = (LinearLayout) toast2.getView();
@@ -63,14 +63,15 @@ public class HazardButton extends Abstract_Button {
     }
 
     @Override
-    public byte[] update(LinSignal signal) {
-
+    public LinSignal update(LinSignal signal) {
+        LinSignal mySig = new LinSignal(signal.command, signal.sid, signal.length, signal.data);
         if (signal.command == LinSignal.COMM_SET_VAR) {
             Toast.makeText(this, "::Hazard:: " + this.myState(), Toast.LENGTH_SHORT).show();
+            mySig.data = LinSignal.packIntToBytes(this.myState());
         }
         else if (signal.command == LinSignal.COMM_WARN_VAR) {
             Toast.makeText(this, "::Hazard Error:: " + new String(signal.data), Toast.LENGTH_SHORT).show();
         }
-        return LinSignal.packIntToBytes(this.myState());
+        return mySig;
     }
 }
