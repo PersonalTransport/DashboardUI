@@ -299,33 +299,6 @@ public class FullscreenActivity extends Activity {
         myButtons.add(myHeadlampsButton);
 
 
-        headlampButton.setImageResource(R.drawable.headlampoffnew);
-        headlampButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (headlampOn) {
-                    pressButSound.start();
-                    Toast toast = Toast.makeText(FullscreenActivity.this, "Headlamps Off", Toast.LENGTH_LONG);
-                    LinearLayout toastLayout = (LinearLayout) toast.getView();
-                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 240, -500);
-                    toastTV.setTextSize(30);
-                    toast.show();
-                    headlampButton.setImageResource(R.drawable.headlampoffnew);
-                    headlampOn = false;
-                } else {
-                    pressButSound.start();
-                    Toast toast = Toast.makeText(FullscreenActivity.this, "Headlamps On", Toast.LENGTH_LONG);
-                    LinearLayout toastLayout = (LinearLayout) toast.getView();
-                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 240, -500);
-                    toastTV.setTextSize(30);
-                    toast.show();
-                    headlampButton.setImageResource(R.drawable.headlamponnew);
-                    headlampOn = true;
-                }
-            }
-        });
-
         /************************** HIBEAMS **************************************/
         // TODO: absorb HIBEAMS into Lights
         final ImageView hiBeamssButton = (ImageView) findViewById(R.id.brights);
@@ -529,7 +502,8 @@ public class FullscreenActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "::ERROR:: Did not understand inputs", Toast.LENGTH_SHORT).show();
                 }
 
-                // after we update the GUI/get updates from the GUI, send the update
+                // after we update the GUI/get updates from the GUI, we DON'T send updates (when we get data, we just update GUI, that's it)
+                // TODO: for now, keep it in for testing purposes
                 linBus.sendSignal(sendSigArr[ix-1]);
             }
         };

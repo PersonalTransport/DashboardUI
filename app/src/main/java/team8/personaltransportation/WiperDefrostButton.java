@@ -33,6 +33,7 @@ public class WiperDefrostButton extends Abstract_Button {
     @Override
     void buttonClicked(){
 
+        //LinSignal mySig = new LinSignal();// provide pre-defined values
         Toast toast = Toast.makeText(getApplicationContext(), DefrostLevels[this.myState()], Toast.LENGTH_SHORT);
         LinearLayout toastLayout = (LinearLayout) toast.getView();
         TextView toastTV = (TextView) toastLayout.getChildAt(0);
@@ -46,6 +47,7 @@ public class WiperDefrostButton extends Abstract_Button {
             buttonsound.start();
             this.turnOn(this.myState() + 1);
         }
+        //toSendData.sendSignal();
     }
 
     // called outside when this button needs user input

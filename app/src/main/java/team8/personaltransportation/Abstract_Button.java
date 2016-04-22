@@ -27,6 +27,7 @@ abstract public class Abstract_Button extends ContextWrapper
     private List<Abstract_Button> childButtons;	  // dependencies for buttons which must be off before this button can be turned on
     private List<Abstract_Button> parentButtons;// dependencies for buttons which will be turned on when this button is turned on
 
+    private LinBus toSendData;      // to make the android tablet send data to the master controller on a button press,
     private int sidNum;
 
 
@@ -82,7 +83,6 @@ abstract public class Abstract_Button extends ContextWrapper
             turnOff(buttonState);
             turnOn(newState);
             setNotClickable();
-            //turnOff();	// should I do this first (to reset animations and stuff?)
 
         } else {
             setClickable();
