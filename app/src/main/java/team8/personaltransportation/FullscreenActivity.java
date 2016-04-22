@@ -451,33 +451,10 @@ public class FullscreenActivity extends Activity {
 
 
         /*************************** SPEEDOMETER ******************************************/
-        Speed_handle1 = (ImageView) findViewById(R.id.leftspeedo);
-        Speed_handle2 = (ImageView) findViewById(R.id.rightspeedo);
-        /*Speed_handle1.setImageResource(R.drawable.zero);
-        Speed_handle2.setImageResource(R.drawable.zeror);
-        Speed_hash_left = new Hashtable<>();
-        Speed_hash_left.put(0, R.drawable.zero);
-        Speed_hash_left.put(1, R.drawable.onel);
-        Speed_hash_left.put(2, R.drawable.twol);
-        Speed_hash_left.put(3, R.drawable.threel);
-        Speed_hash_left.put(4, R.drawable.fourl);
-        Speed_hash_left.put(5, R.drawable.fivel);
-        Speed_hash_left.put(6, R.drawable.sixl);
-        Speed_hash_left.put(7, R.drawable.sevenl);
-        Speed_hash_left.put(8, R.drawable.eightl);
-        Speed_hash_left.put(9, R.drawable.ninel);
-        Speed_hash_right = new Hashtable<>();
-        Speed_hash_right.put(0, R.drawable.zeror);
-        Speed_hash_right.put(1, R.drawable.oner);
-        Speed_hash_right.put(2, R.drawable.twor);
-        Speed_hash_right.put(3, R.drawable.threer);
-        Speed_hash_right.put(4, R.drawable.fourr);
-        Speed_hash_right.put(5, R.drawable.fiver);
-        Speed_hash_right.put(6, R.drawable.sixr);
-        Speed_hash_right.put(7, R.drawable.sevenr);
-        Speed_hash_right.put(8, R.drawable.eightr);
-        Speed_hash_right.put(9, R.drawable.niner);*/
-
+        ImageView Speed_handle1 = (ImageView) findViewById(R.id.leftspeedo);
+        ImageView Speed_handle2 = (ImageView) findViewById(R.id.rightspeedo);
+        Speed_handle1.setImageResource(0);
+        Speed_handle2.setImageResource(0);
 
         // add an initial state for start-image reasons (left image)
         ArrayList<AnimationDrawable> onDrawArr_Speedl = new ArrayList<>();
@@ -543,16 +520,17 @@ public class FullscreenActivity extends Activity {
                     if (button.getSid() == signal.sid){
                         sendSigArr[ix++] = button.update(signal);
                         ActivatedButton = true;
+                        break;
                     }
                 }
 
-                if (ActivatedButton) {
+                if (!ActivatedButton) {
                     sendSig.command = LinSignal.COMM_WARN_VAR;
                     Toast.makeText(getApplicationContext(), "::ERROR:: Did not understand inputs", Toast.LENGTH_SHORT).show();
                 }
 
                 // after we update the GUI/get updates from the GUI, send the update
-                linBus.sendSignal(sendSigArr[0]);
+                linBus.sendSignal(sendSigArr[ix-1]);
             }
         };
 

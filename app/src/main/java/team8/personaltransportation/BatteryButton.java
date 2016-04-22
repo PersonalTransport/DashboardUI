@@ -69,9 +69,9 @@ public class BatteryButton extends Abstract_Button {
             batteryLife = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
             Toast.makeText(this, "::Battery:: " + batteryLife, Toast.LENGTH_SHORT).show();
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                buttonView.setBackgroundDrawable(Battery_hash.get(buttonState));
+                buttonView.setBackgroundDrawable(Battery_hash.get(batteryLife));
             } else {
-                buttonView.setBackground(Battery_hash.get(buttonState));
+                buttonView.setBackground(Battery_hash.get(batteryLife));
             }
         }
         else if (signal.command == LinSignal.COMM_WARN_VAR) {

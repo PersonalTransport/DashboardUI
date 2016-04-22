@@ -33,7 +33,7 @@ public class WiperDefrostButton extends Abstract_Button {
     @Override
     void buttonClicked(){
 
-        Toast toast = Toast.makeText(getApplicationContext(), DefrostLevels[this.myState()], Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(getApplicationContext(), DefrostLevels[this.myState()], Toast.LENGTH_SHORT);
         LinearLayout toastLayout = (LinearLayout) toast.getView();
         TextView toastTV = (TextView) toastLayout.getChildAt(0);
         toast.setGravity(Gravity.CENTER, 240, -500);
