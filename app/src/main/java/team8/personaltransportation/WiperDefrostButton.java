@@ -14,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Created by Joseph O on 4/18/2016.
  */
-public class WiperDefrostButton extends Abstract_Button {
+public class WiperDefrostButton extends AbstractButton {
 
     MediaPlayer buttonsound;
     MediaPlayer buttonsound_off;

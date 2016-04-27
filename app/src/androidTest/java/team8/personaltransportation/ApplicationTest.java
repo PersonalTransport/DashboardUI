@@ -28,7 +28,7 @@ public class ApplicationTest extends Activity {
         configureImageButton();
     }
     private void configureImageButton(){
-        ImageButton warning = (ImageButton) findViewById(R.id.warning);
+        /*ImageButton warning = (ImageButton) findViewById(R.id.warning);
         warning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +39,6 @@ public class ApplicationTest extends Activity {
                 ImageButton warning = (ImageButton) findViewById(R.id.warning);
                 warning.setImageResource(R.drawable.warningoffnew);
             }
-        });
+        });*/
     }
 }

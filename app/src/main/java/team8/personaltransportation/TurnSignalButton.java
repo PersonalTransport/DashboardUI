@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by Joseph O on 4/18/2016.
  */
-public class TurnSignalButton extends Abstract_Button {
+public class TurnSignalButton extends AbstractButton {
 
     public static final boolean LEFTTURN = false;
     public static final boolean RIGHTTURN = true;

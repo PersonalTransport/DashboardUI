@@ -27,7 +27,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Created by Joseph O on 2/1/2016.
  */
-public class USB_Send_Receive {
+public class USBSendReceive {
 
 
     // variables for USB communication

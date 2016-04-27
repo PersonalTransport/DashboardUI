@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by Joseph O on 4/18/2016.
  */
-public class HazardButton extends Abstract_Button {
+public class HazardButton extends AbstractButton {
 
     public HazardButton(Context mycontext, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDrawArr, TurnSignalButton turnL, TurnSignalButton turnR) {
         //ArrayList<Drawable> onDrawArr = new ArrayList<Drawable>();

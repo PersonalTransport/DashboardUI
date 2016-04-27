@@ -99,10 +99,10 @@ public class FullscreenActivity extends Activity {
     private LocationManager locationManager;
     private LocationListener locationListener;
 
-    USB_Send_Receive usb_send_receive;
+    USBSendReceive usb_send_receive;
 
     /************************ Storage for Button classes *******************/
-    ArrayList<Abstract_Button> myButtons;
+    ArrayList<AbstractButton> myButtons;
     //WiperButton myWiperButton;
     ArrayList<AnimationDrawable> onDrawArr_Wipers;
     /********************* Variables for DEFROST (AC) *********************/
@@ -272,7 +272,7 @@ public class FullscreenActivity extends Activity {
                 toast3.setGravity(Gravity.CENTER, 240, -500);
                 toastTV.setTextSize(30);
                 toast3.show();
-                Intent i = new Intent(FullscreenActivity.this, activitysettings.class);
+                Intent i = new Intent(FullscreenActivity.this, ActivitySettings.class);
                 startActivity(i);
             }
         });
@@ -489,7 +489,7 @@ public class FullscreenActivity extends Activity {
 
                 ActivatedButton = false;
                 int ix = 0;
-                for (Abstract_Button button : myButtons) {
+                for (AbstractButton button : myButtons) {
                     if (button.getSid() == signal.sid){
                         sendSigArr[ix++] = button.update(signal);
                         ActivatedButton = true;
@@ -518,7 +518,7 @@ public class FullscreenActivity extends Activity {
             }
         };
 
-        usb_send_receive = new USB_Send_Receive();
+        usb_send_receive = new USBSendReceive();
         usb_send_receive.onCreate(this, usbInputHandler, linBus);
     }
     @Override

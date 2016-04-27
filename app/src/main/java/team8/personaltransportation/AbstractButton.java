@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-abstract public class Abstract_Button extends ContextWrapper
+abstract public class AbstractButton extends ContextWrapper
 {
     //final public static boolean ON_STATE = true;
     final public static int OFF_STATE = 0;
@@ -24,20 +24,20 @@ abstract public class Abstract_Button extends ContextWrapper
     protected ArrayList<AnimationDrawable> DrawStates;		// can have multiple on states (have the first state be the off state)
     //protected AnimationDrawable offDraw;
 
-    private List<Abstract_Button> childButtons;	  // dependencies for buttons which must be off before this button can be turned on
-    private List<Abstract_Button> parentButtons;// dependencies for buttons which will be turned on when this button is turned on
+    private List<AbstractButton> childButtons;	  // dependencies for buttons which must be off before this button can be turned on
+    private List<AbstractButton> parentButtons;// dependencies for buttons which will be turned on when this button is turned on
 
     private LinBus toSendData;      // to make the android tablet send data to the master controller on a button press,
     private int sidNum;
 
 
-    public Abstract_Button(Context base, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> DrawStates, boolean onStart) {
+    public AbstractButton(Context base, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> DrawStates, boolean onStart) {
         super(base);
         this.sidNum = sidNum;  //LinSignal.signalHash(sidStr.getBytes(), 0);
         this.DrawStates = DrawStates;
         this.buttonView = buttonView;
-        childButtons = new LinkedList<Abstract_Button>();
-        parentButtons = new LinkedList<Abstract_Button>();
+        childButtons = new LinkedList<AbstractButton>();
+        parentButtons = new LinkedList<AbstractButton>();
 
         if (onStart) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
@@ -55,7 +55,7 @@ abstract public class Abstract_Button extends ContextWrapper
 
     }
 
-    public Abstract_Button(Context base, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> DrawStates) {
+    public AbstractButton(Context base, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> DrawStates) {
         this(base, sidNum, buttonView, DrawStates, true);
     }
 
@@ -66,13 +66,13 @@ abstract public class Abstract_Button extends ContextWrapper
 
     // Add a dependancy for this button
     // The dependency button is turned off when this button is pressed
-    final public void addChild(Abstract_Button newChild) {
+    final public void addChild(AbstractButton newChild) {
         childButtons.add(newChild);
     }
 
     // Add a dependency for this button.
     // The dependency button must be off for this button to be pressed
-    final public void addParent(Abstract_Button newParent) {
+    final public void addParent(AbstractButton newParent) {
         parentButtons.add(newParent);
     }
 
@@ -127,11 +127,11 @@ abstract public class Abstract_Button extends ContextWrapper
             turnOff(buttonState);
             return;
         }
-        for (Abstract_Button but : parentButtons) {
+        for (AbstractButton but : parentButtons) {
             if (but.myState() != OFF_STATE)
                 return;
         }
-        for (Abstract_Button but : childButtons) {
+        for (AbstractButton but : childButtons) {
             but.ModifyStateFromParent(nextState);
         }
         this.setDispOn(nextState);
@@ -146,11 +146,11 @@ abstract public class Abstract_Button extends ContextWrapper
     public void turnOff(int off_test) {
         if (buttonState == OFF_STATE || !clickable)
             return;
- /*       for (Abstract_Button but : parentButtons) {
+ /*       for (AbstractButton but : parentButtons) {
             if (but.myState() != OFF_STATE)
                 return;
         }*/
-        for (Abstract_Button but : childButtons) {
+        for (AbstractButton but : childButtons) {
             but.ModifyStateFromParent(OFF_STATE);
         }
         setDispOff();

@@ -13,7 +13,7 @@ import java.util.Hashtable;
 /**
  * Created by Joseph O on 4/18/2016.
  */
-public class SpeedButton extends Abstract_Button {
+public class SpeedButton extends AbstractButton {
 
     int digitnum;		// the speedometer digit number
     Hashtable<Integer, Drawable> speedHash;

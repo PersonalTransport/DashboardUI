@@ -8,7 +8,7 @@ import android.widget.ImageView;
 /**
  * Created by justin on 3/12/16.
  */
-public class activitysettings extends Activity {
+public class ActivitySettings extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -17,7 +17,7 @@ import java.util.Hashtable;
 /**
  * Created by Joseph O on 4/17/2016.
  */
-public class BatteryButton extends Abstract_Button {
+public class BatteryButton extends AbstractButton {
 
     //Battery_hash = new Hashtable<>();
     Hashtable<Integer,Drawable> Battery_hash;
