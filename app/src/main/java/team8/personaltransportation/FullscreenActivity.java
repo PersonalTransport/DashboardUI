@@ -89,51 +89,23 @@ public class FullscreenActivity extends Activity {
     private int SID_WIPERS = LinSignal.signalHash("WIPERS".getBytes(), 0);
 
     // variables for GUI interface
-    boolean warningOn = false;
-    boolean headlampOn = false;
     boolean brightsOn = false;
-    int wiperswitch = 0;
-    int defrostswitch = 0;
     private ImageView GPSbutton;
     private TextView GPStextview;
     private LocationManager locationManager;
     private LocationListener locationListener;
 
-    USBSendReceive usb_send_receive;
+    USBSendReceive usbSendReceive;
 
     /************************ Storage for Button classes *******************/
     ArrayList<AbstractButton> myButtons;
-    //WiperButton myWiperButton;
-    ArrayList<AnimationDrawable> onDrawArr_Wipers;
-    /********************* Variables for DEFROST (AC) *********************/
-    Hashtable<Integer,Integer> Defrost_hash;
-    /********************* Variables for WIPERS *********************/
-    Hashtable<Integer,Integer> Wiper_hash;
-    /********************* Variables for BATTERY *********************/
-    Hashtable<Integer,Integer> Battery_hash;
-    int batteryLife = 0;
-    ImageView batButton;
 
-    /********************* Variables for SPEEDOMETER *********************/
-    ImageView Speed_handle1;
-    ImageView Speed_handle2;
-    Hashtable<Integer,Integer> Speed_hash_left;
-    Hashtable<Integer,Integer> Speed_hash_right;
-    int currentSpeed = 0;
 
     Handler usbInputHandler;
     LinBus linBus;
 
-    AnimationDrawable rightAnim;
-    AnimationDrawable leftAnim;
-    AnimationDrawable hazardAnim;
-    AnimationDrawable hazardAnimOFF;
-    //AnimationDrawable hazardAnimOn;
-
     int rightduration = 200;
     int leftduration = 200;
-    int hazarduration = 200;
-    int longduration = 350;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +115,6 @@ public class FullscreenActivity extends Activity {
 
         // add sound to the button press
         final MediaPlayer pressButSound = MediaPlayer.create(FullscreenActivity.this, R.raw.robotblip);
-        final MediaPlayer robot = MediaPlayer.create(FullscreenActivity.this, R.raw.horn);
         final MediaPlayer robot2 = MediaPlayer.create(FullscreenActivity.this, R.raw.robotblip2);
         final MediaPlayer pleasebut = MediaPlayer.create(FullscreenActivity.this, R.raw.pleaseturnoff);
         final MediaPlayer pindrop = MediaPlayer.create(FullscreenActivity.this, R.raw.pindrop);
@@ -518,8 +489,8 @@ public class FullscreenActivity extends Activity {
             }
         };
 
-        usb_send_receive = new USBSendReceive();
-        usb_send_receive.onCreate(this, usbInputHandler, linBus);
+        usbSendReceive = new USBSendReceive();
+        usbSendReceive.onCreate(this, usbInputHandler, linBus);
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
@@ -548,7 +519,7 @@ public class FullscreenActivity extends Activity {
     public void onResume() {
         super.onResume();
 
-        usb_send_receive.onResume(getIntent());
+        usbSendReceive.onResume(getIntent());
     }
 
 
@@ -556,14 +527,14 @@ public class FullscreenActivity extends Activity {
     public void onPause() {
         super.onPause();
 
-        usb_send_receive.onPause();
+        usbSendReceive.onPause();
     }
 
 
     @Override
     public void onDestroy() {
 
-        usb_send_receive.onDestroy(this);
+        usbSendReceive.onDestroy(this);
 
         super.onDestroy();
     }

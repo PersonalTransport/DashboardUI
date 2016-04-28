@@ -27,7 +27,6 @@ abstract public class AbstractButton extends ContextWrapper
     private List<AbstractButton> childButtons;	  // dependencies for buttons which must be off before this button can be turned on
     private List<AbstractButton> parentButtons;// dependencies for buttons which will be turned on when this button is turned on
 
-    private LinBus toSendData;      // to make the android tablet send data to the master controller on a button press,
     private int sidNum;
 
 

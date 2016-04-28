@@ -19,7 +19,6 @@ import java.util.Hashtable;
  */
 public class BatteryButton extends AbstractButton {
 
-    //Battery_hash = new Hashtable<>();
     Hashtable<Integer,Drawable> Battery_hash;
     MediaPlayer buttonsound;
     int batteryLife;
