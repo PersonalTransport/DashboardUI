@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<resources>    
-	<usb-accessory model="EvMaster" manufacturer="Personal Transportation Solutions" version="0.1"/>
+<resources>
+    <usb-accessory
+        model="EvMaster"
+        manufacturer="Personal Transportation Solutions"
+        version="0.1" />
 </resources>

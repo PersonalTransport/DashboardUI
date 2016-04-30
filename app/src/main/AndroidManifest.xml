@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="team8.personaltransportation">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-feature android:name="android.hardware.usb.accessory" />
 
@@ -26,29 +26,28 @@
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
 
-                 <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
-             </intent-filter>
+                <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
+            </intent-filter>
 
             <meta-data
-                 android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
-                 android:resource="@xml/accessory_filter">
-             </meta-data>
-          </activity>
+                android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
+                android:resource="@xml/accessory_filter"></meta-data>
+        </activity>
 
-          <activity
-              android:name=".ActivitySettings"
-              android:label="Settings"
-              android:theme="@style/FullscreenTheme">
-              <intent-filter>
-                  <action android:name="android.intent.action.activitysettings" />
-                  <category android:name="android.intent.category.DEFAULT" />
-              </intent-filter>
-          </activity>
+        <activity
+            android:name=".ActivitySettings"
+            android:label="Settings"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.activitysettings" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
-      </application>
+    </application>
 
-  </manifest>
+</manifest>

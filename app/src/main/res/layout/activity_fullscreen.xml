@@ -44,7 +44,7 @@
             android:layout_height="475px"
             android:layout_marginLeft="50px"
             android:id="@+id/batteryLifebezel"
-            android:layout_gravity="left|top"/>
+            android:layout_gravity="left|top" />
 
         <team8.personaltransportation.BatteryButton
             android:layout_width="379px"
@@ -53,7 +53,7 @@
             android:layout_marginTop="670px"
             android:id="@+id/batteryLife"
             android:layout_gravity="left|top"
-            android:background="@drawable/battery_button"/>
+            android:background="@drawable/battery_button" />
 
         <team8.personaltransportation.SpeedButton
             android:layout_width="175px"
@@ -62,7 +62,7 @@
             android:layout_marginTop="452px"
             android:id="@+id/leftspeedo"
             android:layout_gravity="left|top"
-            android:background="@drawable/left_speed_button"/>
+            android:background="@drawable/left_speed_button" />
 
         <team8.personaltransportation.SpeedButton
             android:layout_width="165px"
@@ -71,7 +71,7 @@
             android:layout_marginTop="452px"
             android:id="@+id/rightspeedo"
             android:layout_gravity="right|top"
-            android:background="@drawable/right_speed_button"/>
+            android:background="@drawable/right_speed_button" />
 
         <team8.personaltransportation.TwoStateButton
             android:layout_width="200px"
@@ -80,7 +80,7 @@
             android:layout_marginTop="398px"
             android:id="@+id/rightTurn"
             android:layout_gravity="right|top"
-            android:background="@drawable/right_turn_signal_button"/>
+            android:background="@drawable/right_turn_signal_button" />
 
         <team8.personaltransportation.TwoStateButton
             android:layout_width="200px"
@@ -89,7 +89,7 @@
             android:layout_marginTop="399px"
             android:id="@+id/leftTurn"
             android:layout_gravity="left|top"
-            android:background="@drawable/left_turn_signal_button"/>
+            android:background="@drawable/left_turn_signal_button" />
 
         <team8.personaltransportation.TwoStateButton
             android:layout_width="167px"
@@ -98,7 +98,7 @@
             android:layout_marginTop="235px"
             android:id="@+id/warning"
             android:layout_gravity="left|top"
-            android:background="@drawable/hazard_signal_button"/>
+            android:background="@drawable/hazard_signal_button" />
 
         <team8.personaltransportation.TwoStateButton
             android:layout_width="75px"
@@ -116,7 +116,7 @@
             android:id="@+id/wiper"
             android:layout_gravity="left|bottom"
             android:layout_marginBottom="270px"
-            android:background="@drawable/wiper_button"/>
+            android:background="@drawable/wiper_button" />
 
         <team8.personaltransportation.FourStateButton
             android:layout_width="214px"
@@ -125,7 +125,7 @@
             android:id="@+id/defrost1"
             android:layout_gravity="right|bottom"
             android:layout_marginBottom="269px"
-            android:background="@drawable/defrost_button"/>
+            android:background="@drawable/defrost_button" />
 
         <team8.personaltransportation.TwoStateButton
             android:layout_width="292px"
@@ -134,7 +134,7 @@
             android:id="@+id/headLamp"
             android:layout_gravity="left|bottom"
             android:layout_marginBottom="217px"
-            android:background="@drawable/low_beam_button"/>
+            android:background="@drawable/low_beam_button" />
 
         <ImageView
             android:layout_width="125px"
@@ -151,6 +151,7 @@
             android:layout_marginTop="1090px"
             android:id="@+id/phoneconnbutn2"
             android:src="@drawable/cirbuttonmc" />
+
         <ImageView
             android:layout_width="125px"
             android:layout_height="125px"
@@ -164,133 +165,133 @@
             android:layout_width="437px"
             android:layout_marginTop="390px"
             android:layout_marginLeft="186px"
-            android:src="@drawable/dome"/>
+            android:src="@drawable/dome" />
 
     </FrameLayout>
 
-   <!-- <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:layout_gravity="right|bottom">
+    <!-- <FrameLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:fitsSystemWindows="true"
+         android:layout_gravity="right|bottom">
 
-        <LinearLayout
-            android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
-            android:orientation="vertical"
-            tools:ignore="UselessParent">
+         <LinearLayout
+             android:id="@+id/fullscreen_content_controls"
+             style="?metaButtonBarStyle"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="bottom|center_horizontal"
+             android:background="@color/black_overlay"
+             android:orientation="vertical"
+             tools:ignore="UselessParent">
 
-        </LinearLayout>
+         </LinearLayout>
 
-        <ImageView
-            android:layout_width="125px"
-            android:layout_height="125px"
-            android:layout_marginLeft="100px"
-            android:layout_marginTop="80px"
-            android:id="@+id/phoneconnbutn"
-            android:src="@drawable/cirbuttonmpc" />
+         <ImageView
+             android:layout_width="125px"
+             android:layout_height="125px"
+             android:layout_marginLeft="100px"
+             android:layout_marginTop="80px"
+             android:id="@+id/phoneconnbutn"
+             android:src="@drawable/cirbuttonmpc" />
 
-        <ImageView
-            android:layout_width="125px"
-            android:layout_height="125px"
-            android:layout_marginLeft="100px"
-            android:layout_marginTop="250px"
-            android:id="@+id/phoneconnbutn2"
-            android:src="@drawable/cirbuttonmc" />
-        <ImageView
-            android:layout_width="125px"
-            android:layout_height="125px"
-            android:layout_marginLeft="585px"
-            android:layout_marginTop="975px"
-            android:id="@+id/settingsbutton"
-            android:src="@drawable/cirbuttonmsc" />
+         <ImageView
+             android:layout_width="125px"
+             android:layout_height="125px"
+             android:layout_marginLeft="100px"
+             android:layout_marginTop="250px"
+             android:id="@+id/phoneconnbutn2"
+             android:src="@drawable/cirbuttonmc" />
+         <ImageView
+             android:layout_width="125px"
+             android:layout_height="125px"
+             android:layout_marginLeft="585px"
+             android:layout_marginTop="975px"
+             android:id="@+id/settingsbutton"
+             android:src="@drawable/cirbuttonmsc" />
 
-        <ImageView
-            android:layout_width="460px"
-            android:layout_height="200px"
-            android:layout_marginRight="110px"
-            android:id="@+id/batteryLife"
-            android:layout_marginBottom="110px"
-            android:layout_gravity="center_horizontal|bottom"
-            android:src="@drawable/battery100c" />
-
-
-        <ImageView
-            android:layout_width="225px"
-            android:layout_height="475px"
-            android:layout_marginLeft="525px"
-            android:id="@+id/leftspeedo"
-            android:layout_gravity="left|top"
-            android:src="@drawable/speedobezelc" />
-
-        <ImageView
-            android:layout_width="225px"
-            android:layout_height="475px"
-            android:layout_marginRight="290px"
-            android:id="@+id/rightspeedo"
-            android:layout_gravity="right|top"
-            android:src="@drawable/speedobezelc" />
-
-        <ImageView
-            android:layout_width="225px"
-            android:layout_height="225px"
-            android:layout_marginRight="50px"
-            android:layout_marginTop="450px"
-            android:id="@+id/rightTurn"
-            android:layout_gravity="right|top"
-            android:src="@drawable/rightturnsignalc" />
-
-        <ImageView
-            android:layout_width="225px"
-            android:layout_height="225px"
-            android:layout_marginLeft="50px"
-            android:layout_marginTop="450px"
-            android:id="@+id/leftTurn"
-            android:layout_gravity="left|top"
-            android:src="@drawable/leftturnsignalc" />
-
-        <ImageView
-            android:layout_width="225px"
-            android:layout_height="225px"
-            android:layout_marginLeft="287px"
-            android:layout_marginTop="450px"
-            android:id="@+id/warning"
-            android:layout_gravity="left|top"
-            android:src="@drawable/warningoffc" />
-
-        <ImageView
-            android:layout_width="225px"
-            android:layout_height="225px"
-            android:layout_marginLeft="287px"
-            android:id="@+id/wiper"
-            android:layout_gravity="left|bottom"
-            android:layout_marginBottom="330px"
-            android:src="@drawable/wipersoffc" />
-
-        <ImageView
-            android:layout_width="225px"
-            android:layout_height="225px"
-            android:layout_marginRight="50px"
-            android:id="@+id/defrost1"
-            android:layout_gravity="right|bottom"
-            android:layout_marginBottom="330px"
-            android:src="@drawable/defrostoffc" />
-
-        <ImageView
-            android:layout_width="225px"
-            android:layout_height="225px"
-            android:layout_marginLeft="50px"
-            android:id="@+id/headLamp"
-            android:layout_gravity="left|bottom"
-            android:layout_marginBottom="330px"
-            android:src="@drawable/headlampoffc" />
-
-    </FrameLayout>-->
+         <ImageView
+             android:layout_width="460px"
+             android:layout_height="200px"
+             android:layout_marginRight="110px"
+             android:id="@+id/batteryLife"
+             android:layout_marginBottom="110px"
+             android:layout_gravity="center_horizontal|bottom"
+             android:src="@drawable/battery100c" />
 
 
-<!--</android.support.v4.view.ViewPager>-->
+         <ImageView
+             android:layout_width="225px"
+             android:layout_height="475px"
+             android:layout_marginLeft="525px"
+             android:id="@+id/leftspeedo"
+             android:layout_gravity="left|top"
+             android:src="@drawable/speedobezelc" />
+
+         <ImageView
+             android:layout_width="225px"
+             android:layout_height="475px"
+             android:layout_marginRight="290px"
+             android:id="@+id/rightspeedo"
+             android:layout_gravity="right|top"
+             android:src="@drawable/speedobezelc" />
+
+         <ImageView
+             android:layout_width="225px"
+             android:layout_height="225px"
+             android:layout_marginRight="50px"
+             android:layout_marginTop="450px"
+             android:id="@+id/rightTurn"
+             android:layout_gravity="right|top"
+             android:src="@drawable/rightturnsignalc" />
+
+         <ImageView
+             android:layout_width="225px"
+             android:layout_height="225px"
+             android:layout_marginLeft="50px"
+             android:layout_marginTop="450px"
+             android:id="@+id/leftTurn"
+             android:layout_gravity="left|top"
+             android:src="@drawable/leftturnsignalc" />
+
+         <ImageView
+             android:layout_width="225px"
+             android:layout_height="225px"
+             android:layout_marginLeft="287px"
+             android:layout_marginTop="450px"
+             android:id="@+id/warning"
+             android:layout_gravity="left|top"
+             android:src="@drawable/warningoffc" />
+
+         <ImageView
+             android:layout_width="225px"
+             android:layout_height="225px"
+             android:layout_marginLeft="287px"
+             android:id="@+id/wiper"
+             android:layout_gravity="left|bottom"
+             android:layout_marginBottom="330px"
+             android:src="@drawable/wipersoffc" />
+
+         <ImageView
+             android:layout_width="225px"
+             android:layout_height="225px"
+             android:layout_marginRight="50px"
+             android:id="@+id/defrost1"
+             android:layout_gravity="right|bottom"
+             android:layout_marginBottom="330px"
+             android:src="@drawable/defrostoffc" />
+
+         <ImageView
+             android:layout_width="225px"
+             android:layout_height="225px"
+             android:layout_marginLeft="50px"
+             android:id="@+id/headLamp"
+             android:layout_gravity="left|bottom"
+             android:layout_marginBottom="330px"
+             android:src="@drawable/headlampoffc" />
+
+     </FrameLayout>-->
+
+
+    <!--</android.support.v4.view.ViewPager>-->
 </FrameLayout>

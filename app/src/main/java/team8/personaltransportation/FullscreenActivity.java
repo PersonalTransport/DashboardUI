@@ -33,34 +33,21 @@ import android.os.Message;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class FullscreenActivity extends Activity {
-
-    private int SID_BATTERY = LinSignal.signalHash("BATTERY".getBytes(), 0);
-    private int SID_LIGHTS = LinSignal.signalHash("LIGHTS".getBytes(), 0);
-    private int SID_SPEED = LinSignal.signalHash("SPEED".getBytes(), 0);
-    private int SID_TURNSIGNAL = LinSignal.signalHash("TURN_SIGNAL".getBytes(), 0);
-    private int SID_HAZARD = LinSignal.signalHash("HAZARD".getBytes(), 0);
-    private int SID_DEFROST = LinSignal.signalHash("DEFROST".getBytes(), 0);
-    private int SID_WIPERS = LinSignal.signalHash("WIPERS".getBytes(), 0);
-
     private ImageView GPSbutton;
     private TextView GPStextview;
     private LocationManager locationManager;
     private LocationListener locationListener;
 
-    USBSendReceive usbSendReceive;
+    MasterManager masterManager;
 
 
     Handler usbInputHandler;
-    LinBus linBus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,18 +231,8 @@ public class FullscreenActivity extends Activity {
             }
         };
 
-
-        linBus = new LinBus() { // LinBus.java
-            @Override
-            public void receiveSignal(LinSignal signal) {
-                Message msg = Message.obtain(usbInputHandler);
-                msg.obj = signal;
-                usbInputHandler.sendMessage(msg);
-            }
-        };
-
-        usbSendReceive = new USBSendReceive();
-        usbSendReceive.onCreate(this, usbInputHandler, linBus);
+        masterManager = new MasterManager();
+        masterManager.onCreate(this, usbInputHandler);
     }
 
     @Override
@@ -286,7 +263,7 @@ public class FullscreenActivity extends Activity {
     public void onResume() {
         super.onResume();
 
-        usbSendReceive.onResume(getIntent());
+        masterManager.onResume(getIntent());
     }
 
 
@@ -294,14 +271,14 @@ public class FullscreenActivity extends Activity {
     public void onPause() {
         super.onPause();
 
-        usbSendReceive.onPause();
+        masterManager.onPause();
     }
 
 
     @Override
     public void onDestroy() {
 
-        usbSendReceive.onDestroy(this);
+        masterManager.onDestroy(this);
 
         super.onDestroy();
     }

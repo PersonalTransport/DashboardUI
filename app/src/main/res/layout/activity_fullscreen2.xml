@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:id="@+id/fullscreen_content2"
     android:layout_width="match_parent"
@@ -42,7 +41,8 @@
             android:layout_marginLeft="50px"
             android:id="@+id/batteryLifeb"
             android:layout_gravity="left|top"
-            android:src="@drawable/speedobezelc"/>
+            android:src="@drawable/speedobezelc" />
+
         <ImageView
             android:layout_width="200px"
             android:layout_height="350px"
@@ -50,7 +50,7 @@
             android:layout_marginTop="65px"
             android:id="@+id/batteryLife"
             android:layout_gravity="left|top"
-            android:src="@drawable/battery00"/>
+            android:src="@drawable/battery00" />
 
         <ImageView
             android:layout_width="225px"
@@ -137,6 +137,7 @@
             android:layout_marginTop="975px"
             android:id="@+id/phoneconnbutn2"
             android:src="@drawable/cirbuttonmc" />
+
         <ImageView
             android:layout_width="125px"
             android:layout_height="125px"
