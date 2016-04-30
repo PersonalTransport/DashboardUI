@@ -132,8 +132,9 @@ public class FullscreenActivity extends Activity {
             public void onClick(View v) {
                 if(!hazardButton.isOn()) {
                     rightTurnSignal.toggle();
-                    if (rightTurnSignal.isOn())
+                    if (rightTurnSignal.isOn()) {
                         leftTurnSignal.setOn(false);
+                    }
                 }
             }
         });
@@ -143,8 +144,9 @@ public class FullscreenActivity extends Activity {
             public void onClick(View v) {
                 if(!hazardButton.isOn()) {
                     leftTurnSignal.toggle();
-                    if (leftTurnSignal.isOn())
+                    if (leftTurnSignal.isOn()) {
                         rightTurnSignal.setOn(false);
+                    }
                 }
             }
         });
@@ -167,8 +169,9 @@ public class FullscreenActivity extends Activity {
         lowBeamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pressButSound.start();
                 lowBeamButton.toggle();
-                if(!lowBeamButton.isOn())
+                if (!lowBeamButton.isOn())
                     highBeamButton.setOn(false);
             }
         });
@@ -176,10 +179,12 @@ public class FullscreenActivity extends Activity {
         highBeamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(lowBeamButton.isOn())
+                if (lowBeamButton.isOn()) {
+                    pressButSound.start();
                     highBeamButton.toggle();
-                else
+                } else {
                     highBeamButton.setOn(false);
+                }
             }
         });
 
@@ -188,6 +193,7 @@ public class FullscreenActivity extends Activity {
         defrostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pressButSound.start();
                 defrostButton.nextState();
             }
         });
@@ -198,6 +204,7 @@ public class FullscreenActivity extends Activity {
         wiperButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pressButSound.start();
                 wiperButton.nextState();
             }
         });
