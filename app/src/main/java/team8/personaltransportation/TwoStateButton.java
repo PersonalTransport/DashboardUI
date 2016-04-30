@@ -53,7 +53,7 @@ public class TwoStateButton extends ImageButton {
     public void setOn(boolean state) {
         this.state = state;
         refreshDrawableState();
-        if (getBackground().getCurrent() instanceof Animatable) {
+        if (state && getBackground().getCurrent() instanceof Animatable) {
             ((Animatable) getBackground().getCurrent()).start();
         }
     }

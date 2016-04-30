@@ -139,8 +139,18 @@ public class FullscreenActivity extends Activity {
             @Override
             public void onClick(View v) {
                 hazardButton.toggle();
-                leftTurnSignal.setOn(hazardButton.isOn());
-                rightTurnSignal.setOn(hazardButton.isOn());
+                if(hazardButton.isOn()) {
+                    // Turn them off first so the animations stay
+                    // synchronized.
+                    leftTurnSignal.setOn(false);
+                    rightTurnSignal.setOn(false);
+                    leftTurnSignal.setOn(true);
+                    rightTurnSignal.setOn(true);
+                }
+                else {
+                    leftTurnSignal.setOn(false);
+                    rightTurnSignal.setOn(false);
+                }
             }
         });
 
