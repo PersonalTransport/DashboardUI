@@ -5,33 +5,6 @@
  http://stackoverflow.com/questions/32765906/android-getdrawable-deprecated-how-to-use-android-getdrawable
  http://stackoverflow.com/questions/29041027/android-getresources-getdrawable-deprecated-api-22/34750353
  http://developer.android.com/reference/android/support/v4/content/ContextCompat.html
-
- //        rightAnim.addFrame(ContextCompat.getDrawable(getActivity(), R.drawable.rightturnsignaloffnew), 0);
- //        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
-
-
- Module similarities between wipers, battery, speed, turn signals, hazard, ...
- * Each has a button image/button clickable
- * each changes their image when clicked
- ** Buttons may have either animation or image background
- if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
- leftturn.setBackgroundDrawable(leftAnim);
- } else {
- leftturn.setBackground(leftAnim);
- }
-
- * there may be dependencies between buttons - if they can be clicked/behaviour
- ** Turn signals have dependance on whether hazard is on
-
- * Different image when clicked, and different image when not clicked
- * Functionality is tied to USB output
- * setOnClickListener - initialization
- * If on, turn off. If off, turn on.
- * usbInputHander - functionality
- *
- *
-
- *********************************************************************************************/
 /*********************************************************************************************/
 
 package team8.personaltransportation;
@@ -44,17 +17,10 @@ package team8.personaltransportation;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-//import android.support.v7.app.ActionBar;
-//import android.support.v7.app.AppCompatActivity;
-//import android.app.AppCompactActivity;
-//import android.app.ActivityManager;
-//import android.app.ActivityOptions;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -74,10 +40,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
+import team8.personaltransportation.ui2.BatteryButton;
+import team8.personaltransportation.ui2.FourStateButton;
+import team8.personaltransportation.ui2.SpeedButton;
+import team8.personaltransportation.ui2.TwoStateButton;
 
-//public class FullscreenActivity extends AppCompatActivity {
 public class FullscreenActivity extends Activity {
 
     private int SID_BATTERY = LinSignal.signalHash("BATTERY".getBytes(), 0);
@@ -88,8 +55,6 @@ public class FullscreenActivity extends Activity {
     private int SID_DEFROST = LinSignal.signalHash("DEFROST".getBytes(), 0);
     private int SID_WIPERS = LinSignal.signalHash("WIPERS".getBytes(), 0);
 
-    // variables for GUI interface
-    boolean brightsOn = false;
     private ImageView GPSbutton;
     private TextView GPStextview;
     private LocationManager locationManager;
@@ -97,15 +62,9 @@ public class FullscreenActivity extends Activity {
 
     USBSendReceive usbSendReceive;
 
-    /************************ Storage for Button classes *******************/
-    ArrayList<AbstractButton> myButtons;
-
 
     Handler usbInputHandler;
     LinBus linBus;
-
-    int rightduration = 200;
-    int leftduration = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,75 +120,97 @@ public class FullscreenActivity extends Activity {
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
         mControlsView = findViewById(R.id.fullscreen_content_controls);
-        /*** setup button array ***/
-        myButtons = new ArrayList<>();
-        /*** Ming's ***/
+
+
         /************************** Turn Signal *********************************************/
-        final ImageView rightturn = (ImageView) this.findViewById(R.id.rightTurn);
-        final ImageView leftturn = (ImageView) this.findViewById(R.id.leftTurn);
-        final ImageView hazardbut = (ImageView) this.findViewById(R.id.warning);
+        final TwoStateButton rightTurnSignal = (TwoStateButton) this.findViewById(R.id.rightTurn);
+        final TwoStateButton leftTurnSignal = (TwoStateButton) this.findViewById(R.id.leftTurn);
+        final TwoStateButton hazardButton = (TwoStateButton) this.findViewById(R.id.warning);
 
-        AnimationDrawable hazardAnim = new AnimationDrawable();
-        AnimationDrawable hazardAnimOFF = new AnimationDrawable();
-        hazardAnimOFF.addFrame(getResources().getDrawable(R.drawable.warningoffnew), 100);
-        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningonnew), 200);
-        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningonbnew), 200);
+        rightTurnSignal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!hazardButton.isOn()) {
+                    rightTurnSignal.toggle();
+                    if (rightTurnSignal.isOn())
+                        leftTurnSignal.setOn(false);
+                }
+            }
+        });
 
-        AnimationDrawable rightAnim = new AnimationDrawable();
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal1new), rightduration);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal2new), rightduration);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal3new), rightduration);
+        leftTurnSignal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!hazardButton.isOn()) {
+                    leftTurnSignal.toggle();
+                    if (leftTurnSignal.isOn())
+                        rightTurnSignal.setOn(false);
+                }
+            }
+        });
 
-        AnimationDrawable leftAnim = new AnimationDrawable();
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal1new), leftduration);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal2new), leftduration);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal3new), leftduration);
-
-
-        /*setting for right turn animation*/
-        rightAnim = new AnimationDrawable();
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal1new), rightduration);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal2new), rightduration);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal3new), rightduration);
-
-        ArrayList<AnimationDrawable> onDrawArr_RightTurn = new ArrayList<>();
-        AnimationDrawable rightAnim_off = new AnimationDrawable();
-        rightAnim_off.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
-        onDrawArr_RightTurn.add(0, rightAnim_off);
-        onDrawArr_RightTurn.add(1, rightAnim);
-
-        TurnSignalButton myTurnSignalButtonR = new TurnSignalButton(this, SID_TURNSIGNAL, rightturn, onDrawArr_RightTurn, true);
-
-
-        /*setting for leftturn animation*/
-        leftAnim = new AnimationDrawable();
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal1new), leftduration);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal2new), leftduration);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal3new), leftduration);
-
-        ArrayList<AnimationDrawable> onDrawArr_LeftTurn = new ArrayList<>();
-        AnimationDrawable leftAnim_off = new AnimationDrawable();
-        leftAnim_off.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
-        onDrawArr_LeftTurn.add(0, leftAnim_off);
-        onDrawArr_LeftTurn.add(1, leftAnim);
-
-        TurnSignalButton myTurnSignalButtonL = new TurnSignalButton(this, SID_TURNSIGNAL, leftturn, onDrawArr_LeftTurn, false);
-
-        myTurnSignalButtonL.otherTurnSignal = myTurnSignalButtonR;
-        myTurnSignalButtonR.otherTurnSignal = myTurnSignalButtonL;
-        myButtons.add(myTurnSignalButtonR);
-        myButtons.add(myTurnSignalButtonL);
 
         /************************** Hazard Button *********************************************/
-        ArrayList<AnimationDrawable> onDrawArr_Hazard = new ArrayList<>();
-        onDrawArr_Hazard.add(0, hazardAnimOFF);
-        onDrawArr_Hazard.add(1, hazardAnim);
-        HazardButton myHazardButton = new HazardButton(this, SID_HAZARD, hazardbut, onDrawArr_Hazard, myTurnSignalButtonL, myTurnSignalButtonR);
-        myButtons.add(myHazardButton);
+        hazardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hazardButton.toggle();
+                leftTurnSignal.setOn(hazardButton.isOn());
+                rightTurnSignal.setOn(hazardButton.isOn());
+            }
+        });
+
+        /************************** HEADLAMP **************************************/
+        final TwoStateButton lowBeamButton = (TwoStateButton)findViewById(R.id.headLamp);
+        final TwoStateButton highBeamButton = (TwoStateButton)findViewById(R.id.brights);
+
+        lowBeamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lowBeamButton.toggle();
+                if(!lowBeamButton.isOn())
+                    highBeamButton.setOn(false);
+            }
+        });
+
+        highBeamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(lowBeamButton.isOn())
+                    highBeamButton.toggle();
+                else
+                    highBeamButton.setOn(false);
+            }
+        });
+
+        /*************************** DEFROST ********************************************/
+        final FourStateButton defrostButton = (FourStateButton) findViewById(R.id.defrost1);
+        defrostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                defrostButton.nextState();
+            }
+        });
+
+
+        /*************************** WIPERS ********************************************/
+        final FourStateButton wiperButton = (FourStateButton) findViewById(R.id.wiper);
+        wiperButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wiperButton.nextState();
+            }
+        });
+
+
+        /*************************** BATTERY ********************************************/
+        final BatteryButton batteryButton = (BatteryButton) findViewById(R.id.batteryLife);
+
+
+        /*************************** SPEEDOMETER ******************************************/
+        final SpeedButton leftSpeedButton = (SpeedButton) findViewById(R.id.leftspeedo);
+        final SpeedButton rightSpeedButton = (SpeedButton) findViewById(R.id.rightspeedo);
+
 
         /************************** SETTINGS **************************************/
         final ImageView settingsButton = (ImageView) findViewById(R.id.settingsbutton);
@@ -248,234 +229,16 @@ public class FullscreenActivity extends Activity {
             }
         });
 
-        /************************** HEADLAMP **************************************/
-        final ImageView headlampButton = (ImageView) findViewById(R.id.headLamp);
-
-        String[] HeadlampLevels = new String[]{"Headlamps On", "Headlamps Off"};
-        headlampButton.setImageResource(0);
-        // create an array of headlamp states which can be displayed
-        ArrayList<AnimationDrawable> onDrawArr_Headlamp = new ArrayList<>();
-        AnimationDrawable State_Headlamp0 = new AnimationDrawable();
-        State_Headlamp0.addFrame(getResources().getDrawable(R.drawable.headlampoffnew), 0);
-
-        AnimationDrawable State_Headlamp1 = new AnimationDrawable();
-        State_Headlamp1.addFrame(getResources().getDrawable(R.drawable.headlamponnew), 0);
-
-        //leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
-
-        onDrawArr_Headlamp.add(0, State_Headlamp0);
-        onDrawArr_Headlamp.add(1, State_Headlamp1);
-
-        WiperDefrostButton myHeadlampsButton = new WiperDefrostButton(this, SID_LIGHTS, headlampButton, onDrawArr_Headlamp, HeadlampLevels, pressButSound, pindrop);
-        myButtons.add(myHeadlampsButton);
-
-
-        /************************** HIBEAMS **************************************/
-        // TODO: absorb HIBEAMS into Lights
-        final ImageView hiBeamssButton = (ImageView) findViewById(R.id.brights);
-
-        hiBeamssButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (brightsOn) {
-                    pressButSound.start();
-                    Toast toast =  Toast.makeText(FullscreenActivity.this, "Brights Off", Toast.LENGTH_LONG);
-                    LinearLayout toastLayout = (LinearLayout) toast.getView();
-                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 240, -500);
-                    toastTV.setTextSize(30);
-                    toast.show();
-                    hiBeamssButton.setImageResource(R.drawable.brightsoffnew);
-                    brightsOn = false;
-                } else {
-                    pressButSound.start();
-                    Toast toast = Toast.makeText(FullscreenActivity.this, "Brights On", Toast.LENGTH_LONG);
-                    LinearLayout toastLayout = (LinearLayout) toast.getView();
-                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 240, -500);
-                    toastTV.setTextSize(30);
-                    toast.show();
-                    hiBeamssButton.setImageResource(R.drawable.brightsonnew);
-                    brightsOn = true;
-                }
-            }
-        });
-
-
-        /*************************** DEFROST ********************************************/
-        final ImageView defrostButton = (ImageView) findViewById(R.id.defrost1);
-        String[] DefrostLevels = new String[]{"Defrost Low", "Defrost Medium", "Defrost High", "Defrost Off"};
-        defrostButton.setImageResource(0);
-        // create an array of wiper states which can be displayed
-        ArrayList<AnimationDrawable> onDrawArr_Defrost = new ArrayList<>();
-        AnimationDrawable State_Defrost0 = new AnimationDrawable();
-        State_Defrost0.addFrame(getResources().getDrawable(R.drawable.defrostoffnew), 0);
-
-        AnimationDrawable State_Defrost1 = new AnimationDrawable();
-        State_Defrost1.addFrame(getResources().getDrawable(R.drawable.defroston1new), 0);
-
-        AnimationDrawable State_Defrost2 = new AnimationDrawable();
-        State_Defrost2.addFrame(getResources().getDrawable(R.drawable.defroston2new), 0);
-
-        AnimationDrawable State_Defrost3 = new AnimationDrawable();
-        State_Defrost3.addFrame(getResources().getDrawable(R.drawable.defroston3new), 0);
-        //leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
-
-        onDrawArr_Defrost.add(0, State_Defrost0);
-        onDrawArr_Defrost.add(1, State_Defrost1);
-        onDrawArr_Defrost.add(2, State_Defrost2);
-        onDrawArr_Defrost.add(3, State_Defrost3);
-
-        WiperDefrostButton myDefrostButton = new WiperDefrostButton(this, SID_DEFROST, defrostButton, onDrawArr_Defrost, DefrostLevels, pressButSound, pleasebut);
-        myButtons.add(myDefrostButton);
-
-
-        /*************************** WIPERS ********************************************/
-        final ImageView wiperButton = (ImageView) findViewById(R.id.wiper);
-        String[] WiperLevels = new String[]{"Wipers Low", "Wipers Medium", "Wipers High", "Wipers Off"};
-        wiperButton.setImageResource(0);    // make sure there are no images on the screen that will cover our images
-        // create an array of wiper states which can be displayed
-        ArrayList<AnimationDrawable> onDrawArr_Wipers = new ArrayList<>();
-        AnimationDrawable offState_Wiper0 = new AnimationDrawable();
-        offState_Wiper0.addFrame(getResources().getDrawable(R.drawable.wipersoffnew), 0);
-
-        AnimationDrawable offState_Wiper1 = new AnimationDrawable();
-        offState_Wiper1.addFrame(getResources().getDrawable(R.drawable.wiperson1new), 0);
-
-        AnimationDrawable offState_Wiper2 = new AnimationDrawable();
-        offState_Wiper2.addFrame(getResources().getDrawable(R.drawable.wiperson2new), 0);
-
-        AnimationDrawable offState_Wiper3 = new AnimationDrawable();
-        offState_Wiper3.addFrame(getResources().getDrawable(R.drawable.wiperson3new), 0);
-        //leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
-
-        onDrawArr_Wipers.add(0, offState_Wiper0);
-        onDrawArr_Wipers.add(1, offState_Wiper1);
-        onDrawArr_Wipers.add(2, offState_Wiper2);
-        onDrawArr_Wipers.add(3, offState_Wiper3);
-
-        WiperDefrostButton myWiperButton = new WiperDefrostButton(this, SID_WIPERS, wiperButton, onDrawArr_Wipers, WiperLevels, pindrop, pindrop);
-        myButtons.add(myWiperButton);
-
-
-        /*************************** BATTERY ********************************************/
-        final ImageView batButton = (ImageView) findViewById(R.id.batteryLife);
-        batButton.setImageResource(0);
-
-        Hashtable<Integer,Drawable> Battery_hash;
-        Battery_hash = new Hashtable<>();
-
-        for (int i = 0; i < 5; i++) {
-            Battery_hash.put(i, getResources().getDrawable(R.drawable.battery00new));
-        }
-        for (int i = 5; i < 30; i++) {
-            Battery_hash.put(i, getResources().getDrawable(R.drawable.battery20new));
-        }
-        for (int i = 30; i < 50; i++) {
-            Battery_hash.put(i, getResources().getDrawable(R.drawable.battery40new));
-        }
-        for (int i = 50; i < 70; i++) {
-            Battery_hash.put(i, getResources().getDrawable(R.drawable.battery60new));
-        }
-        for (int i = 70; i < 95; i++) {
-            Battery_hash.put(i, getResources().getDrawable(R.drawable.battery80new));
-        }
-        for (int i = 95; i < 100; i++) {
-            Battery_hash.put(i, getResources().getDrawable(R.drawable.battery100new));
-        }
-
-        // add an initial state for start-image reasons
-        ArrayList<AnimationDrawable> onDrawArr_Battery = new ArrayList<>();
-        AnimationDrawable offState_battery = new AnimationDrawable();
-        offState_battery.addFrame(getResources().getDrawable(R.drawable.battery100new), 0);
-        onDrawArr_Battery.add(0, offState_battery);
-
-
-        BatteryButton myBatteryButton = new BatteryButton(this, SID_BATTERY, batButton, onDrawArr_Battery, Battery_hash, robot2);
-        myButtons.add(myBatteryButton);
-
-
-        /*************************** SPEEDOMETER ******************************************/
-        ImageView Speed_handle1 = (ImageView) findViewById(R.id.leftspeedo);
-        ImageView Speed_handle2 = (ImageView) findViewById(R.id.rightspeedo);
-        Speed_handle1.setImageResource(0);
-        Speed_handle2.setImageResource(0);
-
-        // add an initial state for start-image reasons (left image)
-        ArrayList<AnimationDrawable> onDrawArr_Speedl = new ArrayList<>();
-        AnimationDrawable offState_speedl = new AnimationDrawable();
-        offState_speedl.addFrame(getResources().getDrawable(R.drawable.zero), 0);
-        onDrawArr_Speedl.add(0, offState_speedl);
-        // add an initial state for start-image reasons (left image)
-        ArrayList<AnimationDrawable> onDrawArr_Speedr = new ArrayList<>();
-        AnimationDrawable offState_speedr = new AnimationDrawable();
-        offState_speedr.addFrame(getResources().getDrawable(R.drawable.zeror), 0);
-        onDrawArr_Speedr.add(0, offState_speedr);
-
-        Hashtable<Integer,Drawable> Speed_hash_left_digit = new Hashtable<>();
-        Speed_hash_left_digit.put(0, getResources().getDrawable(R.drawable.zero));
-        Speed_hash_left_digit.put(1, getResources().getDrawable(R.drawable.onel));
-        Speed_hash_left_digit.put(2, getResources().getDrawable(R.drawable.twol));
-        Speed_hash_left_digit.put(3, getResources().getDrawable(R.drawable.threel));
-        Speed_hash_left_digit.put(4, getResources().getDrawable(R.drawable.fourl));
-        Speed_hash_left_digit.put(5, getResources().getDrawable(R.drawable.fivel));
-        Speed_hash_left_digit.put(6, getResources().getDrawable(R.drawable.sixl));
-        Speed_hash_left_digit.put(7, getResources().getDrawable(R.drawable.sevenl));
-        Speed_hash_left_digit.put(8, getResources().getDrawable(R.drawable.eightl));
-        Speed_hash_left_digit.put(9, getResources().getDrawable(R.drawable.ninel));
-        Hashtable<Integer,Drawable> Speed_hash_right_digit = new Hashtable<>();
-        Speed_hash_right_digit.put(0, getResources().getDrawable(R.drawable.zeror));
-        Speed_hash_right_digit.put(1, getResources().getDrawable(R.drawable.oner));
-        Speed_hash_right_digit.put(2, getResources().getDrawable(R.drawable.twor));
-        Speed_hash_right_digit.put(3, getResources().getDrawable(R.drawable.threer));
-        Speed_hash_right_digit.put(4, getResources().getDrawable(R.drawable.fourr));
-        Speed_hash_right_digit.put(5, getResources().getDrawable(R.drawable.fiver));
-        Speed_hash_right_digit.put(6, getResources().getDrawable(R.drawable.sixr));
-        Speed_hash_right_digit.put(7, getResources().getDrawable(R.drawable.sevenr));
-        Speed_hash_right_digit.put(8, getResources().getDrawable(R.drawable.eightr));
-        Speed_hash_right_digit.put(9, getResources().getDrawable(R.drawable.niner));
-
-        SpeedButton mySpeedButtonl = new SpeedButton(this, SID_SPEED, Speed_handle1, onDrawArr_Speedl, 0, true, Speed_hash_left_digit);
-        SpeedButton mySpeedButtonr = new SpeedButton(this, SID_SPEED, Speed_handle2, onDrawArr_Speedr, 0, false, Speed_hash_right_digit);
-
-        myButtons.add(mySpeedButtonl);
-        myButtons.add(mySpeedButtonr);
 
         // Handles incoming messages
         usbInputHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                Boolean ActivatedButton;
 
                 Log.d("UIHandler", "handling message: " + msg);
 
-                // interpret current data
-                LinSignal signal = (LinSignal) msg.obj;
-                // begin to prepare data to be sent back
-                LinSignal[] sendSigArr = new LinSignal[myButtons.size()];
-
-                LinSignal sendSig = new LinSignal(signal.command, signal.sid, signal.length, signal.data);
-
-                Toast.makeText(getApplicationContext(), String.valueOf(LinSignal.signalHash("BATTERY".getBytes(), 0)) + ", " + String.valueOf(signal.sid) + "; " + String.valueOf(LinSignal.COMM_SET_VAR) + ", " + String.valueOf(signal.command) + "; " + String.valueOf(signal.data), Toast.LENGTH_SHORT).show();
-
-                ActivatedButton = false;
-                int ix = 0;
-                for (AbstractButton button : myButtons) {
-                    if (button.getSid() == signal.sid){
-                        sendSigArr[ix++] = button.update(signal);
-                        ActivatedButton = true;
-                        break;
-                    }
-                }
-
-                if (!ActivatedButton) {
-                    sendSig.command = LinSignal.COMM_WARN_VAR;
-                    Toast.makeText(getApplicationContext(), "::ERROR:: Did not understand inputs", Toast.LENGTH_SHORT).show();
-                }
-
-                // after we update the GUI/get updates from the GUI, we DON'T send updates (when we get data, we just update GUI, that's it)
-                // TODO: for now, keep it in for testing purposes
-                linBus.sendSignal(sendSigArr[ix-1]);
+               // TODO handle the message
             }
         };
 

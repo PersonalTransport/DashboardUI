@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item app:state_two_state_on="false" android:drawable="@drawable/headlampoffnew" />
+    <item app:state_two_state_on="true" android:drawable="@drawable/headlamponnew" />
+</selector>

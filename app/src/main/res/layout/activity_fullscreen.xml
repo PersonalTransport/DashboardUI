@@ -46,92 +46,95 @@
             android:id="@+id/batteryLifebezel"
             android:layout_gravity="left|top"/>
 
-        <ImageView
+        <team8.personaltransportation.ui2.BatteryButton
             android:layout_width="379px"
             android:layout_height="193px"
             android:layout_marginLeft="213px"
             android:layout_marginTop="670px"
             android:id="@+id/batteryLife"
             android:layout_gravity="left|top"
-            android:src="@drawable/battery100new"/>
+            android:background="@drawable/battery_button"/>
 
-        <ImageView
+        <team8.personaltransportation.ui2.SpeedButton
             android:layout_width="175px"
             android:layout_height="225px"
             android:layout_marginLeft="233px"
             android:layout_marginTop="452px"
             android:id="@+id/leftspeedo"
             android:layout_gravity="left|top"
-            android:src="@drawable/zero"/>
+            android:background="@drawable/left_speed_button"/>
 
-        <ImageView
+        <team8.personaltransportation.ui2.SpeedButton
             android:layout_width="165px"
             android:layout_height="225px"
             android:layout_marginRight="227px"
             android:layout_marginTop="452px"
             android:id="@+id/rightspeedo"
             android:layout_gravity="right|top"
-            android:src="@drawable/zeror"/>
+            android:background="@drawable/right_speed_button"/>
 
-        <ImageView
+        <team8.personaltransportation.ui2.TwoStateButton
             android:layout_width="200px"
             android:layout_height="215px"
             android:layout_marginRight="60px"
             android:layout_marginTop="398px"
             android:id="@+id/rightTurn"
-            android:layout_gravity="right|top"/>
+            android:layout_gravity="right|top"
+            android:background="@drawable/right_turn_signal_button"/>
 
-        <ImageView
+        <team8.personaltransportation.ui2.TwoStateButton
             android:layout_width="200px"
             android:layout_height="215px"
             android:layout_marginLeft="62px"
             android:layout_marginTop="399px"
             android:id="@+id/leftTurn"
-            android:layout_gravity="left|top"/>
+            android:layout_gravity="left|top"
+            android:background="@drawable/left_turn_signal_button"/>
 
-        <ImageView
+        <team8.personaltransportation.ui2.TwoStateButton
             android:layout_width="167px"
             android:layout_height="144px"
             android:layout_marginLeft="317px"
             android:layout_marginTop="235px"
             android:id="@+id/warning"
-            android:layout_gravity="left|top"/>
+            android:layout_gravity="left|top"
+            android:background="@drawable/hazard_signal_button"/>
 
-        <ImageView
+        <team8.personaltransportation.ui2.TwoStateButton
             android:layout_width="75px"
             android:layout_height="75px"
             android:layout_marginLeft="363px"
             android:layout_marginTop="135px"
             android:id="@+id/brights"
             android:layout_gravity="left|top"
-            android:src="@drawable/brightsoffnew" />
+            android:background="@drawable/high_beam_button" />
 
-        <ImageView
+        <team8.personaltransportation.ui2.FourStateButton
             android:layout_width="209px"
             android:layout_height="237px"
             android:layout_marginLeft="80px"
             android:id="@+id/wiper"
             android:layout_gravity="left|bottom"
             android:layout_marginBottom="270px"
-            android:src="@drawable/wipersoffnew"/>
+            android:background="@drawable/wiper_button"/>
 
-        <ImageView
+        <team8.personaltransportation.ui2.FourStateButton
             android:layout_width="214px"
             android:layout_height="239px"
             android:layout_marginRight="74px"
             android:id="@+id/defrost1"
             android:layout_gravity="right|bottom"
             android:layout_marginBottom="269px"
-            android:src="@drawable/defrostoffnew"/>
+            android:background="@drawable/defrost_button"/>
 
-        <ImageView
+        <team8.personaltransportation.ui2.TwoStateButton
             android:layout_width="292px"
             android:layout_height="154px"
             android:layout_marginLeft="255px"
             android:id="@+id/headLamp"
             android:layout_gravity="left|bottom"
             android:layout_marginBottom="217px"
-            android:src="@drawable/headlampoffnew"/>
+            android:background="@drawable/low_beam_button"/>
 
         <ImageView
             android:layout_width="125px"

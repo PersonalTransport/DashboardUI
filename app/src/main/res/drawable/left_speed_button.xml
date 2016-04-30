@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item app:state_speed_0="true" android:drawable="@drawable/zero" />
+    <item app:state_speed_1="true" android:drawable="@drawable/onel" />
+    <item app:state_speed_2="true" android:drawable="@drawable/twol" />
+    <item app:state_speed_3="true" android:drawable="@drawable/threel" />
+    <item app:state_speed_4="true" android:drawable="@drawable/fourl" />
+    <item app:state_speed_5="true" android:drawable="@drawable/fivel" />
+    <item app:state_speed_6="true" android:drawable="@drawable/sixl" />
+    <item app:state_speed_7="true" android:drawable="@drawable/sevenl" />
+    <item app:state_speed_8="true" android:drawable="@drawable/eightl" />
+    <item app:state_speed_9="true" android:drawable="@drawable/ninel" />
+</selector>

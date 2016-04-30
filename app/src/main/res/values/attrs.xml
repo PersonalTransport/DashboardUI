@@ -9,4 +9,39 @@
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 
+
+    <declare-styleable name="TwoStateButtonStates">
+        <attr name="state_two_state_on" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="FourStateButtonStates">
+        <attr name="state_four_state_off" format="boolean"/>
+        <attr name="state_four_state_low" format="boolean"/>
+        <attr name="state_four_state_medium" format="boolean"/>
+        <attr name="state_four_state_high" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="BatteryStates">
+        <attr name="state_battery_0" format="boolean"/>
+        <attr name="state_battery_20" format="boolean"/>
+        <attr name="state_battery_40" format="boolean"/>
+        <attr name="state_battery_60" format="boolean"/>
+        <attr name="state_battery_80" format="boolean"/>
+        <attr name="state_battery_100" format="boolean"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="SpeedStates">
+        <attr name="state_speed_0" format="boolean"/>
+        <attr name="state_speed_1" format="boolean"/>
+        <attr name="state_speed_2" format="boolean"/>
+        <attr name="state_speed_3" format="boolean"/>
+        <attr name="state_speed_4" format="boolean"/>
+        <attr name="state_speed_5" format="boolean"/>
+        <attr name="state_speed_6" format="boolean"/>
+        <attr name="state_speed_7" format="boolean"/>
+        <attr name="state_speed_8" format="boolean"/>
+        <attr name="state_speed_9" format="boolean"/>
+    </declare-styleable>
+
 </resources>

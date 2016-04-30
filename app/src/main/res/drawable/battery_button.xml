@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item app:state_battery_0="true" android:drawable="@drawable/battery00new" />
+    <item app:state_battery_20="true" android:drawable="@drawable/battery20new" />
+    <item app:state_battery_40="true" android:drawable="@drawable/battery40new" />
+    <item app:state_battery_60="true" android:drawable="@drawable/battery60new" />
+    <item app:state_battery_80="true" android:drawable="@drawable/battery80new" />
+    <item app:state_battery_100="true" android:drawable="@drawable/battery100new" />
+
+</selector>
