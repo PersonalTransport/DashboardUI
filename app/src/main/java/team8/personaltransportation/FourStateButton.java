@@ -1,17 +1,15 @@
-package team8.personaltransportation.ui2;
+package team8.personaltransportation;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
 
-import team8.personaltransportation.R;
-
 public class FourStateButton extends ImageButton {
-    private static final int[] OFF_STATE = { R.attr.state_four_state_off };
-    private static final int[] LOW_STATE = { R.attr.state_four_state_low };
-    private static final int[] MEDIUM_STATE = { R.attr.state_four_state_medium };
-    private static final int[] HIGH_STATE = { R.attr.state_four_state_high };
+    private static final int[] OFF_STATE = {R.attr.state_four_state_off};
+    private static final int[] LOW_STATE = {R.attr.state_four_state_low};
+    private static final int[] MEDIUM_STATE = {R.attr.state_four_state_medium};
+    private static final int[] HIGH_STATE = {R.attr.state_four_state_high};
 
     private int state = 0;
 
@@ -35,16 +33,13 @@ public class FourStateButton extends ImageButton {
 
         TypedArray typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.FourStateButtonStates, 0, 0);
 
-        if(typedArray.getBoolean(R.styleable.FourStateButtonStates_state_four_state_off, false)) {
+        if (typedArray.getBoolean(R.styleable.FourStateButtonStates_state_four_state_off, false)) {
             state = 0;
-        }
-        else if(typedArray.getBoolean(R.styleable.FourStateButtonStates_state_four_state_low, false)) {
+        } else if (typedArray.getBoolean(R.styleable.FourStateButtonStates_state_four_state_low, false)) {
             state = 1;
-        }
-        else if(typedArray.getBoolean(R.styleable.FourStateButtonStates_state_four_state_medium, false)) {
+        } else if (typedArray.getBoolean(R.styleable.FourStateButtonStates_state_four_state_medium, false)) {
             state = 2;
-        }
-        else if(typedArray.getBoolean(R.styleable.FourStateButtonStates_state_four_state_high, false)) {
+        } else if (typedArray.getBoolean(R.styleable.FourStateButtonStates_state_four_state_high, false)) {
             state = 3;
         }
 
@@ -83,10 +78,10 @@ public class FourStateButton extends ImageButton {
     public int getState() {
         return this.state;
     }
-    
+
     public void nextState() {
         state++;
-        if(state > 3)
+        if (state > 3)
             state = 0;
         refreshDrawableState();
     }

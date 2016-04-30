@@ -1,20 +1,13 @@
-package team8.personaltransportation.ui2;
+package team8.personaltransportation;
 
-import android.animation.StateListAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Animatable;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableContainer;
-import android.graphics.drawable.StateListDrawable;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
 
-import team8.personaltransportation.R;
-
 public class TwoStateButton extends ImageButton {
-    private static final int[] ON_STATE = { R.attr.state_two_state_on };
+    private static final int[] ON_STATE = {R.attr.state_two_state_on};
 
     private boolean state = false;
 
@@ -45,9 +38,9 @@ public class TwoStateButton extends ImageButton {
 
     @Override
     public int[] onCreateDrawableState(int extraSpace) {
-        if(state) {
+        if (state) {
             int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
-            mergeDrawableStates(drawableState,ON_STATE);
+            mergeDrawableStates(drawableState, ON_STATE);
             return drawableState;
         }
         return super.onCreateDrawableState(extraSpace);
@@ -60,7 +53,7 @@ public class TwoStateButton extends ImageButton {
     public void setOn(boolean state) {
         this.state = state;
         refreshDrawableState();
-        if(getBackground().getCurrent() instanceof Animatable) {
+        if (getBackground().getCurrent() instanceof Animatable) {
             ((Animatable) getBackground().getCurrent()).start();
         }
     }

@@ -1,11 +1,12 @@
 /*********************************************************************************************
- Brainstorming for format:
-
+ * Brainstorming for format:
+ * <p/>
  * Fixing getResources:
- http://stackoverflow.com/questions/32765906/android-getdrawable-deprecated-how-to-use-android-getdrawable
- http://stackoverflow.com/questions/29041027/android-getresources-getdrawable-deprecated-api-22/34750353
- http://developer.android.com/reference/android/support/v4/content/ContextCompat.html
-/*********************************************************************************************/
+ * http://stackoverflow.com/questions/32765906/android-getdrawable-deprecated-how-to-use-android-getdrawable
+ * http://stackoverflow.com/questions/29041027/android-getresources-getdrawable-deprecated-api-22/34750353
+ * http://developer.android.com/reference/android/support/v4/content/ContextCompat.html
+ * /
+ *********************************************************************************************/
 
 package team8.personaltransportation;
 
@@ -39,11 +40,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import team8.personaltransportation.ui2.BatteryButton;
-import team8.personaltransportation.ui2.FourStateButton;
-import team8.personaltransportation.ui2.SpeedButton;
-import team8.personaltransportation.ui2.TwoStateButton;
 
 public class FullscreenActivity extends Activity {
 
@@ -108,12 +104,11 @@ public class FullscreenActivity extends Activity {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 requestPermissions(new String[]{
-                        Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.INTERNET
+                        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
                 }, 10);
                 return;
             }
-        }
-        else {
+        } else {
             configureButton();
         }
 
@@ -130,7 +125,7 @@ public class FullscreenActivity extends Activity {
         rightTurnSignal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!hazardButton.isOn()) {
+                if (!hazardButton.isOn()) {
                     rightTurnSignal.toggle();
                     if (rightTurnSignal.isOn()) {
                         leftTurnSignal.setOn(false);
@@ -142,7 +137,7 @@ public class FullscreenActivity extends Activity {
         leftTurnSignal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!hazardButton.isOn()) {
+                if (!hazardButton.isOn()) {
                     leftTurnSignal.toggle();
                     if (leftTurnSignal.isOn()) {
                         rightTurnSignal.setOn(false);
@@ -163,8 +158,8 @@ public class FullscreenActivity extends Activity {
         });
 
         /************************** HEADLAMP **************************************/
-        final TwoStateButton lowBeamButton = (TwoStateButton)findViewById(R.id.headLamp);
-        final TwoStateButton highBeamButton = (TwoStateButton)findViewById(R.id.brights);
+        final TwoStateButton lowBeamButton = (TwoStateButton) findViewById(R.id.headLamp);
+        final TwoStateButton highBeamButton = (TwoStateButton) findViewById(R.id.brights);
 
         lowBeamButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,12 +220,12 @@ public class FullscreenActivity extends Activity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 pressButSound.start();
-                Toast toast3 = Toast.makeText(FullscreenActivity.this, "You Clicked Settings", Toast.LENGTH_LONG);
-                LinearLayout toastLayout = (LinearLayout) toast3.getView();
-                TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                toast3.setGravity(Gravity.CENTER, 240, -500);
-                toastTV.setTextSize(30);
-                toast3.show();
+                //Toast toast3 = Toast.makeText(FullscreenActivity.this, "You Clicked Settings", Toast.LENGTH_LONG);
+                //LinearLayout toastLayout = (LinearLayout) toast3.getView();
+                //TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                //toast3.setGravity(Gravity.CENTER, 240, -500);
+                //toastTV.setTextSize(30);
+                //toast3.show();
                 Intent i = new Intent(FullscreenActivity.this, ActivitySettings.class);
                 startActivity(i);
             }
@@ -245,7 +240,7 @@ public class FullscreenActivity extends Activity {
 
                 Log.d("UIHandler", "handling message: " + msg);
 
-               // TODO handle the message
+                // TODO handle the message
             }
         };
 
@@ -262,16 +257,18 @@ public class FullscreenActivity extends Activity {
         usbSendReceive = new USBSendReceive();
         usbSendReceive.onCreate(this, usbInputHandler, linBus);
     }
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
-        switch (requestCode){
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
             case 10:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     configureButton();
                 }
                 return;
         }
     }
+
     private void configureButton() {
         GPSbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -361,6 +358,7 @@ public class FullscreenActivity extends Activity {
             }
             mControlsView.setVisibility(View.VISIBLE);
         }
+
         private ActionBar getSupportActionBar() {
             return null;
         }

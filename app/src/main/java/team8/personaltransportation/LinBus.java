@@ -20,7 +20,7 @@ public abstract class LinBus {
         this.outputStream = null;
     }
 
-    public LinBus(InputStream inputStream,OutputStream outputStream) {
+    public LinBus(InputStream inputStream, OutputStream outputStream) {
         this.signals = new ArrayList<LinSignal>();
         initializeStreams(inputStream, outputStream);
     }
@@ -44,7 +44,7 @@ public abstract class LinBus {
         if (inputStream == null || outputStream == null)
             return;
 
-        byte [] rawData = new byte[LinSignal.MAX_SIZE];
+        byte[] rawData = new byte[LinSignal.MAX_SIZE];
 
         // TODO split this up into two calls one for the header and one for the data.
 

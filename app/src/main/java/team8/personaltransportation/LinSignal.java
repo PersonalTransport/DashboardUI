@@ -8,8 +8,8 @@ package team8.personaltransportation;
 public class LinSignal {
 
     // Definitions for the command portion of the instruction format (temporary)
-    public static final byte COMM_SET_VAR  = 0x66;
-    public static final byte COMM_GET_VAR  = 0x77;
+    public static final byte COMM_SET_VAR = 0x66;
+    public static final byte COMM_GET_VAR = 0x77;
     public static final byte COMM_WARN_VAR = 0x11;
 
     // Variables in the message struct
@@ -23,8 +23,8 @@ public class LinSignal {
     public static final int DATA_SIZE = 8;
     public static final int MAX_SIZE = HEADER_SIZE + DATA_SIZE;
 
-    public LinSignal(byte[] rawdata,int size) {
-        this.create(rawdata,size);
+    public LinSignal(byte[] rawdata, int size) {
+        this.create(rawdata, size);
     }
 
     // newsid must be hashed useing signalHash
@@ -50,7 +50,7 @@ public class LinSignal {
     }
 
     // Populate message struct from raw data
-    private void create(byte[] rawdata,int size) {
+    private void create(byte[] rawdata, int size) {
         this.command = rawdata[0];
         this.sid = unpackBytesToInt(rawdata[1], rawdata[2], rawdata[3], rawdata[4]);
         this.length = rawdata[5];
@@ -64,15 +64,15 @@ public class LinSignal {
     }
 
     //http://www.cse.yorku.ca/~oz/hash.html
-    public static int signalHash(byte [] input,int i) {
-        return (input.length != i) ? ((int)input[i]) + 33 * signalHash(input,i+1) : 5381;
+    public static int signalHash(byte[] input, int i) {
+        return (input.length != i) ? ((int) input[i]) + 33 * signalHash(input, i + 1) : 5381;
     }
 
     public static int unpackBytesToInt(byte byte1, byte byte2, byte byte3, byte byte4) {
         return ((((int) byte1) << 24) & 0xFF000000)
-             | ((((int) byte2) << 16) & 0x00FF0000)
-             | ((((int) byte3) << 8)  & 0x0000FF00)
-             | (((int) byte4)         & 0x000000FF);
+                | ((((int) byte2) << 16) & 0x00FF0000)
+                | ((((int) byte3) << 8) & 0x0000FF00)
+                | (((int) byte4) & 0x000000FF);
 
     }
 

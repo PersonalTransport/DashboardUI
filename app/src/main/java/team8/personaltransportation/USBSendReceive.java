@@ -10,18 +10,13 @@ import android.content.IntentFilter;
 import android.hardware.usb.UsbAccessory;
 import android.hardware.usb.UsbManager;
 import android.os.Handler;
-import android.os.Message;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Queue;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 
 /**
@@ -31,7 +26,7 @@ public class USBSendReceive {
 
 
     // variables for USB communication
-    private static final String ACTION_USB_PERMISSION =    "team8.personaltransportation.action.USB_PERMISSION";
+    private static final String ACTION_USB_PERMISSION = "team8.personaltransportation.action.USB_PERMISSION";
     public UsbManager UIusbManager;
     public UsbAccessory UIaccessory;
     public PendingIntent UIpermissionIntent;
@@ -128,13 +123,16 @@ public class USBSendReceive {
         Log.d("closeAccessory", "closing accessory...");
         try {
             UIfileDescriptor.close();
-        } catch (IOException ex) {}
+        } catch (IOException ex) {
+        }
         try {
             inputStream.close();
-        } catch (IOException ex) {}
+        } catch (IOException ex) {
+        }
         try {
             outputStream.close();
-        } catch (IOException ex) {}
+        } catch (IOException ex) {
+        }
 
         // afterwards, set them all to null
         UIfileDescriptor = null;
@@ -165,7 +163,7 @@ public class USBSendReceive {
                     if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
                         openAccessory(accessory);
                     } else {
-                        Log.d("USB", "permission denied for UIaccessory "+ accessory);
+                        Log.d("USB", "permission denied for UIaccessory " + accessory);
                     }
                     UIPermissionRequestPending = false;
                 }
