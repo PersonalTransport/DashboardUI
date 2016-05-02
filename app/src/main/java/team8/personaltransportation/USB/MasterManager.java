@@ -1,7 +1,5 @@
-package team8.personaltransportation;
+package team8.personaltransportation.USB;
 
-
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,14 +7,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.usb.UsbAccessory;
 import android.hardware.usb.UsbManager;
-import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import team8.personaltransportation.LIN.runtime.MasterDevice;
 
 
 public class MasterManager {
@@ -26,26 +23,34 @@ public class MasterManager {
     public PendingIntent pendingIntent;
     private boolean permissionRequestPending = true;
 
-    public ParcelFileDescriptor fileDescriptor;
+    private ParcelFileDescriptor fileDescriptor;
+    private MasterDevice masterDevice;
+    private ArrayList<MasterDeviceConnectionListener> connectionListeners;
 
-    Handler handler;
+    public MasterManager() {
+        this.connectionListeners = new ArrayList<>();
+    }
 
-    FileInputStream inputStream;
-    FileOutputStream outputStream;
+    public void addConnectionListener(MasterDeviceConnectionListener listener) {
+        this.connectionListeners.add(listener);
+    }
 
-    public void onCreate(final FullscreenActivity activity, Handler handler) {
-        this.handler = handler;
-        usbManager = (UsbManager) activity.getSystemService(Context.USB_SERVICE);
-        pendingIntent = PendingIntent.getBroadcast(activity, 0, new Intent(ACTION_USB_PERMISSION), 0);
+    public void removeConnectionListener(MasterDeviceConnectionListener listener) {
+        this.connectionListeners.remove(listener);
+    }
+
+    public void onCreate(Context context) {
+        usbManager = (UsbManager) context.getSystemService(Context.USB_SERVICE);
+        pendingIntent = PendingIntent.getBroadcast(context, 0, new Intent(ACTION_USB_PERMISSION), 0);
         IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
         filter.addAction(UsbManager.ACTION_USB_ACCESSORY_DETACHED);
-        activity.registerReceiver(usbBroadcastReceiver, filter);
+        context.registerReceiver(usbBroadcastReceiver, filter);
     }
 
 
     // source : http://www.java2s.com/Open-Source/Android_Free_Code/Example/code/com_examples_accessory_controllerMainUsbActivity_java.htm
     public void onResume(Intent intent) {
-        if (inputStream != null && outputStream != null) {
+        if (masterDevice != null) {
             return;
         }
 
@@ -72,8 +77,8 @@ public class MasterManager {
         //closeAccessory();
     }
 
-    public void onDestroy(Activity activity) {
-        activity.unregisterReceiver(usbBroadcastReceiver);
+    public void onDestroy(Context context) {
+        context.unregisterReceiver(usbBroadcastReceiver);
     }
 
     // source : http://www.java2s.com/Open-Source/Android_Free_Code/Example/code/com_examples_accessory_controllerMainUsbActivity_java.htm
@@ -81,12 +86,9 @@ public class MasterManager {
         fileDescriptor = usbManager.openAccessory(accessory);
         if (fileDescriptor != null) {
             usbAccessory = accessory;
-            FileDescriptor fd = fileDescriptor.getFileDescriptor();
-            inputStream = new FileInputStream(fd);
-            outputStream = new FileOutputStream(fd);
-
-            // TODO start the threads here
-
+            masterDevice = new MasterDevice(fileDescriptor.getFileDescriptor());
+            for(MasterDeviceConnectionListener connectionListener:connectionListeners)
+                connectionListener.onMasterDeviceConnected(masterDevice);
         } else {
             Log.d("openAccessory", "usbAccessory open fail: " + usbBroadcastReceiver);
         }
@@ -94,17 +96,16 @@ public class MasterManager {
 
     private void closeAccessory() {
         try {
-            inputStream.close();
-            outputStream.close();
+            if(masterDevice != null) {
+                for (MasterDeviceConnectionListener connectionListener : connectionListeners)
+                    connectionListener.onMasterDeviceDisconnected(masterDevice);
+                masterDevice.close();
+            }
             fileDescriptor.close();
-        } catch (IOException ex) {
+        } catch (IOException ignored) {
         }
-
+        masterDevice = null;
         fileDescriptor = null;
-        inputStream = null;
-        outputStream = null;
-
-        System.exit(0); // TODO this is not really right?
     }
 
     /*
@@ -119,7 +120,7 @@ public class MasterManager {
             String action = intent.getAction();
             if (ACTION_USB_PERMISSION.equals(action)) {
                 synchronized (this) {
-                    UsbAccessory accessory = (UsbAccessory) intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
+                    UsbAccessory accessory = intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
                     if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
                         openAccessory(accessory);
                     } else {
@@ -128,7 +129,7 @@ public class MasterManager {
                     permissionRequestPending = false;
                 }
             } else if (UsbManager.ACTION_USB_ACCESSORY_DETACHED.equals(action)) {
-                UsbAccessory accessory = (UsbAccessory) intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
+                UsbAccessory accessory = intent.getParcelableExtra(UsbManager.EXTRA_ACCESSORY);
                 if (accessory != null && accessory.equals(usbAccessory)) {
                     closeAccessory();
                 }

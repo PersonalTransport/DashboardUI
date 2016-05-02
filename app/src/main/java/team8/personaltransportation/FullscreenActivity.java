@@ -29,7 +29,6 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -37,17 +36,23 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class FullscreenActivity extends Activity {
+import team8.personaltransportation.LIN.runtime.MasterDevice;
+import team8.personaltransportation.LIN.runtime.Signal;
+import team8.personaltransportation.LIN.runtime.SignalHeader;
+import team8.personaltransportation.LIN.runtime.SignalReceivedListener;
+import team8.personaltransportation.USB.MasterDeviceConnectionListener;
+import team8.personaltransportation.USB.MasterManager;
+
+public class FullscreenActivity extends Activity implements MasterDeviceConnectionListener, SignalReceivedListener {
     private ImageView GPSbutton;
     private TextView GPStextview;
     private LocationManager locationManager;
     private LocationListener locationListener;
 
-    MasterManager masterManager;
-
-
-    Handler usbInputHandler;
+    private MasterManager masterManager;
+    private MasterDevice master;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +122,7 @@ public class FullscreenActivity extends Activity {
                     if (rightTurnSignal.isOn()) {
                         leftTurnSignal.setOn(false);
                     }
+                    sendSignalLightState();
                 }
             }
         });
@@ -129,6 +135,7 @@ public class FullscreenActivity extends Activity {
                     if (leftTurnSignal.isOn()) {
                         rightTurnSignal.setOn(false);
                     }
+                    sendSignalLightState();
                 }
             }
         });
@@ -139,18 +146,18 @@ public class FullscreenActivity extends Activity {
             @Override
             public void onClick(View v) {
                 hazardButton.toggle();
-                if(hazardButton.isOn()) {
+                if (hazardButton.isOn()) {
                     // Turn them off first so the animations stay
                     // synchronized.
                     leftTurnSignal.setOn(false);
                     rightTurnSignal.setOn(false);
                     leftTurnSignal.setOn(true);
                     rightTurnSignal.setOn(true);
-                }
-                else {
+                } else {
                     leftTurnSignal.setOn(false);
                     rightTurnSignal.setOn(false);
                 }
+                sendSignalLightState();
             }
         });
 
@@ -228,21 +235,9 @@ public class FullscreenActivity extends Activity {
             }
         });
 
-
-        // Handles incoming messages
-        usbInputHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-
-                Log.d("UIHandler", "handling message: " + msg);
-
-                // TODO handle the message
-            }
-        };
-
         masterManager = new MasterManager();
-        masterManager.onCreate(this, usbInputHandler);
+        masterManager.onCreate(this);
+        masterManager.addConnectionListener(this);
     }
 
     @Override
@@ -291,6 +286,59 @@ public class FullscreenActivity extends Activity {
         masterManager.onDestroy(this);
 
         super.onDestroy();
+    }
+
+    @Override
+    public void onMasterDeviceConnected(MasterDevice device) {
+        Toast.makeText(this, "Master Connected", Toast.LENGTH_LONG).show();
+        this.master = device;
+        this.master.addSignalReceivedListener(this);
+    }
+
+    @Override
+    public void onSignalReceived(Signal signal) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // TODO fill this out.
+            }
+        });
+    }
+
+    @Override
+    public void onMasterDeviceDisconnected(MasterDevice device) {
+        if(this.master == device) {
+            Toast.makeText(this, "Master Disconnected", Toast.LENGTH_LONG).show();
+            this.master.removeSignalReceivedListener(this);
+            this.master = null;
+        }
+    }
+
+    public static int signalHash(byte [] input,int i) {
+        return (input.length != i) ? ((int)input[i]) + 33 * signalHash(input,i+1) : 5381;
+    }
+
+    private void sendSignalLightState() {
+        if(master != null) {
+            TwoStateButton lt = (TwoStateButton) findViewById(R.id.leftTurn);
+            TwoStateButton rt = (TwoStateButton) findViewById(R.id.rightTurn);
+            TwoStateButton hz = (TwoStateButton) findViewById(R.id.warning);
+            SignalHeader header = new SignalHeader();
+            header.command = SignalHeader.COMMAND_SET;
+            header.sid = signalHash("signal_light_state".getBytes(),0);
+            header.length = 1;
+            byte [] data = new byte[1];
+            if(hz.isOn())
+                data[0] = 3;
+            else if(lt.isOn())
+                data[0] = 2;
+            else if(rt.isOn())
+                data[0] = 1;
+            else
+                data[0] = 0;
+            master.sendSignal(new Signal(header,data));
+            Toast.makeText(FullscreenActivity.this,"is java really new",Toast.LENGTH_LONG).show();
+        }
     }
 
 
@@ -431,6 +479,5 @@ public class FullscreenActivity extends Activity {
     public ActionBar getSupportActionBar() {
         return supportActionBar;
     }
-
 }
 
