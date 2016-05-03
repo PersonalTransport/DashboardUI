@@ -1,6 +1,6 @@
-package team8.personaltransportation.USB;
+package com.ptransportation.USB;
 
-import team8.personaltransportation.LIN.runtime.MasterDevice;
+import com.ptransportation.LIN.runtime.MasterDevice;
 
 public interface MasterDeviceConnectionListener {
     void onMasterDeviceConnected(MasterDevice device);

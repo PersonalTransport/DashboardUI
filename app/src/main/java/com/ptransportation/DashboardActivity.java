@@ -8,7 +8,7 @@
  * /
  *********************************************************************************************/
 
-package team8.personaltransportation;
+package com.ptransportation;
 
 // Sources:
 // USB communication -
@@ -29,12 +29,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import team8.personaltransportation.LIN.runtime.MasterDevice;
-import team8.personaltransportation.LIN.runtime.Signal;
-import team8.personaltransportation.LIN.runtime.SignalHeader;
-import team8.personaltransportation.LIN.runtime.SignalReceivedListener;
-import team8.personaltransportation.USB.MasterDeviceConnectionListener;
-import team8.personaltransportation.USB.MasterManager;
+import com.ptransportation.LIN.runtime.MasterDevice;
+import com.ptransportation.LIN.runtime.Signal;
+import com.ptransportation.LIN.runtime.SignalHeader;
+import com.ptransportation.LIN.runtime.SignalReceivedListener;
+import com.ptransportation.USB.MasterDeviceConnectionListener;
+import com.ptransportation.USB.MasterManager;
 
 public class DashboardActivity extends Activity implements MasterDeviceConnectionListener, SignalReceivedListener {
     private MasterManager masterManager;

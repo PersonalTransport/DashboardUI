@@ -1,4 +1,4 @@
-package team8.personaltransportation.USB;
+package com.ptransportation.USB;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -13,11 +13,11 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import team8.personaltransportation.LIN.runtime.MasterDevice;
+import com.ptransportation.LIN.runtime.MasterDevice;
 
 
 public class MasterManager {
-    private static final String ACTION_USB_PERMISSION = "team8.personaltransportation.action.USB_PERMISSION";
+    private static final String ACTION_USB_PERMISSION = "com.ptransportation.action.USB_PERMISSION";
     public UsbManager usbManager;
     public UsbAccessory usbAccessory;
     public PendingIntent pendingIntent;
