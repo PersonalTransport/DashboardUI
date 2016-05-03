@@ -17,7 +17,7 @@ public class ApplicationTest extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fullscreen);
+        setContentView(R.layout.activity_dashboard);
 
         configureImageButton();
     }

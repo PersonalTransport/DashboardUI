@@ -16,26 +16,17 @@ package team8.personaltransportation;
 // http://www.java2s.com/Open-Source/Android_Free_Code/Example/code/com_examples_accessory_controllerMainUsbActivity_java.htm
 // http://www.ftdichip.com/Support/SoftwareExamples/Android_Projects.htm
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import team8.personaltransportation.LIN.runtime.MasterDevice;
@@ -45,12 +36,7 @@ import team8.personaltransportation.LIN.runtime.SignalReceivedListener;
 import team8.personaltransportation.USB.MasterDeviceConnectionListener;
 import team8.personaltransportation.USB.MasterManager;
 
-public class FullscreenActivity extends Activity implements MasterDeviceConnectionListener, SignalReceivedListener {
-    private ImageView GPSbutton;
-    private TextView GPStextview;
-    private LocationManager locationManager;
-    private LocationListener locationListener;
-
+public class DashboardActivity extends Activity implements MasterDeviceConnectionListener, SignalReceivedListener {
     private MasterManager masterManager;
     private MasterDevice master;
 
@@ -58,58 +44,16 @@ public class FullscreenActivity extends Activity implements MasterDeviceConnecti
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_fullscreen);
-
-        // add sound to the button press
-        final MediaPlayer pressButSound = MediaPlayer.create(FullscreenActivity.this, R.raw.robotblip);
-        final MediaPlayer robot2 = MediaPlayer.create(FullscreenActivity.this, R.raw.robotblip2);
-        final MediaPlayer pleasebut = MediaPlayer.create(FullscreenActivity.this, R.raw.pleaseturnoff);
-        final MediaPlayer pindrop = MediaPlayer.create(FullscreenActivity.this, R.raw.pindrop);
-
-        GPSbutton = (ImageView) findViewById(R.id.phoneconnbutn2);
-        GPStextview = (TextView) findViewById(R.id.fullscreen_content);
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        locationListener = new LocationListener() {
-
-            @Override
-            public void onLocationChanged(Location location) {
-                GPStextview.append("\n " + location.getLatitude() + " " + location.getLongitude());
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-            }
-        };
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                requestPermissions(new String[]{
-                        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
-                }, 10);
-                return;
-            }
-        } else {
-            configureButton();
-        }
+        setContentView(R.layout.activity_dashboard);
 
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
         mControlsView = findViewById(R.id.fullscreen_content_controls);
 
+        final MediaPlayer pressButSound = MediaPlayer.create(DashboardActivity.this, R.raw.robotblip);
 
-        /************************** Turn Signal *********************************************/
+
+        // Turn Signal
         final TwoStateButton rightTurnSignal = (TwoStateButton) this.findViewById(R.id.rightTurn);
         final TwoStateButton leftTurnSignal = (TwoStateButton) this.findViewById(R.id.leftTurn);
         final TwoStateButton hazardButton = (TwoStateButton) this.findViewById(R.id.warning);
@@ -141,7 +85,7 @@ public class FullscreenActivity extends Activity implements MasterDeviceConnecti
         });
 
 
-        /************************** Hazard Button *********************************************/
+        // Hazard Button
         hazardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,7 +105,7 @@ public class FullscreenActivity extends Activity implements MasterDeviceConnecti
             }
         });
 
-        /************************** HEADLAMP **************************************/
+        // HEADLAMP
         final TwoStateButton lowBeamButton = (TwoStateButton) findViewById(R.id.headLamp);
         final TwoStateButton highBeamButton = (TwoStateButton) findViewById(R.id.brights);
 
@@ -187,7 +131,7 @@ public class FullscreenActivity extends Activity implements MasterDeviceConnecti
             }
         });
 
-        /*************************** DEFROST ********************************************/
+        // DEFROST
         final FourStateButton defrostButton = (FourStateButton) findViewById(R.id.defrost1);
         defrostButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +142,7 @@ public class FullscreenActivity extends Activity implements MasterDeviceConnecti
         });
 
 
-        /*************************** WIPERS ********************************************/
+        // WIPERS
         final FourStateButton wiperButton = (FourStateButton) findViewById(R.id.wiper);
         wiperButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,28 +153,22 @@ public class FullscreenActivity extends Activity implements MasterDeviceConnecti
         });
 
 
-        /*************************** BATTERY ********************************************/
+        // BATTERY
         final BatteryButton batteryButton = (BatteryButton) findViewById(R.id.batteryLife);
 
 
-        /*************************** SPEEDOMETER ******************************************/
+        // SPEEDOMETER
         final SpeedButton leftSpeedButton = (SpeedButton) findViewById(R.id.leftspeedo);
         final SpeedButton rightSpeedButton = (SpeedButton) findViewById(R.id.rightspeedo);
 
 
-        /************************** SETTINGS **************************************/
+        // SETTINGS
         final ImageView settingsButton = (ImageView) findViewById(R.id.settingsbutton);
         settingsButton.setImageResource(R.drawable.cirbuttonmsc);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 pressButSound.start();
-                //Toast toast3 = Toast.makeText(FullscreenActivity.this, "You Clicked Settings", Toast.LENGTH_LONG);
-                //LinearLayout toastLayout = (LinearLayout) toast3.getView();
-                //TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                //toast3.setGravity(Gravity.CENTER, 240, -500);
-                //toastTV.setTextSize(30);
-                //toast3.show();
-                Intent i = new Intent(FullscreenActivity.this, ActivitySettings.class);
+                Intent i = new Intent(DashboardActivity.this, SettingsActivity.class);
                 startActivity(i);
             }
         });
@@ -238,26 +176,6 @@ public class FullscreenActivity extends Activity implements MasterDeviceConnecti
         masterManager = new MasterManager();
         masterManager.onCreate(this);
         masterManager.addConnectionListener(this);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case 10:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    configureButton();
-                }
-                return;
-        }
-    }
-
-    private void configureButton() {
-        GPSbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //locationManager.requestLocationUpdates("gps",5000,0,locationListener);
-            }
-        });
     }
 
 // *********************************************************************************************************
@@ -337,7 +255,7 @@ public class FullscreenActivity extends Activity implements MasterDeviceConnecti
             else
                 data[0] = 0;
             master.sendSignal(new Signal(header,data));
-            Toast.makeText(FullscreenActivity.this,"is java really new",Toast.LENGTH_LONG).show();
+            Toast.makeText(DashboardActivity.this,"is java really new",Toast.LENGTH_LONG).show();
         }
     }
 
