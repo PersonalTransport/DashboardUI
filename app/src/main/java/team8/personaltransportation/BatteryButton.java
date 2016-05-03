@@ -30,25 +30,6 @@ public class BatteryButton extends Abstract_Button {
         super(mycontext, sidNum, buttonView, onDrawArr);
         this.Battery_hash = Battery_hash;
         this.buttonsound = buttonsound;
-        // TODO: Pull out of here,
-//       	for (int i = 0; i < 5; i++) {
-//             Battery_hash.put(i, R.drawable.battery00new);
-//         }
-//         for (int i = 5; i < 30; i++) {
-//             Battery_hash.put(i, R.drawable.battery20new);
-//         }
-//         for (int i = 30; i < 50; i++) {
-//             Battery_hash.put(i, R.drawable.battery40new);
-//         }
-//         for (int i = 50; i < 70; i++) {
-//             Battery_hash.put(i, R.drawable.battery60new);
-//         }
-//         for (int i = 70; i < 95; i++) {
-//             Battery_hash.put(i, R.drawable.battery80new);
-//         }
-//         for (int i = 95; i < 100; i++) {
-//             Battery_hash.put(i, R.drawable.battery100new);
-//         }
     }
 
     @Override
@@ -60,6 +41,7 @@ public class BatteryButton extends Abstract_Button {
         toast.setGravity(Gravity.CENTER, 200, -500);
         toastTV.setTextSize(30);
         toast.show();
+
     }
 
     @Override

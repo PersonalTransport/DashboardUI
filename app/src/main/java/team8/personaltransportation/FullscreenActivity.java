@@ -489,11 +489,12 @@ public class FullscreenActivity extends Activity {
 
                 ActivatedButton = false;
                 int ix = 0;
+                int ij = 0;
                 for (Abstract_Button button : myButtons) {
                     if (button.getSid() == signal.sid){
                         sendSigArr[ix++] = button.update(signal);
+                        ij = ix - 1;
                         ActivatedButton = true;
-                        break;
                     }
                 }
 
@@ -504,7 +505,7 @@ public class FullscreenActivity extends Activity {
 
                 // after we update the GUI/get updates from the GUI, we DON'T send updates (when we get data, we just update GUI, that's it)
                 // TODO: for now, keep it in for testing purposes
-                linBus.sendSignal(sendSigArr[ix-1]);
+                //linBus.sendSignal(sendSigArr[ij]);
             }
         };
 

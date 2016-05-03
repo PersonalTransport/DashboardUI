@@ -36,12 +36,25 @@ public abstract class LinBus {
         synchronized (this.signals) {
             this.signals.add(signal);
         }
-        waitForSendSignal.release();
     }
 
-    public void update() throws IOException, InterruptedException {
+    public void update_send() throws IOException, InterruptedException {
 
-        if (inputStream == null || outputStream == null)
+        if (outputStream == null)
+            return;
+
+        synchronized (this.signals) {
+            for (LinSignal signal : signals) {
+                outputStream.write(signal.serialize(), 0, signal.length + LinSignal.HEADER_SIZE);
+                outputStream.flush();
+            }
+            signals.clear();
+        }
+    }
+
+    public void update_recieve() throws IOException, InterruptedException {
+
+        if (inputStream == null)
             return;
 
         byte [] rawData = new byte[LinSignal.MAX_SIZE];
@@ -52,14 +65,6 @@ public abstract class LinBus {
         int size = inputStream.read(rawData, 0, LinSignal.MAX_SIZE);
         receiveSignal(new LinSignal(rawData, size));
 
-        waitForSendSignal.acquire();
 
-        synchronized (this.signals) {
-            for (LinSignal signal : signals) {
-                outputStream.write(signal.serialize(), 0, signal.length + LinSignal.HEADER_SIZE);
-                outputStream.flush();
-            }
-            signals.clear();
-        }
     }
 }

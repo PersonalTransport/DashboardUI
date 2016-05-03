@@ -39,7 +39,9 @@ public class USB_Send_Receive {
 
     public ParcelFileDescriptor UIfileDescriptor;
 
-    UsbCommThread usbCommThread;
+    //UsbCommThread usbCommThread;
+    UsbRecieveThread usbRecieveThread;
+    UsbSendThread usbSendThread;
 
     Handler uiHandler;
 
@@ -114,8 +116,10 @@ public class USB_Send_Receive {
             inputStream = new FileInputStream(fd);
             outputStream = new FileOutputStream(fd);
             linBus.initializeStreams(inputStream, outputStream);
-            usbCommThread = new UsbCommThread(linBus, inputStream, outputStream);
-            usbCommThread.start();
+            usbSendThread = new UsbSendThread(linBus);
+            usbRecieveThread = new UsbRecieveThread(linBus);
+            usbRecieveThread.start();
+            usbSendThread.start();
             Log.d("openAccessory", "opened UIaccessory: " + UIusbReceiver);
         } else {
             Log.d("openAccessory", "UIaccessory open fail: " + UIusbReceiver);
@@ -178,15 +182,11 @@ public class USB_Send_Receive {
         }
     };
 
-    private class UsbCommThread extends Thread {
+    private class UsbSendThread extends Thread {
 
-        FileInputStream inputStream;
-        FileOutputStream outputStream;
         LinBus linBus;
 
-        UsbCommThread(LinBus newLinBus, FileInputStream newInputStream, FileOutputStream newOutputStream) {
-            this.inputStream = newInputStream;
-            this.outputStream = newOutputStream;
+        UsbSendThread(LinBus newLinBus) {
             this.linBus = newLinBus;
         }
 
@@ -194,7 +194,7 @@ public class USB_Send_Receive {
         public void run() {
             while (!interrupted()) {
                 try {
-                    linBus.update();
+                    linBus.update_send();
                     Thread.sleep(1, 0);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -203,6 +203,29 @@ public class USB_Send_Receive {
         }
 
     }
+
+    private class UsbRecieveThread extends Thread {
+
+        LinBus linBus;
+
+        UsbRecieveThread(LinBus newLinBus) {
+            this.linBus = newLinBus;
+        }
+
+        @Override
+        public void run() {
+            while (!interrupted()) {
+                try {
+                    linBus.update_recieve();
+                    Thread.sleep(1, 0);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
 
 }
 

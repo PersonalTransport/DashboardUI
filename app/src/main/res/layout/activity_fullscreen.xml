@@ -52,8 +52,8 @@
             android:layout_marginLeft="213px"
             android:layout_marginTop="670px"
             android:id="@+id/batteryLife"
-            android:layout_gravity="left|top"
-            android:src="@drawable/battery100new"/>
+            android:layout_gravity="left|top"/>
+            <!--android:src="@drawable/battery100new"/>-->
 
         <ImageView
             android:layout_width="175px"
@@ -61,8 +61,8 @@
             android:layout_marginLeft="233px"
             android:layout_marginTop="452px"
             android:id="@+id/leftspeedo"
-            android:layout_gravity="left|top"
-            android:src="@drawable/zero"/>
+            android:layout_gravity="left|top"/>
+            <!--android:src="@drawable/zero"/>-->
 
         <ImageView
             android:layout_width="165px"
@@ -70,8 +70,8 @@
             android:layout_marginRight="227px"
             android:layout_marginTop="452px"
             android:id="@+id/rightspeedo"
-            android:layout_gravity="right|top"
-            android:src="@drawable/zeror"/>
+            android:layout_gravity="right|top"/>
+            <!--android:src="@drawable/zeror"/>-->
 
         <ImageView
             android:layout_width="200px"
@@ -112,8 +112,8 @@
             android:layout_marginLeft="80px"
             android:id="@+id/wiper"
             android:layout_gravity="left|bottom"
-            android:layout_marginBottom="270px"
-            android:src="@drawable/wipersoffnew"/>
+            android:layout_marginBottom="270px"/>
+            <!--android:src="@drawable/wipersoffnew"/>-->
 
         <ImageView
             android:layout_width="214px"
@@ -121,8 +121,8 @@
             android:layout_marginRight="74px"
             android:id="@+id/defrost1"
             android:layout_gravity="right|bottom"
-            android:layout_marginBottom="269px"
-            android:src="@drawable/defrostoffnew"/>
+            android:layout_marginBottom="269px"/>
+            <!--android:src="@drawable/defrostoffnew"/>-->
 
         <ImageView
             android:layout_width="292px"
@@ -130,8 +130,8 @@
             android:layout_marginLeft="255px"
             android:id="@+id/headLamp"
             android:layout_gravity="left|bottom"
-            android:layout_marginBottom="217px"
-            android:src="@drawable/headlampoffnew"/>
+            android:layout_marginBottom="217px"/>
+            <!--android:src="@drawable/headlampoffnew"/>-->
 
         <ImageView
             android:layout_width="125px"
@@ -139,7 +139,7 @@
             android:layout_marginLeft="100px"
             android:layout_marginTop="1090px"
             android:id="@+id/phoneconnbutn"
-            android:src="@drawable/cirbuttonmpc" />
+            android:src="@drawable/cirbuttonmpc"/>
 
         <ImageView
             android:layout_width="125px"

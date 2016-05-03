@@ -21,8 +21,8 @@ public class WiperDefrostButton extends Abstract_Button {
     private String[] DefrostLevels;
     private int numStates;
 
-    public WiperDefrostButton(Context mycontext, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDraw, String[] DefrostLevels, final MediaPlayer buttonsound, final MediaPlayer buttonsound_off) {
-        super(mycontext, sidNum, buttonView, onDraw);
+    public WiperDefrostButton(Context mycontext, LinBus toSendData, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDraw, String[] DefrostLevels, final MediaPlayer buttonsound, final MediaPlayer buttonsound_off) {
+        super(mycontext, toSendData, sidNum, buttonView, onDraw);
         this.buttonsound = buttonsound;
         this.buttonsound_off = buttonsound_off;
         assert(onDraw.size() == DefrostLevels.length);      // the number of states has to equal the number of print statements
@@ -47,22 +47,24 @@ public class WiperDefrostButton extends Abstract_Button {
             buttonsound.start();
             this.turnOn(this.myState() + 1);
         }
-        //toSendData.sendSignal();
+
+        toSendData.sendSignal(new LinSignal(sidNum, LinSignal.packIntToBytes(this.myState())));
     }
 
     // called outside when this button needs user input
     @Override
     public LinSignal update(LinSignal signal){
-        LinSignal mySig = new LinSignal(signal.command, signal.sid, signal.length, signal.data);
+        //LinSignal mySig = new LinSignal(signal.command, signal.sid, signal.length, signal.data);
         if (signal.command == LinSignal.COMM_SET_VAR) {
             Toast.makeText(getApplicationContext(), "::Defrost:: " + this.myState(), Toast.LENGTH_SHORT).show();
-            mySig.data = LinSignal.packIntToBytes(this.myState());
-            return mySig;
+            //mySig.data = LinSignal.packIntToBytes(this.myState());
+            //return mySig;
         }
         else if (signal.command == LinSignal.COMM_WARN_VAR) {
             Toast.makeText(getApplicationContext(), "::Defrost Error:: " + new String(signal.data), Toast.LENGTH_SHORT).show();
             return null;
         }
+        //linBus.sendSignal(sendSigArr[ij]);
         return null;
     }
 

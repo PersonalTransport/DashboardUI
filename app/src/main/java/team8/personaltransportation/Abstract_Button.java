@@ -14,6 +14,7 @@ import java.util.List;
 
 abstract public class Abstract_Button extends ContextWrapper
 {
+
     //final public static boolean ON_STATE = true;
     final public static int OFF_STATE = 0;
 
@@ -27,13 +28,13 @@ abstract public class Abstract_Button extends ContextWrapper
     private List<Abstract_Button> childButtons;	  // dependencies for buttons which must be off before this button can be turned on
     private List<Abstract_Button> parentButtons;// dependencies for buttons which will be turned on when this button is turned on
 
-    private LinBus toSendData;      // to make the android tablet send data to the master controller on a button press,
+    protected LinBus toSendData;      // to make the android tablet send data to the master controller on a button press,
     private int sidNum;
 
-
-    public Abstract_Button(Context base, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> DrawStates, boolean onStart) {
+    public Abstract_Button(Context base, LinBus toSendData, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> DrawStates, boolean onStart) {
         super(base);
         this.sidNum = sidNum;  //LinSignal.signalHash(sidStr.getBytes(), 0);
+        this.toSendData = toSendData;
         this.DrawStates = DrawStates;
         this.buttonView = buttonView;
         childButtons = new LinkedList<Abstract_Button>();
@@ -55,8 +56,8 @@ abstract public class Abstract_Button extends ContextWrapper
 
     }
 
-    public Abstract_Button(Context base, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> DrawStates) {
-        this(base, sidNum, buttonView, DrawStates, true);
+    public Abstract_Button(Context base, LinBus toSendData, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> DrawStates) {
+        this(base, toSendData, sidNum, buttonView, DrawStates, true);
     }
 
         // get the button's sid
