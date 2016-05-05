@@ -14,6 +14,10 @@ turn signals. The interface will also display the changes in the state of
 certian devices in the car, such as the state of the car's lights, the car's 
 speed, and its battery life.
 
+Currently, the code performs everything mentioned above. Additionally, the 
+windshield wipers can also be modified via USB (using the encoding for the data
+field as mentioned below).
+
 This code is being developed in Java using Android Studio.
 
 Group Members
@@ -27,6 +31,7 @@ Group Members
 
 Running the Application
 -----------
+*** make sure the android device is in developer mode (with USB debug on)
 
 ### Testing Purposes
 
@@ -40,6 +45,12 @@ the application via the mouse to simulate touch input on the android device.
 The user can additionally connect an Android device via usb cable through the 
 host computer to run the application. The user can then interact with the device 
 using touch inputs on the Android device.
+
+* Android Studio working Version: 1.5
+* SDK Platforms (installed): Android 5.1.1, 5.0.1, 4.4.2, 4.3.1, 4.2.2, 4.1.2, 4.0.3, 2.3.3, 2.2
+* SDK Tools: Android SDK Platform-Tools 23.1; Documentation for Android SDK; Google USB Driver, rev 11; Intel x86 Emulator Accelerator (HAXM installer), rev 6.0.1
+* Most similar emulator to actual product used: Nexus 10 api 15
+* Test Android device version: 5.1
 
 ### Production Unit
 
@@ -61,3 +72,4 @@ hazards: off = 0, on = 1
 - data is sent asynchronously from the tablet when a button push modifies that button's state (specifically for modifiable buttons)
 - the screen is updated asynchronously when a command is sent to change (for non-modifiable buttons (speed, battery))
 - the turn signals are modifiable both through user input and communication protocol (using the message data encoding mentioned above)
+- Hash for hazard may be incorrect (algorithm was provided to us, hash of string "Hazard" returns -1)
