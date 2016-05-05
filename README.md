@@ -49,3 +49,15 @@ should act like an app.
 
 Additional Notes
 -----------
+
+### Message data encoding:
+
+
+Lights: off = 0, on = 1, hi-beams off = 2, hi-beams on = 3
+turn signals: off = 0, left = 1, right = 2
+wipers/defrost: off = 0, low = 1, medium = 2, high = 3
+hazards: off = 0, on = 1
+
+- data is sent asynchronously from the tablet when a button push modifies that button's state (specifically for modifiable buttons)
+- the screen is updated asynchronously when a command is sent to change (for non-modifiable buttons (speed, battery))
+- the turn signals are modifiable both through user input and communication protocol (using the message data encoding mentioned above)
