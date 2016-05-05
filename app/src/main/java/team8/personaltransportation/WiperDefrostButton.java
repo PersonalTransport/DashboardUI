@@ -48,7 +48,8 @@ public class WiperDefrostButton extends Abstract_Button {
             this.turnOn(this.myState() + 1);
         }
 
-        toSendData.sendSignal(new LinSignal(sidNum, LinSignal.packIntToBytes(this.myState())));
+        LinSignal sendSig = new LinSignal(LinSignal.COMM_SET_VAR, getSid(), (byte) 4, LinSignal.packIntToBytes(this.myState()));
+        toSendData.sendSignal(sendSig);
     }
 
     // called outside when this button needs user input

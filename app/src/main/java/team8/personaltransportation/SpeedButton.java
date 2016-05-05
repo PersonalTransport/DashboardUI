@@ -19,8 +19,8 @@ public class SpeedButton extends Abstract_Button {
     Hashtable<Integer, Drawable> speedHash;
     boolean IamLeftDigit;        // am I the left digit (false for right)
 
-    public SpeedButton(Context mycontext, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDrawArr, int digitnum, boolean IamLeftDigit, Hashtable<Integer, Drawable> speedHash) {
-        super(mycontext, sidNum, buttonView, onDrawArr);
+    public SpeedButton(Context mycontext, LinBus toSendData, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDrawArr, int digitnum, boolean IamLeftDigit, Hashtable<Integer, Drawable> speedHash) {
+        super(mycontext, toSendData, sidNum, buttonView, onDrawArr, false);
         this.digitnum = digitnum;
         this.IamLeftDigit = IamLeftDigit;
         this.speedHash = speedHash;

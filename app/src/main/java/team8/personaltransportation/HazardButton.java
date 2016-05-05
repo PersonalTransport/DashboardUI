@@ -15,10 +15,10 @@ import java.util.ArrayList;
  */
 public class HazardButton extends Abstract_Button {
 
-    public HazardButton(Context mycontext, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDrawArr, TurnSignalButton turnL, TurnSignalButton turnR) {
+    public HazardButton(Context mycontext, LinBus linBus, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDrawArr, TurnSignalButton turnL, TurnSignalButton turnR) {
         //ArrayList<Drawable> onDrawArr = new ArrayList<Drawable>();
         //onDrawArr.add(DrawStates);
-        super(mycontext, sidNum, buttonView, onDrawArr);
+        super(mycontext, linBus, sidNum, buttonView, onDrawArr);
         // now add the turn signals as children buttons
         this.addChild(turnL);
         this.addChild(turnR);

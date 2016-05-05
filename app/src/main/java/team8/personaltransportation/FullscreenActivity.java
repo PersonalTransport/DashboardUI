@@ -230,7 +230,7 @@ public class FullscreenActivity extends Activity {
         onDrawArr_RightTurn.add(0, rightAnim_off);
         onDrawArr_RightTurn.add(1, rightAnim);
 
-        TurnSignalButton myTurnSignalButtonR = new TurnSignalButton(this, SID_TURNSIGNAL, rightturn, onDrawArr_RightTurn, true);
+        TurnSignalButton myTurnSignalButtonR = new TurnSignalButton(this, linBus, SID_TURNSIGNAL, rightturn, onDrawArr_RightTurn, true);
 
 
         /*setting for leftturn animation*/
@@ -246,7 +246,7 @@ public class FullscreenActivity extends Activity {
         onDrawArr_LeftTurn.add(0, leftAnim_off);
         onDrawArr_LeftTurn.add(1, leftAnim);
 
-        TurnSignalButton myTurnSignalButtonL = new TurnSignalButton(this, SID_TURNSIGNAL, leftturn, onDrawArr_LeftTurn, false);
+        TurnSignalButton myTurnSignalButtonL = new TurnSignalButton(this, linBus, SID_TURNSIGNAL, leftturn, onDrawArr_LeftTurn, false);
 
         myTurnSignalButtonL.otherTurnSignal = myTurnSignalButtonR;
         myTurnSignalButtonR.otherTurnSignal = myTurnSignalButtonL;
@@ -257,7 +257,7 @@ public class FullscreenActivity extends Activity {
         ArrayList<AnimationDrawable> onDrawArr_Hazard = new ArrayList<>();
         onDrawArr_Hazard.add(0, hazardAnimOFF);
         onDrawArr_Hazard.add(1, hazardAnim);
-        HazardButton myHazardButton = new HazardButton(this, SID_HAZARD, hazardbut, onDrawArr_Hazard, myTurnSignalButtonL, myTurnSignalButtonR);
+        HazardButton myHazardButton = new HazardButton(this, linBus, SID_HAZARD, hazardbut, onDrawArr_Hazard, myTurnSignalButtonL, myTurnSignalButtonR);
         myButtons.add(myHazardButton);
 
         /************************** SETTINGS **************************************/
@@ -295,7 +295,7 @@ public class FullscreenActivity extends Activity {
         onDrawArr_Headlamp.add(0, State_Headlamp0);
         onDrawArr_Headlamp.add(1, State_Headlamp1);
 
-        WiperDefrostButton myHeadlampsButton = new WiperDefrostButton(this, SID_LIGHTS, headlampButton, onDrawArr_Headlamp, HeadlampLevels, pressButSound, pindrop);
+        WiperDefrostButton myHeadlampsButton = new WiperDefrostButton(this, linBus, SID_LIGHTS, headlampButton, onDrawArr_Headlamp, HeadlampLevels, pressButSound, pindrop);
         myButtons.add(myHeadlampsButton);
 
 
@@ -354,7 +354,7 @@ public class FullscreenActivity extends Activity {
         onDrawArr_Defrost.add(2, State_Defrost2);
         onDrawArr_Defrost.add(3, State_Defrost3);
 
-        WiperDefrostButton myDefrostButton = new WiperDefrostButton(this, SID_DEFROST, defrostButton, onDrawArr_Defrost, DefrostLevels, pressButSound, pleasebut);
+        WiperDefrostButton myDefrostButton = new WiperDefrostButton(this, linBus, SID_DEFROST, defrostButton, onDrawArr_Defrost, DefrostLevels, pressButSound, pleasebut);
         myButtons.add(myDefrostButton);
 
 
@@ -382,7 +382,7 @@ public class FullscreenActivity extends Activity {
         onDrawArr_Wipers.add(2, offState_Wiper2);
         onDrawArr_Wipers.add(3, offState_Wiper3);
 
-        WiperDefrostButton myWiperButton = new WiperDefrostButton(this, SID_WIPERS, wiperButton, onDrawArr_Wipers, WiperLevels, pindrop, pindrop);
+        WiperDefrostButton myWiperButton = new WiperDefrostButton(this, linBus, SID_WIPERS, wiperButton, onDrawArr_Wipers, WiperLevels, pindrop, pindrop);
         myButtons.add(myWiperButton);
 
 
@@ -419,7 +419,7 @@ public class FullscreenActivity extends Activity {
         onDrawArr_Battery.add(0, offState_battery);
 
 
-        BatteryButton myBatteryButton = new BatteryButton(this, SID_BATTERY, batButton, onDrawArr_Battery, Battery_hash, robot2);
+        BatteryButton myBatteryButton = new BatteryButton(this, linBus, SID_BATTERY, batButton, onDrawArr_Battery, Battery_hash, robot2);
         myButtons.add(myBatteryButton);
 
 
@@ -463,8 +463,8 @@ public class FullscreenActivity extends Activity {
         Speed_hash_right_digit.put(8, getResources().getDrawable(R.drawable.eightr));
         Speed_hash_right_digit.put(9, getResources().getDrawable(R.drawable.niner));
 
-        SpeedButton mySpeedButtonl = new SpeedButton(this, SID_SPEED, Speed_handle1, onDrawArr_Speedl, 0, true, Speed_hash_left_digit);
-        SpeedButton mySpeedButtonr = new SpeedButton(this, SID_SPEED, Speed_handle2, onDrawArr_Speedr, 0, false, Speed_hash_right_digit);
+        SpeedButton mySpeedButtonl = new SpeedButton(this, linBus, SID_SPEED, Speed_handle1, onDrawArr_Speedl, 0, true, Speed_hash_left_digit);
+        SpeedButton mySpeedButtonr = new SpeedButton(this, linBus, SID_SPEED, Speed_handle2, onDrawArr_Speedr, 0, false, Speed_hash_right_digit);
 
         myButtons.add(mySpeedButtonl);
         myButtons.add(mySpeedButtonr);

@@ -24,10 +24,10 @@ public class BatteryButton extends Abstract_Button {
     MediaPlayer buttonsound;
     int batteryLife;
 
-    public BatteryButton(Context mycontext, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDrawArr, Hashtable<Integer,Drawable> Battery_hash, final MediaPlayer buttonsound) {
+    public BatteryButton(Context mycontext, LinBus linBus, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDrawArr, Hashtable<Integer,Drawable> Battery_hash, final MediaPlayer buttonsound) {
         //ArrayList<Drawable> onDrawArr = new ArrayList<Drawable>();
         //onDrawArr.add(DrawStates);
-        super(mycontext, sidNum, buttonView, onDrawArr);
+        super(mycontext, linBus, sidNum, buttonView, onDrawArr);
         this.Battery_hash = Battery_hash;
         this.buttonsound = buttonsound;
     }

@@ -19,10 +19,10 @@ public class TurnSignalButton extends Abstract_Button {
     private boolean direction;
     private int currentState;
 
-    public TurnSignalButton(Context mycontext, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDrawArr, boolean direction) {
+    public TurnSignalButton(Context mycontext, LinBus linBus, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDrawArr, boolean direction) {
         //ArrayList<Drawable> onDrawArr = new ArrayList<Drawable>();
         //onDrawArr.add(DrawStates);
-        super(mycontext, sidNum, buttonView, onDrawArr);
+        super(mycontext, linBus, sidNum, buttonView, onDrawArr);
         // FYI: parent hazard button already adds this as parent, so turn signals don't need to worry about adding their parent.
         this.direction = direction;
     }
