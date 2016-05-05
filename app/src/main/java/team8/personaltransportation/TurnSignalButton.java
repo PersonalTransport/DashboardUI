@@ -20,10 +20,7 @@ public class TurnSignalButton extends Abstract_Button {
     private int currentState;
 
     public TurnSignalButton(Context mycontext, LinBus linBus, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDrawArr, boolean direction) {
-        //ArrayList<Drawable> onDrawArr = new ArrayList<Drawable>();
-        //onDrawArr.add(DrawStates);
         super(mycontext, linBus, sidNum, buttonView, onDrawArr);
-        // FYI: parent hazard button already adds this as parent, so turn signals don't need to worry about adding their parent.
         this.direction = direction;
     }
 
@@ -31,14 +28,16 @@ public class TurnSignalButton extends Abstract_Button {
         this.otherTurnSignal = otherTurnSignal;
     }
 
+    // Additional logic: turn on animation
     public void turnOn(int state) {
         super.turnOn(state);
         DrawStates.get(state).setOneShot(false);
         DrawStates.get(state).start();
     }
 
+    // Additional logic: turn off animation
     public void turnOff(int state) {
-        super.turnOff(buttonState);
+        super.turnOff(state);
         DrawStates.get(state).stop();
         buttonState = OFF_STATE;
     }
@@ -49,9 +48,17 @@ public class TurnSignalButton extends Abstract_Button {
         if (this.myState() != OFF_STATE) {
             this.turnOff(buttonState);
         } else {
-            this.turnOn(buttonState + 1);
+            if (direction == RIGHTTURN) {
+                this.turnOn(buttonState + 2);
+            }
+            else {
+                this.turnOn(buttonState + 1);
+            }
             otherTurnSignal.turnOff(otherTurnSignal.buttonState);
         }
+
+        LinSignal sendSig = new LinSignal(LinSignal.COMM_SET_VAR, getSid(), (byte) 4, LinSignal.packIntToBytes(this.myState()));
+        toSendData.sendSignal(sendSig);
     }
 
     @Override

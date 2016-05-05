@@ -44,11 +44,6 @@ package team8.personaltransportation;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-//import android.support.v7.app.ActionBar;
-//import android.support.v7.app.AppCompatActivity;
-//import android.app.AppCompactActivity;
-//import android.app.ActivityManager;
-//import android.app.ActivityOptions;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -89,11 +84,6 @@ public class FullscreenActivity extends Activity {
     private int SID_WIPERS = LinSignal.signalHash("WIPERS".getBytes(), 0);
 
     // variables for GUI interface
-    boolean warningOn = false;
-    boolean headlampOn = false;
-    boolean brightsOn = false;
-    int wiperswitch = 0;
-    int defrostswitch = 0;
     private ImageView GPSbutton;
     private TextView GPStextview;
     private LocationManager locationManager;
@@ -103,37 +93,13 @@ public class FullscreenActivity extends Activity {
 
     /************************ Storage for Button classes *******************/
     ArrayList<Abstract_Button> myButtons;
-    //WiperButton myWiperButton;
-    ArrayList<AnimationDrawable> onDrawArr_Wipers;
-    /********************* Variables for DEFROST (AC) *********************/
-    Hashtable<Integer,Integer> Defrost_hash;
-    /********************* Variables for WIPERS *********************/
-    Hashtable<Integer,Integer> Wiper_hash;
-    /********************* Variables for BATTERY *********************/
-    Hashtable<Integer,Integer> Battery_hash;
-    int batteryLife = 0;
-    ImageView batButton;
 
-    /********************* Variables for SPEEDOMETER *********************/
-    ImageView Speed_handle1;
-    ImageView Speed_handle2;
-    Hashtable<Integer,Integer> Speed_hash_left;
-    Hashtable<Integer,Integer> Speed_hash_right;
-    int currentSpeed = 0;
 
     Handler usbInputHandler;
     LinBus linBus;
 
-    AnimationDrawable rightAnim;
-    AnimationDrawable leftAnim;
-    AnimationDrawable hazardAnim;
-    AnimationDrawable hazardAnimOFF;
-    //AnimationDrawable hazardAnimOn;
-
     int rightduration = 200;
     int leftduration = 200;
-    int hazarduration = 200;
-    int longduration = 350;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,6 +140,8 @@ public class FullscreenActivity extends Activity {
                 startActivity(intent);
             }
         };
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -202,33 +170,11 @@ public class FullscreenActivity extends Activity {
 
         /*** setup button array ***/
         myButtons = new ArrayList<>();
-        /*** Ming's ***/
-        /************************** Turn Signal *********************************************/
-        final ImageView rightturn = (ImageView) this.findViewById(R.id.rightTurn);
-        final ImageView leftturn = (ImageView) this.findViewById(R.id.leftTurn);
-        final ImageView hazardbut = (ImageView) this.findViewById(R.id.warning);
 
-        AnimationDrawable hazardAnim = new AnimationDrawable();
-        AnimationDrawable hazardAnimOFF = new AnimationDrawable();
-        hazardAnimOFF.addFrame(getResources().getDrawable(R.drawable.warningoffnew), 100);
-        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningonnew), 200);
-        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningonbnew), 200);
+        /*****************************setting for right turn animation*****************************/
+        final ImageView rightturn = (ImageView) this.findViewById(R.id.rightTurn);
 
         AnimationDrawable rightAnim = new AnimationDrawable();
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal1new), rightduration);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal2new), rightduration);
-        rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal3new), rightduration);
-
-        AnimationDrawable leftAnim = new AnimationDrawable();
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal1new), leftduration);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal2new), leftduration);
-        leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal3new), leftduration);
-
-
-        /*setting for right turn animation*/
-        rightAnim = new AnimationDrawable();
         rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
         rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal1new), rightduration);
         rightAnim.addFrame(getResources().getDrawable(R.drawable.rightturnsignal2new), rightduration);
@@ -239,12 +185,15 @@ public class FullscreenActivity extends Activity {
         rightAnim_off.addFrame(getResources().getDrawable(R.drawable.rightturnsignaloffnew), 0);
         onDrawArr_RightTurn.add(0, rightAnim_off);
         onDrawArr_RightTurn.add(1, rightAnim);
+        onDrawArr_RightTurn.add(2, rightAnim);
 
         TurnSignalButton myTurnSignalButtonR = new TurnSignalButton(this, linBus, SID_TURNSIGNAL, rightturn, onDrawArr_RightTurn, true);
 
 
-        /*setting for leftturn animation*/
-        leftAnim = new AnimationDrawable();
+        /******************************setting for leftturn animation*****************************/
+        final ImageView leftturn = (ImageView) this.findViewById(R.id.leftTurn);
+
+        AnimationDrawable leftAnim = new AnimationDrawable();
         leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
         leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal1new), leftduration);
         leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignal2new), leftduration);
@@ -264,6 +213,14 @@ public class FullscreenActivity extends Activity {
         myButtons.add(myTurnSignalButtonL);
 
         /************************** Hazard Button *********************************************/
+        final ImageView hazardbut = (ImageView) this.findViewById(R.id.warning);
+
+        AnimationDrawable hazardAnim = new AnimationDrawable();
+        AnimationDrawable hazardAnimOFF = new AnimationDrawable();
+        hazardAnimOFF.addFrame(getResources().getDrawable(R.drawable.warningoffnew), 100);
+        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningonnew), 200);
+        hazardAnim.addFrame(getResources().getDrawable(R.drawable.warningonbnew), 200);
+
         ArrayList<AnimationDrawable> onDrawArr_Hazard = new ArrayList<>();
         onDrawArr_Hazard.add(0, hazardAnimOFF);
         onDrawArr_Hazard.add(1, hazardAnim);
@@ -287,10 +244,32 @@ public class FullscreenActivity extends Activity {
             }
         });
 
+
+        /************************** HIBEAMS **************************************/
+        // TODO: absorb HIBEAMS into Lights
+        final ImageView hiBeamButton = (ImageView) findViewById(R.id.brights);
+
+        String[] HibeamLevels = new String[]{"Hibeams On", "Hibeams Off"};
+        hiBeamButton.setImageResource(0);
+        // create an array of hibeam states which can be displayed
+        ArrayList<AnimationDrawable> onDrawArr_Hibeam = new ArrayList<>();
+        AnimationDrawable State_Hibeam0 = new AnimationDrawable();
+        State_Hibeam0.addFrame(getResources().getDrawable(R.drawable.brightsoffnew), 0);
+
+        AnimationDrawable State_Hibeam1 = new AnimationDrawable();
+        State_Hibeam1.addFrame(getResources().getDrawable(R.drawable.brightsonnew), 0);
+
+
+        onDrawArr_Hibeam.add(0, State_Hibeam0);
+        onDrawArr_Hibeam.add(1, State_Hibeam1);
+
+        WiperDefrostButton myHiBeamButton = new WiperDefrostButton(this, linBus, SID_LIGHTS, hiBeamButton, onDrawArr_Hibeam, HibeamLevels, pressButSound, pindrop);
+        myButtons.add(myHiBeamButton);
+
         /************************** HEADLAMP **************************************/
         final ImageView headlampButton = (ImageView) findViewById(R.id.headLamp);
 
-        String[] HeadlampLevels = new String[]{"Headlamps On", "Headlamps Off"};
+        String[] HeadlampLevels = new String[]{"Headlamps On", "Headlamps Off", "Headlamps Off"};
         headlampButton.setImageResource(0);
         // create an array of headlamp states which can be displayed
         ArrayList<AnimationDrawable> onDrawArr_Headlamp = new ArrayList<>();
@@ -300,45 +279,12 @@ public class FullscreenActivity extends Activity {
         AnimationDrawable State_Headlamp1 = new AnimationDrawable();
         State_Headlamp1.addFrame(getResources().getDrawable(R.drawable.headlamponnew), 0);
 
-        //leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
-
         onDrawArr_Headlamp.add(0, State_Headlamp0);
         onDrawArr_Headlamp.add(1, State_Headlamp1);
+        onDrawArr_Headlamp.add(2, State_Headlamp1);
 
-        WiperDefrostButton myHeadlampsButton = new WiperDefrostButton(this, linBus, SID_LIGHTS, headlampButton, onDrawArr_Headlamp, HeadlampLevels, pressButSound, pindrop);
+        HeadlampButton myHeadlampsButton = new HeadlampButton(this, linBus, SID_LIGHTS, headlampButton, onDrawArr_Headlamp, HeadlampLevels, myHiBeamButton, pressButSound, pindrop);
         myButtons.add(myHeadlampsButton);
-
-
-        /************************** HIBEAMS **************************************/
-        // TODO: absorb HIBEAMS into Lights
-        final ImageView hiBeamssButton = (ImageView) findViewById(R.id.brights);
-
-        hiBeamssButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (brightsOn) {
-                    pressButSound.start();
-                    Toast toast =  Toast.makeText(FullscreenActivity.this, "Brights Off", Toast.LENGTH_LONG);
-                    LinearLayout toastLayout = (LinearLayout) toast.getView();
-                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 240, -500);
-                    toastTV.setTextSize(30);
-                    toast.show();
-                    hiBeamssButton.setImageResource(R.drawable.brightsoffnew);
-                    brightsOn = false;
-                } else {
-                    pressButSound.start();
-                    Toast toast = Toast.makeText(FullscreenActivity.this, "Brights On", Toast.LENGTH_LONG);
-                    LinearLayout toastLayout = (LinearLayout) toast.getView();
-                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
-                    toast.setGravity(Gravity.CENTER, 240, -500);
-                    toastTV.setTextSize(30);
-                    toast.show();
-                    hiBeamssButton.setImageResource(R.drawable.brightsonnew);
-                    brightsOn = true;
-                }
-            }
-        });
-
 
         /*************************** DEFROST ********************************************/
         final ImageView defrostButton = (ImageView) findViewById(R.id.defrost1);
@@ -357,7 +303,6 @@ public class FullscreenActivity extends Activity {
 
         AnimationDrawable State_Defrost3 = new AnimationDrawable();
         State_Defrost3.addFrame(getResources().getDrawable(R.drawable.defroston3new), 0);
-        //leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
 
         onDrawArr_Defrost.add(0, State_Defrost0);
         onDrawArr_Defrost.add(1, State_Defrost1);
@@ -385,7 +330,6 @@ public class FullscreenActivity extends Activity {
 
         AnimationDrawable offState_Wiper3 = new AnimationDrawable();
         offState_Wiper3.addFrame(getResources().getDrawable(R.drawable.wiperson3new), 0);
-        //leftAnim.addFrame(getResources().getDrawable(R.drawable.leftturnsignaloffnew), 0);
 
         onDrawArr_Wipers.add(0, offState_Wiper0);
         onDrawArr_Wipers.add(1, offState_Wiper1);

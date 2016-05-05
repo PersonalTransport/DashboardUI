@@ -15,7 +15,6 @@ import java.util.List;
 abstract public class Abstract_Button extends ContextWrapper
 {
 
-    //final public static boolean ON_STATE = true;
     final public static int OFF_STATE = 0;
 
     protected boolean clickable = true;
@@ -23,7 +22,6 @@ abstract public class Abstract_Button extends ContextWrapper
 
     protected ImageView buttonView;
     protected ArrayList<AnimationDrawable> DrawStates;		// can have multiple on states (have the first state be the off state)
-    //protected AnimationDrawable offDraw;
 
     private List<Abstract_Button> childButtons;	  // dependencies for buttons which must be off before this button can be turned on
     private List<Abstract_Button> parentButtons;// dependencies for buttons which will be turned on when this button is turned on
@@ -77,12 +75,14 @@ abstract public class Abstract_Button extends ContextWrapper
         parentButtons.add(newParent);
     }
 
-    // fuction which parent calls to modify children button's states. Can be overrwritten
+    // fuction which parent calls to modify children button's states. Can be overwritten
     // when implementing abstract class to perform more functionality before/after turning on/off button.
-    public void ModifyStateFromParent(int newState){
+    // if newState is OFF_STATE, then set the button to be clickable and turn off the button state
+    // if newState is not OFF_STATE, then turn on button to
+    public void ModifyStateFromParent(int newState, int nextState){
         if (newState != OFF_STATE) {
             turnOff(buttonState);
-            turnOn(newState);
+            turnOn(nextState);
             setNotClickable();
 
         } else {
@@ -121,38 +121,41 @@ abstract public class Abstract_Button extends ContextWrapper
     }
 
     // turn the button state on
-    public void turnOn(int nextState) {
+    // if a parent button state is not child_off_state, then don't change my state
+    // as my state is turnedOn, modify children state to be nextState
+    public void turnOn(int nextState, int parent_off_state, int child_next_state, int child_off_state) {
         if (nextState == myState() || !clickable)
             return;
         if (nextState == OFF_STATE) {
             turnOff(buttonState);
             return;
         }
-        for (Abstract_Button but : parentButtons) {
-            if (but.myState() != OFF_STATE)
+
+        for (Abstract_Button parent : parentButtons) {
+            if (parent.myState() != parent_off_state)
                 return;
         }
+
         for (Abstract_Button but : childButtons) {
-            but.ModifyStateFromParent(nextState);
+            but.ModifyStateFromParent(child_next_state, child_off_state);
         }
         this.setDispOn(nextState);
         buttonState = nextState;
     }
+
+    public void turnOn(int nextState) { this.turnOn(nextState, OFF_STATE, nextState, nextState);}
 
     public void turnOn() {
         this.turnOn(1);
     }
 
     // Turn the button state off
-    public void turnOff(int off_test) {
+    public void turnOff(int child_off_state) {
         if (buttonState == OFF_STATE || !clickable)
             return;
- /*       for (Abstract_Button but : parentButtons) {
-            if (but.myState() != OFF_STATE)
-                return;
-        }*/
+
         for (Abstract_Button but : childButtons) {
-            but.ModifyStateFromParent(OFF_STATE);
+            but.ModifyStateFromParent(child_off_state, OFF_STATE);
         }
         setDispOff();
         buttonState = OFF_STATE;

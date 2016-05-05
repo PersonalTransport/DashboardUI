@@ -103,8 +103,8 @@
             android:layout_marginLeft="363px"
             android:layout_marginTop="135px"
             android:id="@+id/brights"
-            android:layout_gravity="left|top"
-            android:src="@drawable/brightsoffnew" />
+            android:layout_gravity="left|top"/>
+        <!--android:src="@drawable/brightsoffnew" />-->
 
         <ImageView
             android:layout_width="209px"

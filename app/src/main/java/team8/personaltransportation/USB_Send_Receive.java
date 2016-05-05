@@ -95,7 +95,6 @@ public class USB_Send_Receive {
 
     public void onPause() {
         Log.d("onPause", "pausing...");
-        //closeAccessory();
     }
 
     public void onDestroy(Activity activity) {
@@ -145,8 +144,8 @@ public class USB_Send_Receive {
         inputStream = null;
         outputStream = null;
 
-        // afterwards (?), stop execution of program
-        System.exit(0); // XXX ??
+        // afterwards, stop execution of program
+        System.exit(0);
     }
 
     /*

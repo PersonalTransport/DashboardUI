@@ -16,8 +16,6 @@ import java.util.ArrayList;
 public class HazardButton extends Abstract_Button {
 
     public HazardButton(Context mycontext, LinBus linBus, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDrawArr, TurnSignalButton turnL, TurnSignalButton turnR) {
-        //ArrayList<Drawable> onDrawArr = new ArrayList<Drawable>();
-        //onDrawArr.add(DrawStates);
         super(mycontext, linBus, sidNum, buttonView, onDrawArr);
         // now add the turn signals as children buttons
         this.addChild(turnL);
@@ -33,7 +31,7 @@ public class HazardButton extends Abstract_Button {
     }
 
     public void turnOff(int state) {
-        super.turnOff(this.myState());
+        super.turnOff(state);
         DrawStates.get(state).stop();
         buttonState = OFF_STATE;
     }
@@ -41,7 +39,7 @@ public class HazardButton extends Abstract_Button {
     @Override
     public void buttonClicked() {
         if (this.myState() != OFF_STATE) {
-            this.turnOff(this.myState());
+            this.turnOff(OFF_STATE);
 
             Toast toast1 = Toast.makeText(this, "Hazards Off", Toast.LENGTH_LONG);
             LinearLayout toastLayout = (LinearLayout) toast1.getView();
@@ -60,6 +58,9 @@ public class HazardButton extends Abstract_Button {
             toastTV.setTextSize(30);
             toast2.show();
         }
+
+        LinSignal sendSig = new LinSignal(LinSignal.COMM_SET_VAR, getSid(), (byte) 4, LinSignal.packIntToBytes(this.myState()));
+        toSendData.sendSignal(sendSig);
     }
 
     @Override

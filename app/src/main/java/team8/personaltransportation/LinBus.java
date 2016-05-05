@@ -59,9 +59,7 @@ public abstract class LinBus {
 
         byte [] rawData = new byte[LinSignal.MAX_SIZE];
 
-        // TODO split this up into two calls one for the header and one for the data.
-
-
+        // possibly split this up into two calls one for the header and one for the data.
         int size = inputStream.read(rawData, 0, LinSignal.MAX_SIZE);
         receiveSignal(new LinSignal(rawData, size));
 
