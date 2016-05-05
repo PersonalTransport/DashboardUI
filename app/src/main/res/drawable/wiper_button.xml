@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item app:state_four_state_off="true" android:drawable="@drawable/wipersoffnew" />
-    <item app:state_four_state_low="true" android:drawable="@drawable/wiperson1new" />
-    <item app:state_four_state_medium="true" android:drawable="@drawable/wiperson2new" />
-    <item app:state_four_state_high="true" android:drawable="@drawable/wiperson3new" />
-</selector>
