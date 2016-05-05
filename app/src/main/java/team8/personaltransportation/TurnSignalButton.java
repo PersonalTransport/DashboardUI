@@ -63,8 +63,21 @@ public class TurnSignalButton extends Abstract_Button {
 
     @Override
     public LinSignal update(LinSignal signal) {
+        int temp_signal_data = 0;
         LinSignal mySig = new LinSignal(signal.command, signal.sid, signal.length, signal.data);
         if (signal.command == LinSignal.COMM_SET_VAR) {
+
+            temp_signal_data = LinSignal.unpackBytesToInt(signal.data[0], signal.data[1], signal.data[2], signal.data[3]);
+            if (temp_signal_data == OFF_STATE) {
+                if (this.myState() != OFF_STATE) {
+                    this.turnOff(buttonState);
+                }
+            } else if ((direction == RIGHTTURN) && (temp_signal_data == buttonState + 2)) {
+                this.buttonClicked();
+            } else if ((direction == LEFTTURN) && (temp_signal_data == buttonState + 1)) {
+                this.buttonClicked();
+            }
+
             Toast.makeText(this, "::" + ((direction == RIGHTTURN) ? "Right" : "Left") + "TurnSignal:: " + this.myState(), Toast.LENGTH_SHORT).show();
             mySig.data = LinSignal.packIntToBytes(this.myState());
             return mySig;

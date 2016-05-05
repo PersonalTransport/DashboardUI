@@ -20,7 +20,7 @@ public class HeadlampButton extends Abstract_Button {
     MediaPlayer buttonsound_off;
     private String[] HeadlampLevels;
     private int numStates;
-    private int ON_STATE = 2;
+    private int ON_STATE = 1;
 
     public HeadlampButton(Context mycontext, LinBus toSendData, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDraw, String[] HeadlampLevels, WiperDefrostButton hibeames, final MediaPlayer buttonsound, final MediaPlayer buttonsound_off) {
         super(mycontext, toSendData, sidNum, buttonView, onDraw);
@@ -54,7 +54,7 @@ public class HeadlampButton extends Abstract_Button {
             this.turnOn(ON_STATE, this.myState(), this.myState(), OFF_STATE);
         }
 
-        LinSignal sendSig = new LinSignal(LinSignal.COMM_SET_VAR, getSid(), (byte) 4, LinSignal.packIntToBytes(this.myState()));
+        LinSignal sendSig = new LinSignal(LinSignal.COMM_SET_VAR, getSid(), (byte) 4, LinSignal.packIntToBytes(this.myState() + state_OFFSET));
         toSendData.sendSignal(sendSig);
     }
 

@@ -21,14 +21,20 @@ public class WiperDefrostButton extends Abstract_Button {
     private String[] DefrostLevels;
     private int numStates;
 
-    public WiperDefrostButton(Context mycontext, LinBus toSendData, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDraw, String[] DefrostLevels, final MediaPlayer buttonsound, final MediaPlayer buttonsound_off) {
+    public WiperDefrostButton(Context mycontext, LinBus toSendData, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDraw, String[] DefrostLevels, int state_OFFSET,  final MediaPlayer buttonsound, final MediaPlayer buttonsound_off) {
         super(mycontext, toSendData, sidNum, buttonView, onDraw);
         this.buttonsound = buttonsound;
         this.buttonsound_off = buttonsound_off;
+        this.state_OFFSET = state_OFFSET;
         assert(onDraw.size() == DefrostLevels.length);      // the number of states has to equal the number of print statements
         this.DefrostLevels = DefrostLevels;
         numStates = onDraw.size();
     }
+
+    public WiperDefrostButton(Context mycontext, LinBus toSendData, int sidNum, ImageView buttonView, ArrayList<AnimationDrawable> onDraw, String[] DefrostLevels, final MediaPlayer buttonsound, final MediaPlayer buttonsound_off) {
+        this(mycontext, toSendData, sidNum, buttonView, onDraw, DefrostLevels, 0, buttonsound, buttonsound_off);
+    }
+
 
     @Override
     void buttonClicked(){
@@ -50,7 +56,7 @@ public class WiperDefrostButton extends Abstract_Button {
             this.turnOn(this.myState() + 1);
         }
 
-        LinSignal sendSig = new LinSignal(LinSignal.COMM_SET_VAR, getSid(), (byte) 4, LinSignal.packIntToBytes(this.myState()));
+        LinSignal sendSig = new LinSignal(LinSignal.COMM_SET_VAR, getSid(), (byte) 4, LinSignal.packIntToBytes(this.myState() + state_OFFSET));
         toSendData.sendSignal(sendSig);
     }
 

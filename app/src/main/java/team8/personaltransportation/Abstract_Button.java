@@ -16,6 +16,7 @@ abstract public class Abstract_Button extends ContextWrapper
 {
 
     final public static int OFF_STATE = 0;
+    protected int state_OFFSET = 0;             // for use by subclasses: offset to hold number (can be used to add to current state before sending to LIN over USB)
 
     protected boolean clickable = true;
     protected int buttonState = OFF_STATE; // on or off state

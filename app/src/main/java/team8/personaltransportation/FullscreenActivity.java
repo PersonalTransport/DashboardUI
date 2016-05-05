@@ -263,13 +263,13 @@ public class FullscreenActivity extends Activity {
         onDrawArr_Hibeam.add(0, State_Hibeam0);
         onDrawArr_Hibeam.add(1, State_Hibeam1);
 
-        WiperDefrostButton myHiBeamButton = new WiperDefrostButton(this, linBus, SID_LIGHTS, hiBeamButton, onDrawArr_Hibeam, HibeamLevels, pressButSound, pindrop);
+        WiperDefrostButton myHiBeamButton = new WiperDefrostButton(this, linBus, SID_LIGHTS, hiBeamButton, onDrawArr_Hibeam, HibeamLevels, 2, pressButSound, pindrop);
         myButtons.add(myHiBeamButton);
 
         /************************** HEADLAMP **************************************/
         final ImageView headlampButton = (ImageView) findViewById(R.id.headLamp);
 
-        String[] HeadlampLevels = new String[]{"Headlamps On", "Headlamps Off", "Headlamps Off"};
+        String[] HeadlampLevels = new String[]{"Headlamps On", "Headlamps Off"};
         headlampButton.setImageResource(0);
         // create an array of headlamp states which can be displayed
         ArrayList<AnimationDrawable> onDrawArr_Headlamp = new ArrayList<>();
@@ -281,7 +281,6 @@ public class FullscreenActivity extends Activity {
 
         onDrawArr_Headlamp.add(0, State_Headlamp0);
         onDrawArr_Headlamp.add(1, State_Headlamp1);
-        onDrawArr_Headlamp.add(2, State_Headlamp1);
 
         HeadlampButton myHeadlampsButton = new HeadlampButton(this, linBus, SID_LIGHTS, headlampButton, onDrawArr_Headlamp, HeadlampLevels, myHiBeamButton, pressButSound, pindrop);
         myButtons.add(myHeadlampsButton);
