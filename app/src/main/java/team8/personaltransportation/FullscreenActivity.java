@@ -190,6 +190,16 @@ public class FullscreenActivity extends Activity {
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
         mControlsView = findViewById(R.id.fullscreen_content_controls);
+
+        linBus = new LinBus() { // LinBus.java
+            @Override
+            public void receiveSignal(LinSignal signal) {
+                Message msg = Message.obtain(usbInputHandler);
+                msg.obj = signal;
+                usbInputHandler.sendMessage(msg);
+            }
+        };
+
         /*** setup button array ***/
         myButtons = new ArrayList<>();
         /*** Ming's ***/
@@ -506,16 +516,6 @@ public class FullscreenActivity extends Activity {
                 // after we update the GUI/get updates from the GUI, we DON'T send updates (when we get data, we just update GUI, that's it)
                 // TODO: for now, keep it in for testing purposes
                 //linBus.sendSignal(sendSigArr[ij]);
-            }
-        };
-
-
-        linBus = new LinBus() { // LinBus.java
-            @Override
-            public void receiveSignal(LinSignal signal) {
-                Message msg = Message.obtain(usbInputHandler);
-                msg.obj = signal;
-                usbInputHandler.sendMessage(msg);
             }
         };
 
