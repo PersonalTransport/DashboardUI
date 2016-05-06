@@ -20,6 +20,30 @@ field as mentioned below).
 
 This code is being developed in Java using Android Studio.
 
+Branches
+-----------
+
+This Git repo followed a centralized workflow due to the number of people working on it (4-5). In most cases, commits were sparse enough that there were no conflicts between commits. When someone was planning on working on it, they could pull make changes and push without conflicting with anybody else.
+
+In some cases, other branches were made, following more of a Integrator-Manager workflow. Some team members would make a branch, work on it for a bit (such as blinking effects), and then notify everyone when they were ready to try to merge it. In some cases these new branches could have multiple people working on them (before they were merged with the main branch), thus following a centralized workflow on their own.
+ 
+* master -
+ * Creator: Timothy
+ * Purpose: master branch for code, only working code on other brances were merged onto this branch. Because the code was mostly in a state of non-working condition, merges were rare
+* develop -
+ * Branched from master
+ * Purpose: ment to be a hub branch (develop9 would merge into develop, which would then merge into master). However, due to the fact that we only worked on one develop branch at a time (develop9, for instance), there was not much need for this branch (still used to help facilitate merges).
+* develop9 -
+ * Branched from develop8 ..., which branced from develop
+ * Purpose: most recent working code branch which was having constant development. Merged with master after code was in working order.
+* develop9_rebase -
+ * Branced from develop9
+ * Purpose: to help facilitate rebase of develop9 code on master branch (unused after rebasing caused some problems, decided to use "ours" merge strategy to merge code with master (http://stackoverflow.com/questions/2862590/how-to-replace-master-branch-in-git-entirely-from-another-branch)
+* qml -
+ * Purpose: for updating UI, currently in development
+
+
+
 Group Members
 -----------
 
