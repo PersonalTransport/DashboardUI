@@ -73,3 +73,5 @@ hazards: off = 0, on = 1
 - the screen is updated asynchronously when a command is sent to change (for non-modifiable buttons (speed, battery))
 - the turn signals are modifiable both through user input and communication protocol (using the message data encoding mentioned above)
 - Hash for hazard may be incorrect (algorithm was provided to us, hash of string "Hazard" returns -1)
+- Android still reads max_size bytes from stream (14 bytes = 6 headder + 8 data) (doesn't worry about headder info)
+
