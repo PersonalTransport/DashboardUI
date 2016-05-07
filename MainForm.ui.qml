@@ -16,16 +16,20 @@ Rectangle {
 
         anchors.fill: parent
         Gauges {
-            id: left
+            id: gauges
             anchors.top: parent.top
             anchors.bottom: parent.bottom
+        }
+        Temperature {
+            id: temp
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.left: gauges.right
         }
         Lighting {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            anchors.left: left.right
-            anchors.topMargin: parent.height / 5
-            anchors.bottomMargin: parent.height / 5
+            anchors.left: temp.right
         }
 
     }

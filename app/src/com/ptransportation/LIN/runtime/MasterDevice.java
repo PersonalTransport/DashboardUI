@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MasterDevice {
     private SignalInputStream signalInputStream;
@@ -19,14 +20,16 @@ public class MasterDevice {
         this.signalOutputStream = new SignalOutputStream(outputStream);
         this.listeners = new ArrayList<>();
 
-        /*treadThread = new Thread(new Runnable() {
+        readThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     while(!Thread.interrupted()) {
-                        Signal signal = signalInputStream.readSignal();
-                        for (SignalReceivedListener listener : listeners)
-                            listener.onSignalReceived(signal);
+                        List<Signal> signals = signalInputStream.readSignals();
+                        for(Signal signal: signals) {
+                            for (SignalReceivedListener listener : listeners)
+                                listener.onSignalReceived(signal);
+                        }
                     }
                 } catch (IOException ignored) {
                 }
@@ -36,7 +39,7 @@ public class MasterDevice {
                 }
             }
         });
-        readThread.start();*/
+        readThread.start();
     }
 
     public void sendSignal(Signal signal) {

@@ -9,4 +9,5 @@ BaseGauge {
         minorTickmarkCount: 4
     }
     unit: "Battery Life(%)"
+    value: master.batteryLife
 }

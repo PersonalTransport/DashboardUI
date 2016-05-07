@@ -52,19 +52,31 @@ public class FullscreenActivity extends org.qtproject.qt5.android.bindings.QtAct
 
     @Override
     public void onMasterDeviceConnected(MasterDevice device) {
-        Toast.makeText(this, "Master Connected", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Master Connected", Toast.LENGTH_SHORT).show();
         this.master = device;
         this.master.addSignalReceivedListener(this);
     }
 
     @Override
     public void onSignalReceived(Signal signal) {
+        final Signal s = signal;
+        if(currentInstance != null) {
+            currentInstance.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    cppOnSignalReceived(s.header.sid,s.header.length,s.data);
+                    //Toast.makeText(currentInstance,Integer.toHexString((((int)s.data[1]) << 8) | ((int)s.data[0])),Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
+
+    private static native void cppOnSignalReceived(int sid,int length,byte [] data);
 
     @Override
     public void onMasterDeviceDisconnected(MasterDevice device) {
         if(this.master == device) {
-            Toast.makeText(this, "Master Disconnected", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Master Disconnected", Toast.LENGTH_SHORT).show();
             this.master.removeSignalReceivedListener(this);
             this.master = null;
         }

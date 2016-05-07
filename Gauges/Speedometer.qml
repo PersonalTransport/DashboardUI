@@ -9,4 +9,5 @@ BaseGauge {
         minorTickmarkCount: 9
     }
     unit:"Speed(MPH)"
+    value: master.speed
 }

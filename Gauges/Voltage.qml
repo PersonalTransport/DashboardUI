@@ -9,4 +9,5 @@ BaseGauge {
         minorTickmarkCount: 9
     }
     unit: "Battery Voltage(V)"
+    value: master.batteryVoltage
 }

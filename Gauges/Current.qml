@@ -9,4 +9,5 @@ BaseGauge {
         minorTickmarkCount: 0
     }
     unit: "Current Draw (A)"
+    value: master.usageCurrent
 }

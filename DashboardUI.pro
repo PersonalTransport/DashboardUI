@@ -11,6 +11,7 @@ RESOURCES += qml.qrc
 android {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/app
     QT += androidextras
+    HEADERS += com_ptransportation_FullscreenActivity.h
 }
 
 # Additional import path used to resolve QML modules in Qt Creator's code model

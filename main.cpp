@@ -2,8 +2,6 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include "Master.h"
-#include <thread>
-#include <QTimer>
 
 int main(int argc, char *argv[])
 {

@@ -1,7 +1,9 @@
 import QtQuick 2.0
+import QtQuick.Extras 1.4
 
 Item {
     Item {
+        id: item1
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
@@ -11,14 +13,11 @@ Item {
         anchors.topMargin: parent.height/20
         anchors.bottomMargin: parent.height/10
 
-        Battery {
+        /*Battery {
             id: batteryGauge
             width: parent.width*0.20
             height: width
-            anchors.rightMargin: 0
-            anchors.bottomMargin: 0
-            anchors.leftMargin: 0
-            anchors.left: parent.left
+            anchors.left: throttleGauge.right
             anchors.right: speedometerGauge.left
             anchors.bottom: parent.verticalCenter
             value: master.batteryLife
@@ -28,7 +27,7 @@ Item {
             id: temperatureGauge
             width: parent.width*0.20
             height: width
-            anchors.left: parent.left
+            anchors.left: throttleGauge.right
             anchors.top: batteryGauge.bottom
             anchors.right: batteryGauge.right
             value: master.igbtTemperature
@@ -50,7 +49,7 @@ Item {
             anchors.right: currentGauge.right
             anchors.left: currentGauge.left
             value: master.batteryVoltage
-        }
+        }*/
 
         Speedometer {
             id: speedometerGauge
@@ -63,8 +62,7 @@ Item {
 
         TurnSignal {
             id: leftTurnSingal
-            anchors.bottom: batteryGauge.top
-            anchors.bottomMargin: 0
+            //anchors.bottom: batteryGauge.top
             anchors.horizontalCenter: speedometerGauge.horizontalCenter
             anchors.horizontalCenterOffset: -speedometerGauge.width/2
             active: master.signalLightState == 2 || master.signalLightState == 3
@@ -74,8 +72,17 @@ Item {
             id: rightTurnSignal
             anchors.horizontalCenterOffset: speedometerGauge.width/2
             anchors.horizontalCenter: speedometerGauge.horizontalCenter
-            anchors.bottom: currentGauge.top
+           // anchors.bottom: currentGauge.top
             active: master.signalLightState == 1 || master.signalLightState == 3
+        }
+
+        Gauge {
+            id: throttleGauge
+            width: 30
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+            anchors.top: parent.top
+            value: master.throttlePosition
         }
     }
 }
