@@ -173,12 +173,6 @@ JNIEXPORT void JNICALL Java_com_ptransportation_FullscreenActivity_cppOnSignalRe
 
     jbyte* bufferPtr = env->GetByteArrayElements(data, NULL);
 
-#if JAVA_STUPID
-    char str[512];
-    sprintf(str, "%x\n%x", sid,value);
-    master->setDataIn(str);
-#endif JAVA_STUPID
-
     switch ((uint32_t)sid) {
     case MOTOR_CONTROLLER_DUTY_CYCLE_SID: {
         uint16_t value = (((uint16_t)(bufferPtr[1] & 0xFF)) << 8) | ((uint16_t)(bufferPtr[0] & 0xFF));
@@ -200,6 +194,8 @@ JNIEXPORT void JNICALL Java_com_ptransportation_FullscreenActivity_cppOnSignalRe
     }
     case USAGE_CURRENT_SID: {
         // TODO
+        uint16_t value = (((uint16_t)(bufferPtr[1] & 0xFF)) << 8) | ((uint16_t)(bufferPtr[0] & 0xFF));
+        master->setUsageCurrent(value);
         break;
     }
     case CHARGING_CURRENT_SID: {

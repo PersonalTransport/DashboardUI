@@ -12,6 +12,15 @@ android {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/app
     QT += androidextras
     HEADERS += com_ptransportation_FullscreenActivity.h
+    OTHER_FILES += app/src/com/ptransportation/FullscreenActivity.java \
+                   app/src/com/ptransportation/USB/MasterManager.java \
+                   app/src/com/ptransportation/USB/MasterDeviceConnectionListener.java \
+                   app/src/com/ptransportation/LIN/runtime/Signal.java \
+                   app/src/com/ptransportation/LIN/runtime/MasterDevice.java \
+                   app/src/com/ptransportation/LIN/runtime/SignalHeader.java \
+                   app/src/com/ptransportation/LIN/runtime/SignalInputStream.java \
+                   app/src/com/ptransportation/LIN/runtime/SignalOutputStream.java \
+                   app/src/com/ptransportation/LIN/runtime/SignalReceivedListener.java
 }
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
