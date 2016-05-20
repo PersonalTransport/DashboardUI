@@ -9,7 +9,8 @@ class Master : public QObject
     Q_PROPERTY(double batteryVoltage READ batteryVoltage NOTIFY batteryVoltageChanged)
     Q_PROPERTY(double usageCurrent READ usageCurrent NOTIFY usageCurrentChanged)
     Q_PROPERTY(double throttlePosition READ throttlePosition WRITE setThrottlePosition NOTIFY throttlePositionChanged)
-    Q_PROPERTY(double igbtTemperature READ igbtTemperature NOTIFY igbtTemperatureChanged)
+    Q_PROPERTY(double igbt1Temperature READ igbt1Temperature NOTIFY igbt1TemperatureChanged)
+    Q_PROPERTY(double igbt2Temperature READ igbt2Temperature NOTIFY igbt2TemperatureChanged)
 
     Q_PROPERTY(double batteryLife READ batteryLife NOTIFY batteryLifeChanged)
     Q_PROPERTY(double speed READ speed WRITE setSpeed NOTIFY speedChanged)
@@ -33,8 +34,11 @@ public:
     double throttlePosition() const;
     void setThrottlePosition(double throttlePosition);
 
-    double igbtTemperature() const;
-    void setIgbtTemperature(double igbtTemperature);
+    double igbt1Temperature() const;
+    void setIgbt1Temperature(double igbt1Temperature);
+
+    double igbt2Temperature() const;
+    void setIgbt2Temperature(double igbt2Temperature);
 
     double batteryLife() const;
     void setBatteryLife(double batteryLife);
@@ -59,7 +63,9 @@ signals:
 
     void throttlePositionChanged(double throttlePosition);
 
-    void igbtTemperatureChanged(double temperature);
+    void igbt1TemperatureChanged(double temperature);
+
+    void igbt2TemperatureChanged(double temperature);
 
     void batteryLifeChanged(double life);
 
@@ -77,7 +83,8 @@ private:
     double batteryVoltage_;
     double usageCurrent_;
     double throttlePosition_;
-    double igbtTemperature_;
+    double igbt1Temperature_;
+    double igbt2Temperature_;
     double batteryLife_;
     double speed_;
     int signalLightState_;

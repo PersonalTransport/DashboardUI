@@ -5,8 +5,6 @@ import QtQuick.Controls.Styles 1.4
 CircularGauge {
     id: circularGauge1
     property string unit: ""
-    /*style: BaseGaugeStyle {
-    }*/
 
     Text {
         text: unit

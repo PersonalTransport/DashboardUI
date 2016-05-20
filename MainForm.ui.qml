@@ -5,7 +5,6 @@ import "Lighting"
 
 Rectangle {
     color: "black"
-    id: rectangle1
 
     HorizontalPager {
         anchors.fill: parent

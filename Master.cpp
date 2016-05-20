@@ -11,12 +11,13 @@ Master::Master(QObject *parent)
     : QObject(parent),
       batteryVoltage_(0),
       usageCurrent_(0),
-      igbtTemperature_(0),
+      throttlePosition_(0),
+      igbt1Temperature_(0),
+      igbt2Temperature_(0),
       batteryLife_(0),
       speed_(0),
       signalLightState_(0),
-      headLightState_(0),
-      throttlePosition_(0)
+      headLightState_(0)
 {
     instance_ = this;
 }
@@ -64,16 +65,29 @@ void Master::setThrottlePosition(double throttlePosition)
     }
 }
 
-double Master::igbtTemperature() const
+double Master::igbt1Temperature() const
 {
-    return igbtTemperature_;
+    return igbt1Temperature_;
 }
 
-void Master::setIgbtTemperature(double igbtTemperature)
+void Master::setIgbt1Temperature(double igbtTemperature)
 {
-    if(igbtTemperature_ != igbtTemperature) {
-        igbtTemperature_ = igbtTemperature;
-        emit igbtTemperatureChanged(igbtTemperature);
+    if(igbt1Temperature_ != igbtTemperature) {
+        igbt1Temperature_ = igbtTemperature;
+        emit igbt1TemperatureChanged(igbtTemperature);
+    }
+}
+
+double Master::igbt2Temperature() const
+{
+    return igbt2Temperature_;
+}
+
+void Master::setIgbt2Temperature(double igbt2Temperature)
+{
+    if(igbt2Temperature_ != igbt2Temperature) {
+        igbt2Temperature_ = igbt2Temperature;
+        emit igbt2TemperatureChanged(igbt2Temperature);
     }
 }
 
@@ -154,17 +168,18 @@ void Master::setDataIn(const QString &dataIn)
     }
 }
 
-
-#define MOTOR_CONTROLLER_DUTY_CYCLE_SID 1398608173u
-#define MOTOR_CONTROLLER_IGBT_TEMPERATURE_SID 316875851u
-//#define HEAD_LIGHT_STATE_SID 999653166u
-//#define SIGNAL_LIGHT_STATE_SID 2308980954u
-#define AXLE_RPM_SID 3524390749u
-#define BATTERY_VOLTAGE_SID 4052165617u
-#define USAGE_CURRENT_SID 1512302620u
-#define CHARGING_CURRENT_SID 3484793322u
-
 #ifdef Q_OS_ANDROID
+
+#define MOTOR_CONTROLLER_DUTY_CYCLE_SID 1398608173ul
+#define MOTOR_CONTROLLER_IGBT1_TEMPERATURE_SID 0x82046B5Cul
+#define MOTOR_CONTROLLER_IGBT2_TEMPERATURE_SID 0xF4B0B5FDul
+//#define HEAD_LIGHT_STATE_SID 999653166ul
+//#define SIGNAL_LIGHT_STATE_SID 2308980954ul
+#define AXLE_RPM_SID 3524390749ul
+#define BATTERY_VOLTAGE_SID 4052165617ul
+#define USAGE_CURRENT_SID 1512302620ul
+#define CHARGING_CURRENT_SID 3484793322ul
+
 JNIEXPORT void JNICALL Java_com_ptransportation_FullscreenActivity_cppOnSignalReceived(JNIEnv *env, jclass klass, jint sid, jint length, jbyteArray data)
 {
     auto master = Master::instance();
@@ -179,9 +194,14 @@ JNIEXPORT void JNICALL Java_com_ptransportation_FullscreenActivity_cppOnSignalRe
         master->setThrottlePosition(value/655.35);
         break;
     }
-    case MOTOR_CONTROLLER_IGBT_TEMPERATURE_SID: {
+    case MOTOR_CONTROLLER_IGBT1_TEMPERATURE_SID: {
         uint16_t value = (((uint16_t)(bufferPtr[1] & 0xFF)) << 8) | ((uint16_t)(bufferPtr[0] & 0xFF));
-        master->setIgbtTemperature(value);
+        master->setIgbt1Temperature(value);
+        break;
+    }
+    case MOTOR_CONTROLLER_IGBT2_TEMPERATURE_SID: {
+        uint16_t value = (((uint16_t)(bufferPtr[1] & 0xFF)) << 8) | ((uint16_t)(bufferPtr[0] & 0xFF));
+        master->setIgbt2Temperature(value);
         break;
     }
     case AXLE_RPM_SID: {
