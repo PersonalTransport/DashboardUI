@@ -18,7 +18,7 @@ CircularGauge {
 
     Behavior on value {
         SmoothedAnimation {
-            velocity: 50
+            velocity: 40
         }
     }
 }

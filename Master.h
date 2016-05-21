@@ -20,6 +20,8 @@ class Master : public QObject
     Q_PROPERTY(int headLightState READ headLightState WRITE setHeadLightState NOTIFY headLightStateChanged)
 
     Q_PROPERTY(QString dataIn READ dataIn NOTIFY dataInChanged)
+
+    Q_PROPERTY(float xAcceleration READ xAcceleration NOTIFY xAccelerationChanged)
 public:
     explicit Master(QObject *parent = 0);
 
@@ -55,6 +57,9 @@ public:
     QString dataIn() const;
     void setDataIn(const QString &dataIn);
 
+    float xAcceleration() const;
+    void setXAcceleration(float x_acceleration);
+
 signals:
 
     void batteryVoltageChanged(double voltage);
@@ -77,6 +82,8 @@ signals:
 
     void dataInChanged(QString state);
 
+    void xAccelerationChanged(float x_acceleration);
+
 public slots:
 
 private:
@@ -90,6 +97,7 @@ private:
     int signalLightState_;
     int headLightState_;
     QString dataIn_;
+    float x_acceleration_;
 
     static Master *instance_;
 };

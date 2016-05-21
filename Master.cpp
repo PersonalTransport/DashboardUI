@@ -17,7 +17,8 @@ Master::Master(QObject *parent)
       batteryLife_(0),
       speed_(0),
       signalLightState_(0),
-      headLightState_(0)
+      headLightState_(0),
+      x_acceleration_(0)
 {
     instance_ = this;
 }
@@ -168,6 +169,19 @@ void Master::setDataIn(const QString &dataIn)
     }
 }
 
+float Master::xAcceleration() const
+{
+    return x_acceleration_;
+}
+
+void Master::setXAcceleration(float x_acceleration)
+{
+    if(x_acceleration_ != x_acceleration) {
+        x_acceleration_ = x_acceleration;
+        emit xAccelerationChanged(x_acceleration);
+    }
+}
+
 #ifdef Q_OS_ANDROID
 
 #define MOTOR_CONTROLLER_DUTY_CYCLE_SID 1398608173ul
@@ -179,6 +193,8 @@ void Master::setDataIn(const QString &dataIn)
 #define BATTERY_VOLTAGE_SID 4052165617ul
 #define USAGE_CURRENT_SID 1512302620ul
 #define CHARGING_CURRENT_SID 3484793322ul
+
+#define X_ACCELERATION_SID 0x77CDAC86ul
 
 JNIEXPORT void JNICALL Java_com_ptransportation_FullscreenActivity_cppOnSignalReceived(JNIEnv *env, jclass klass, jint sid, jint length, jbyteArray data)
 {
@@ -220,6 +236,11 @@ JNIEXPORT void JNICALL Java_com_ptransportation_FullscreenActivity_cppOnSignalRe
     }
     case CHARGING_CURRENT_SID: {
         // TODO
+        break;
+    }
+    case X_ACCELERATION_SID: {
+        uint16_t value = (((uint16_t)(bufferPtr[1] & 0xFF)) << 8) | ((uint16_t)(bufferPtr[0] & 0xFF));
+        master->setXAcceleration((((double)value/20000.0)-.5)/.125);
         break;
     }
     default:

@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Extras 1.4
+import QtQuick.Controls.Styles 1.4
 
 Item {
     Item {
@@ -83,6 +84,22 @@ Item {
             anchors.bottom: parent.bottom
             anchors.top: parent.top
             value: master.throttlePosition
+        }
+
+        Gauge {
+            id: accelerationGauge
+            width: 30
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.top: parent.top
+            value: Math.abs(master.xAcceleration*10)
+            maximumValue: 30
+            style: GaugeStyle {
+                valueBar: Rectangle {
+                    implicitWidth: 16
+                    color: master.xAcceleration < 0 ? Qt.rgba(0,1,0,1) : Qt.rgba(1,0,0,1);
+                }
+            }
         }
     }
 }
