@@ -15,10 +15,4 @@ CircularGauge {
         color: "white"
         font.family: "Ubuntu Mono"
     }
-
-    Behavior on value {
-        SmoothedAnimation {
-            velocity: 40
-        }
-    }
 }
