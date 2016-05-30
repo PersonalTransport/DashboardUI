@@ -32,6 +32,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.top: parent.top
             checkable: lowBeamsButton.checked
+            enabled: lowBeamsButton.checked
             onCheckedChanged: {
                 master.headLightState = checked ? 2 : 1;
             }
