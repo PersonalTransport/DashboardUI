@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>MainForm.ui.qml</file>
-        <file>res/drawable/ic_settings_black_24px.svg</file>
         <file>Gauges/BaseGauge.qml</file>
         <file>Gauges/BaseGaugeStyle.qml</file>
         <file>Gauges/Battery.qml</file>
@@ -12,13 +11,6 @@
         <file>Gauges/Temperature.qml</file>
         <file>Gauges/TurnSignal.qml</file>
         <file>Gauges/Voltage.qml</file>
-        <file>HorizontalPager.qml</file>
-        <file>icons/hazard.png</file>
-        <file>icons/hazard_on.png</file>
-        <file>icons/left_turn_signal.png</file>
-        <file>icons/left_turn_signal_on.png</file>
-        <file>icons/right_turn_signal.png</file>
-        <file>icons/right_turn_signal_on.png</file>
         <file>Lighting/Lighting.qml</file>
     </qresource>
 </RCC>
