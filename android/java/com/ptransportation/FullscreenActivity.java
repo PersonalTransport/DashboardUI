@@ -3,7 +3,6 @@ package com.ptransportation;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.ptransportation.LIN.Compiler;
 import com.ptransportation.LIN.runtime.MasterDevice;
 import com.ptransportation.LIN.runtime.Signal;
 import com.ptransportation.LIN.runtime.SignalHeader;

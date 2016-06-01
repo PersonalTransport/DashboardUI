@@ -30,7 +30,8 @@ DISTFILES += \
     android/java/com/ptransportation/LIN/runtime/SignalReceivedListener.java \
     android/java/com/ptransportation/USB/MasterDeviceConnectionListener.java \
     android/java/com/ptransportation/USB/MasterManager.java \
-    android/java/com/ptransportation/FullscreenActivity.java
+    android/java/com/ptransportation/FullscreenActivity.java \
+    android/res/xml/accessory_filter.xml
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
