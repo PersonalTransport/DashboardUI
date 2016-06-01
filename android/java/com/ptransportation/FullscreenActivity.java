@@ -3,6 +3,7 @@ package com.ptransportation;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.ptransportation.LIN.Compiler;
 import com.ptransportation.LIN.runtime.MasterDevice;
 import com.ptransportation.LIN.runtime.Signal;
 import com.ptransportation.LIN.runtime.SignalHeader;
@@ -19,7 +20,7 @@ public class FullscreenActivity extends org.qtproject.qt5.android.bindings.QtAct
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        
         currentInstance = this;
         masterManager = new MasterManager();
         masterManager.onCreate(this);
@@ -65,7 +66,6 @@ public class FullscreenActivity extends org.qtproject.qt5.android.bindings.QtAct
                 @Override
                 public void run() {
                     cppOnSignalReceived(s.header.sid,s.header.length,s.data);
-                    //Toast.makeText(currentInstance,Integer.toHexString((((int)s.data[1]) << 8) | ((int)s.data[0])),Toast.LENGTH_SHORT).show();
                 }
             });
         }
