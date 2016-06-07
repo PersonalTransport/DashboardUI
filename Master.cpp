@@ -1,4 +1,8 @@
 #include "Master.h"
+#ifdef Q_OS_ANDROID
+#include <QAndroidJniObject>
+#include <QAndroidJniEnvironment>
+#endif
 
 Master *Master::instance_ = nullptr;
 
@@ -121,12 +125,12 @@ void Master::setSignalLightState(int signalLightState)
 {
     if(signalLightState_ != signalLightState) {
         signalLightState_ = signalLightState;
-/*#ifdef Q_OS_ANDROID
+#ifdef Q_OS_ANDROID
         QAndroidJniObject::callStaticMethod<void>("com/ptransportation/FullscreenActivity",
                                             "sendSignalLightState",
                                             "(I)V",
                                             signalLightState_);
-#endif*/
+#endif
         emit signalLightStateChanged(signalLightState);
     }
 }
@@ -140,12 +144,12 @@ void Master::setHeadLightState(int headLightState)
 {
     if(headLightState_ != headLightState) {
         headLightState_ = headLightState;
-/*#ifdef Q_OS_ANDROID
+#ifdef Q_OS_ANDROID
         QAndroidJniObject::callStaticMethod<void>("com/ptransportation/FullscreenActivity",
                                             "sendHeadLightState",
                                             "(I)V",
                                             headLightState_);
-#endif*/
+#endif
         emit headLightStateChanged(headLightState);
     }
 }

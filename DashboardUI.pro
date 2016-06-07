@@ -35,8 +35,21 @@ DISTFILES += \
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
+LIN_MASTER = $$PWD/../EVMaster/ev_master.ncf
+LIN_SLAVES = $$PWD/../MotorControllerNode/motor_controller.ncf \
+            $$PWD/../LightingNode/lighting.ncf \
+            $$PWD/../EnergyManagementNode/energy_management.ncf \
+            $$PWD/../SpeedometerNode/speedometer.ncf
+
 android {
     QT += androidextras
+
     SOURCES += android/cpp/com_ptransportation_FullscreenActivity.cpp
     HEADERS += android/cpp/com_ptransportation_FullscreenActivity.h
+
+    JAVAGEN.target = android/java-gen/com/ptransportation/LIN/runtime/ev_master.java
+    JAVAGEN.commands = LIN -t AndroidAccessory -i com.ptransportation.LIN.runtime -o $$PWD/android/java-gen $$LIN_MASTER $$LIN_SLAVES
+    JAVAGEN.depends = FORCE
+    PRE_TARGETDEPS += android/java-gen/com/ptransportation/LIN/runtime/ev_master.java
+    QMAKE_EXTRA_TARGETS += JAVAGEN
 }
