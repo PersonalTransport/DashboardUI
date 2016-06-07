@@ -19,7 +19,7 @@ Rectangle {
             labelStepSize: 25
             minorTickmarkCount: 0
         }
-        value:  master.usageCurrent
+        value: master.usageCurrent
         unit: value + " A"
     }
 
@@ -34,7 +34,7 @@ Rectangle {
             labelStepSize: 20
             minorTickmarkCount: 1
         }
-        unit:value + " °C"
+        unit: value + " °C"
         value: master.igbt1Temperature
     }
 
@@ -49,7 +49,7 @@ Rectangle {
             labelStepSize: 20
             minorTickmarkCount: 1
         }
-        unit:value + " °C"
+        unit: value + " °C"
         value: master.igbt2Temperature
     }
 
@@ -65,7 +65,7 @@ Rectangle {
             labelStepSize: 5
             minorTickmarkCount: 9
         }
-        unit:value + " MPH"
+        unit: value + " MPH"
         value: master.speed
     }
 
