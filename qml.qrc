@@ -2,15 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>MainForm.ui.qml</file>
-        <file>Gauges/BaseGauge.qml</file>
-        <file>Gauges/BaseGaugeStyle.qml</file>
-        <file>Gauges/Battery.qml</file>
-        <file>Gauges/Current.qml</file>
-        <file>Gauges/Gauges.qml</file>
-        <file>Gauges/Speedometer.qml</file>
-        <file>Gauges/Temperature.qml</file>
-        <file>Gauges/TurnSignal.qml</file>
-        <file>Gauges/Voltage.qml</file>
-        <file>Lighting/Lighting.qml</file>
+        <file>BaseGauge.qml</file>
+        <file>Lighting.qml</file>
     </qresource>
 </RCC>

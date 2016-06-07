@@ -10,8 +10,8 @@ CircularGauge {
         text: unit
         anchors.horizontalCenter: circularGauge1.horizontalCenter
         anchors.verticalCenter: circularGauge1.verticalCenter
-        anchors.verticalCenterOffset: (circularGauge1.height < circularGauge1.width ? circularGauge1.height : circularGauge1.width)/2 - (circularGauge1.height < circularGauge1.width ? circularGauge1.height : circularGauge1.width)/10
-        font.pixelSize: anchors.verticalCenterOffset / 10
+        anchors.verticalCenterOffset: (circularGauge1.height < circularGauge1.width ? circularGauge1.height : circularGauge1.width)/2 - (circularGauge1.height < circularGauge1.width ? circularGauge1.height : circularGauge1.width)/3
+        font.pixelSize: anchors.verticalCenterOffset / 2
         color: "white"
         font.family: "Ubuntu Mono"
     }
