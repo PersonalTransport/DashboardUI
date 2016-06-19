@@ -20,7 +20,7 @@ Rectangle {
             minorTickmarkCount: 0
         }
         value: master.usageCurrent
-        unit: value + " A"
+        unit: value.toFixed(0) + " A"
     }
 
     BaseGauge {
@@ -34,7 +34,7 @@ Rectangle {
             labelStepSize: 20
             minorTickmarkCount: 1
         }
-        unit: value + " °C"
+        unit: value.toFixed(0) + " °C"
         value: master.igbt1Temperature
     }
 
@@ -49,7 +49,7 @@ Rectangle {
             labelStepSize: 20
             minorTickmarkCount: 1
         }
-        unit: value + " °C"
+        unit: value.toFixed(0) + " °C"
         value: master.igbt2Temperature
     }
 
@@ -65,7 +65,7 @@ Rectangle {
             labelStepSize: 5
             minorTickmarkCount: 9
         }
-        unit: value + " MPH"
+        unit: value.toFixed(0) + " MPH"
         value: master.speed
     }
 
