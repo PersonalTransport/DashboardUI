@@ -1,9 +1,43 @@
 #ifndef MASTER_H
 #define MASTER_H
 
+#include <QAbstractListModel>
 #include <QObject>
+#include <QtCharts>
+#include <chrono>
 
-class Master : public QObject
+class Master;
+
+class Dataset : public QObject {
+    Q_OBJECT
+    Q_PROPERTY(QString name READ name)
+public:
+    explicit Dataset(QString name,uint32_t SID,Master *master);
+
+    QString name() const;
+
+    Q_INVOKABLE void update(QtCharts::QAbstractSeries *series);
+
+    virtual float convert(uint8_t *data,uint8_t length) const = 0;
+
+    virtual void onSignalReceived(uint32_t SID,uint8_t *data,uint8_t length);
+
+private:
+    Master *master_;
+    QString name_;
+    uint32_t SID_;
+    QVector<QPointF> data_;
+};
+
+class N16Dataset : public Dataset {
+    Q_OBJECT
+public:
+    explicit N16Dataset(QString name,uint32_t SID,Master *master);
+
+    virtual float convert(uint8_t *data,uint8_t length) const override;
+};
+
+class Master : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(double batteryVoltage READ batteryVoltage NOTIFY batteryVoltageChanged)
@@ -17,8 +51,12 @@ class Master : public QObject
 
     Q_PROPERTY(int signalLightState READ signalLightState WRITE setSignalLightState NOTIFY signalLightStateChanged)
     Q_PROPERTY(int headLightState READ headLightState WRITE setHeadLightState NOTIFY headLightStateChanged)
+
+    Q_PROPERTY(double time READ time)
 public:
     explicit Master(QObject *parent = 0);
+
+    ~Master();
 
     static Master *instance();
 
@@ -49,6 +87,22 @@ public:
     int headLightState() const;
     void setHeadLightState(int headLightState);
 
+    void signalReceived(uint32_t SID,uint8_t *data,uint8_t length);
+
+    enum DatasetRoles {
+        NameRole = Qt::UserRole + 1
+    };
+
+    double time() const;
+
+    QHash<int, QByteArray> roleNames() const;
+
+    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+
+    virtual QVariant data(const QModelIndex &index, int role) const override;
+
+    Q_INVOKABLE Dataset *getDataset(int index);
+
 signals:
 
     void batteryVoltageChanged(double voltage);
@@ -68,7 +122,6 @@ signals:
     void signalLightStateChanged(int state);
 
     void headLightStateChanged(int state);
-public slots:
 
 private:
     double batteryVoltage_;
@@ -82,6 +135,9 @@ private:
     int headLightState_;
 
     static Master *instance_;
+
+    std::chrono::high_resolution_clock::time_point start_;
+    QVector<Dataset*> datasets_;
 };
 
 #endif // MASTER_H

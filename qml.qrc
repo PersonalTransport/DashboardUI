@@ -4,5 +4,7 @@
         <file>MainForm.ui.qml</file>
         <file>BaseGauge.qml</file>
         <file>Lighting.qml</file>
+        <file>DataGraph.qml</file>
+        <file>GaguePage.qml</file>
     </qresource>
 </RCC>

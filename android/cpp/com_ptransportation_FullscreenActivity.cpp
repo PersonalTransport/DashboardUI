@@ -13,7 +13,6 @@
 #define USAGE_CURRENT_SID 0x5A23E81Cul
 #define CHARGING_CURRENT_SID 3484793322ul
 
-#define X_ACCELERATION_SID 0x77CDAC86ul
 
 JNIEXPORT void JNICALL Java_com_ptransportation_FullscreenActivity_cppOnSignalReceived(JNIEnv *env, jclass klass, jint sid, jint length, jbyteArray data)
 {
@@ -22,6 +21,13 @@ JNIEXPORT void JNICALL Java_com_ptransportation_FullscreenActivity_cppOnSignalRe
         return;
 
     jbyte* bufferPtr = env->GetByteArrayElements(data, NULL);
+
+    uint8_t real_data[8];
+    for(int i=0;i<8 && i < length;++i) {
+        real_data[i] = bufferPtr[i] & 0xFF;
+    }
+
+    master->signalReceived(sid,real_data,length);
 
     switch ((uint32_t)sid) {
     case MOTOR_CONTROLLER_DUTY_CYCLE_SID: {
