@@ -13,8 +13,6 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.ptransportation.LIN.runtime.MasterDevice;
-
 
 public class MasterManager {
     private static final String ACTION_USB_PERMISSION = "com.ptransportation.action.USB_PERMISSION";
@@ -24,7 +22,6 @@ public class MasterManager {
     private boolean permissionRequestPending = true;
 
     private ParcelFileDescriptor fileDescriptor;
-    private MasterDevice masterDevice;
     private ArrayList<MasterDeviceConnectionListener> connectionListeners;
 
     public MasterManager() {
@@ -50,7 +47,7 @@ public class MasterManager {
 
     // source : http://www.java2s.com/Open-Source/Android_Free_Code/Example/code/com_examples_accessory_controllerMainUsbActivity_java.htm
     public void onResume(Intent intent) {
-        if (masterDevice != null) {
+        if (fileDescriptor != null) {
             return;
         }
 
@@ -86,9 +83,8 @@ public class MasterManager {
         fileDescriptor = usbManager.openAccessory(accessory);
         if (fileDescriptor != null) {
             usbAccessory = accessory;
-            masterDevice = new MasterDevice(fileDescriptor.getFileDescriptor());
             for(MasterDeviceConnectionListener connectionListener:connectionListeners)
-                connectionListener.onMasterDeviceConnected(masterDevice);
+                connectionListener.onMasterDeviceConnected(fileDescriptor.getFileDescriptor());
         } else {
             Log.d("openAccessory", "usbAccessory open fail: " + usbBroadcastReceiver);
         }
@@ -96,15 +92,13 @@ public class MasterManager {
 
     private void closeAccessory() {
         try {
-            if(masterDevice != null) {
+            if (fileDescriptor != null) {
                 for (MasterDeviceConnectionListener connectionListener : connectionListeners)
-                    connectionListener.onMasterDeviceDisconnected(masterDevice);
-                masterDevice.close();
+                    connectionListener.onMasterDeviceDisconnected(fileDescriptor.getFileDescriptor());
             }
             fileDescriptor.close();
         } catch (IOException ignored) {
         }
-        masterDevice = null;
         fileDescriptor = null;
     }
 

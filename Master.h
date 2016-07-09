@@ -53,12 +53,18 @@ class Master : public QAbstractListModel
     Q_PROPERTY(int headLightState READ headLightState WRITE setHeadLightState NOTIFY headLightStateChanged)
 
     Q_PROPERTY(double time READ time)
+
+    Q_PROPERTY(int file READ file WRITE setFile NOTIFY fileChanged)
 public:
     explicit Master(QObject *parent = 0);
 
     ~Master();
 
     static Master *instance();
+
+    int file() const;
+
+    void setFile(int file);
 
     double batteryVoltage() const;
     void setBatteryVoltage(double batteryVoltage);
@@ -105,6 +111,8 @@ public:
 
 signals:
 
+    void fileChanged(int file);
+
     void batteryVoltageChanged(double voltage);
 
     void usageCurrentChanged(double current);
@@ -124,6 +132,7 @@ signals:
     void headLightStateChanged(int state);
 
 private:
+    int file_;
     double batteryVoltage_;
     double usageCurrent_;
     double throttlePosition_;

@@ -18,6 +18,7 @@ Master *Master::instance_ = nullptr;
 
 Master::Master(QObject *parent)
     : QAbstractListModel(parent),
+      file_(0),
       batteryVoltage_(0),
       usageCurrent_(0),
       throttlePosition_(0),
@@ -36,7 +37,7 @@ Master::Master(QObject *parent)
     datasets_.push_back(new N16Dataset{"IGBT1 Temperature",MOTOR_CONTROLLER_IGBT1_TEMPERATURE_SID,this});
     datasets_.push_back(new N16Dataset{"IGBT2 Temperature",MOTOR_CONTROLLER_IGBT2_TEMPERATURE_SID,this});
     datasets_.push_back(new N16Dataset{"Battery Life",BATTERY_VOLTAGE_SID,this});
-    datasets_.push_back(new N16Dataset{"Speed",AXLE_RPM_SID,this});    
+    datasets_.push_back(new N16Dataset{"Speed",AXLE_RPM_SID,this});
 }
 
 Master::~Master() {
@@ -45,6 +46,19 @@ Master::~Master() {
 
 Master *Master::instance() {
     return instance_;
+}
+
+int Master::file() const
+{
+    return file_;
+}
+
+void Master::setFile(int file)
+{
+    if(file_ != file) {
+        file_ = file;
+        emit fileChanged(file);
+    }
 }
 
 double Master::time() const

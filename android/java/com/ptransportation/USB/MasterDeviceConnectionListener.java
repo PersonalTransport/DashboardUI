@@ -1,9 +1,9 @@
 package com.ptransportation.USB;
 
-import com.ptransportation.LIN.runtime.MasterDevice;
+import java.io.FileDescriptor;
 
 public interface MasterDeviceConnectionListener {
-    void onMasterDeviceConnected(MasterDevice device);
+    void onMasterDeviceConnected(FileDescriptor fd);
 
-    void onMasterDeviceDisconnected(MasterDevice device);
+    void onMasterDeviceDisconnected(FileDescriptor fd);
 }

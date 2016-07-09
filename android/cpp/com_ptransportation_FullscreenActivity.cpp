@@ -13,8 +13,43 @@
 #define USAGE_CURRENT_SID 0x5A23E81Cul
 #define CHARGING_CURRENT_SID 3484793322ul
 
+inline static int getFileDescriptor(JNIEnv *env, jobject fileDescriptor) {
+    if(fileDescriptor != nullptr) {
+        jclass klass = env->FindClass("java/io/FileDescriptor");
+        if(klass != nullptr) {
+            jfieldID id = env->GetFieldID(fdClass, "descriptor", "I");
+            if(id != nullptr) {
+                return env->GetIntField(fileDescriptor, id);
+            }
+        }
+    }
+    return -1;
+}
 
-JNIEXPORT void JNICALL Java_com_ptransportation_FullscreenActivity_cppOnSignalReceived(JNIEnv *env, jclass klass, jint sid, jint length, jbyteArray data)
+/*
+ * Class:     FullscreenActivity
+ * Method:    onMasterDeviceConnected
+ * Signature: (Ljava/io/FileDescriptor;)V
+ */
+JNIEXPORT void JNICALL Java_com_ptransportation_FullscreenActivity_onMasterDeviceConnected(JNIEnv *env, jobject self, jobject fileDescriptor) {
+    auto fd = getFileDescriptor(env,fileDescriptor);
+    if(fd != -1)
+        Master::instance()->setFile(fd);
+}
+
+/*
+ * Class:     FullscreenActivity
+ * Method:    onMasterDeviceDisconnected
+ * Signature: (Ljava/io/FileDescriptor;)V
+ */
+JNIEXPORT void JNICALL Java_com_ptransportation_FullscreenActivity_onMasterDeviceDisconnected(JNIEnv *env, jobject self, jobject fd) {
+    auto fd = getFileDescriptor(env,fileDescriptor);
+    if(Master::instance()->file() == fd)
+        Master::instance()->setFile(-1);
+}
+
+
+/*JNIEXPORT void JNICALL Java_com_ptransportation_FullscreenActivity_cppOnSignalReceived(JNIEnv *env, jclass klass, jint sid, jint length, jbyteArray data)
 {
     auto master = Master::instance();
     if(master == nullptr)
@@ -67,4 +102,4 @@ JNIEXPORT void JNICALL Java_com_ptransportation_FullscreenActivity_cppOnSignalRe
         break;
     }
     env->ReleaseByteArrayElements(data, bufferPtr, JNI_ABORT);
-}
+}*/
