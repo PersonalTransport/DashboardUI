@@ -20,8 +20,34 @@ Rectangle {
         titleText: "Percent (%)"
     }
 
+    ValueAxis {
+        id: currentAxis
+        min: -1.5
+        max: 1.5
+        titleText: "Current (A)"
+    }
 
+    ValueAxis {
+        id: angleAxis
+        min: 0
+        max: 2.0*Math.PI
+        titleText: "Angle (rad)"
+    }
 
+    function hideAllAxes() {
+        percentAxis.visible = false;
+        currentAxis.visible = false;
+        angleAxis.visible = false;
+    }
+
+    function axisForUnit(unit) {
+        if(unit === "%")
+            return percentAxis
+        else if(unit === "A")
+            return currentAxis
+        else if(unit === "rad")
+            return angleAxis
+    }
 
     ListView {
         id: sidePanel
@@ -50,8 +76,8 @@ Rectangle {
         Component.onCompleted: {
             for(var i=0;i<master.rowCount();++i) {
                 var dataset = master.getDataset(i);
-                var series = createSeries(ChartView.SeriesTypeLine,dataset.name,timeAxis,percentAxis)
-                series.visible = false
+                var s = createSeries(ChartView.SeriesTypeLine,dataset.name,timeAxis,axisForUnit(dataset.unit))
+                s.visible = false
             }
         }
         Timer {
@@ -59,10 +85,13 @@ Rectangle {
             running: true
             repeat: true
             onTriggered: {
+                hideAllAxes();
                 for(var i=0;i<master.rowCount();++i) {
                     var dataset = master.getDataset(i);
                     var s = chartView.series(i);
                     dataset.update(s);
+                    if(s.visible)
+                        axisForUnit(dataset.unit).visible = true;
                 }
                 timeAxis.min = master.time - 500
                 timeAxis.max = master.time

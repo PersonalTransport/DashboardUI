@@ -4,12 +4,6 @@ import QtQuick.Controls.Styles 1.4
 
 Rectangle {
     color: "black"
-    Text {
-        anchors.centerIn: parent
-        color: "pink"
-        font.pointSize: 90
-        text: master.throttlePosition
-    }
 
     BaseGauge {
         id: current

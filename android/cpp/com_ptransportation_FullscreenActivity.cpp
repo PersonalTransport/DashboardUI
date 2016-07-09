@@ -1,7 +1,7 @@
 #include "com_ptransportation_FullscreenActivity.h"
 #include <QAndroidJniObject>
 #include <QAndroidJniEnvironment>
-#include "Master.h"
+#include "Master.hpp"
 
 #define MOTOR_CONTROLLER_DUTY_CYCLE_SID 1398608173ul
 #define MOTOR_CONTROLLER_IGBT1_TEMPERATURE_SID 0x82046B5Cul

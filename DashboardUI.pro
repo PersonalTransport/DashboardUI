@@ -3,8 +3,15 @@ TEMPLATE = app
 QT += qml quick charts widgets
 CONFIG += c++11
 
-SOURCES += main.cpp Master.cpp
-HEADERS += Master.h
+SOURCES += main.cpp Master.cpp \
+    Fixed16Dataset.cpp \
+    Fixed32Dataset.cpp \
+    Dataset.cpp
+HEADERS += \
+    Fixed16Dataset.hpp \
+    Fixed32Dataset.hpp \
+    Dataset.hpp \
+    Master.hpp
 
 RESOURCES += \
     qml.qrc

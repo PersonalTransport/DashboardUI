@@ -1,44 +1,12 @@
-#ifndef MASTER_H
-#define MASTER_H
+#ifndef MASTER_HPP
+#define MASTER_HPP
 
 #include <QAbstractListModel>
-#include <QObject>
-#include <QtCharts>
 #include <chrono>
 
-class Master;
+#include "Dataset.hpp"
 
-class Dataset : public QObject {
-    Q_OBJECT
-    Q_PROPERTY(QString name READ name)
-public:
-    explicit Dataset(QString name,uint32_t SID,Master *master);
-
-    QString name() const;
-
-    Q_INVOKABLE void update(QtCharts::QAbstractSeries *series);
-
-    virtual float convert(uint8_t *data,uint8_t length) const = 0;
-
-    virtual void onSignalReceived(uint32_t SID,uint8_t *data,uint8_t length);
-
-private:
-    Master *master_;
-    QString name_;
-    uint32_t SID_;
-    QVector<QPointF> data_;
-};
-
-class N16Dataset : public Dataset {
-    Q_OBJECT
-public:
-    explicit N16Dataset(QString name,uint32_t SID,Master *master);
-
-    virtual float convert(uint8_t *data,uint8_t length) const override;
-};
-
-class Master : public QAbstractListModel
-{
+class Master : public QAbstractListModel {
     Q_OBJECT
     Q_PROPERTY(double batteryVoltage READ batteryVoltage NOTIFY batteryVoltageChanged)
     Q_PROPERTY(double usageCurrent READ usageCurrent NOTIFY usageCurrentChanged)
@@ -54,11 +22,11 @@ class Master : public QAbstractListModel
 
     Q_PROPERTY(double time READ time)
 public:
-    explicit Master(QObject *parent = 0);
+    explicit Master(QObject* parent = 0);
 
     ~Master();
 
-    static Master *instance();
+    static Master* instance();
 
     double batteryVoltage() const;
     void setBatteryVoltage(double batteryVoltage);
@@ -87,7 +55,7 @@ public:
     int headLightState() const;
     void setHeadLightState(int headLightState);
 
-    void signalReceived(uint32_t SID,uint8_t *data,uint8_t length);
+    void signalReceived(uint32_t SID, uint8_t* data, uint8_t length);
 
     enum DatasetRoles {
         NameRole = Qt::UserRole + 1
@@ -97,11 +65,11 @@ public:
 
     QHash<int, QByteArray> roleNames() const;
 
-    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
 
-    virtual QVariant data(const QModelIndex &index, int role) const override;
+    virtual QVariant data(const QModelIndex& index, int role) const override;
 
-    Q_INVOKABLE Dataset *getDataset(int index);
+    Q_INVOKABLE Dataset* getDataset(int index);
 
 signals:
 
@@ -134,10 +102,10 @@ private:
     int signalLightState_;
     int headLightState_;
 
-    static Master *instance_;
+    static Master* instance_;
 
     std::chrono::high_resolution_clock::time_point start_;
     QVector<Dataset*> datasets_;
 };
 
-#endif // MASTER_H
+#endif // MASTER_HPP

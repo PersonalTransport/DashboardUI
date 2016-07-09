@@ -1,10 +1,13 @@
-#include "Master.h"
+#include "Master.hpp"
+#include "Fixed16Dataset.hpp"
+#include "Fixed32Dataset.hpp"
+
 #ifdef Q_OS_ANDROID
-#include <QAndroidJniObject>
 #include <QAndroidJniEnvironment>
+#include <QAndroidJniObject>
 #endif
 
-Master *Master::instance_ = nullptr;
+Master* Master::instance_ = nullptr;
 
 #define MOTOR_CONTROLLER_DUTY_CYCLE_SID 1398608173ul
 #define MOTOR_CONTROLLER_IGBT1_TEMPERATURE_SID 0x82046B5Cul
@@ -16,40 +19,66 @@ Master *Master::instance_ = nullptr;
 #define USAGE_CURRENT_SID 0x5A23E81Cul
 #define CHARGING_CURRENT_SID 3484793322ul
 
-Master::Master(QObject *parent)
-    : QAbstractListModel(parent),
-      batteryVoltage_(0),
-      usageCurrent_(0),
-      throttlePosition_(0),
-      igbt1Temperature_(0),
-      igbt2Temperature_(0),
-      batteryLife_(0),
-      speed_(0),
-      signalLightState_(0),
-      headLightState_(0)
+#define MOTOR_THETA_LOW_SID 0xEAA6BD9Cul
+#define MOTOR_THETA_HIGH_SID 0x2F7011CAul
+
+#define Q_AXIS_CURRENT_LOW_SID 0x286B8EFDul
+#define Q_AXIS_CURRENT_HIGH_SID 0x52BD9C6Bul
+
+#define COMMANDED_Q_AXIS_CURRENT_LOW_SID 0x734548C4ul
+#define COMMANDED_Q_AXIS_CURRENT_HIGH_SID 0x2F2177B2ul
+
+#define D_AXIS_CURRENT_LOW_SID 0x286B8EF0ul
+#define D_AXIS_CURRENT_HIGH_SID 0x52BD9C5Eul
+
+#define COMMANDED_D_AXIS_CURRENT_LOW_SID 0xAD901477ul
+#define COMMANDED_D_AXIS_CURRENT_HIGH_SID 0x696C4365ul
+
+Master::Master(QObject* parent)
+    : QAbstractListModel(parent)
+    , batteryVoltage_(0)
+    , usageCurrent_(0)
+    , throttlePosition_(0)
+    , igbt1Temperature_(0)
+    , igbt2Temperature_(0)
+    , batteryLife_(0)
+    , speed_(0)
+    , signalLightState_(0)
+    , headLightState_(0)
 {
     start_ = std::chrono::high_resolution_clock::now();
     instance_ = this;
-    datasets_.push_back(new N16Dataset{"Battery Voltage",BATTERY_VOLTAGE_SID,this});
+    datasets_.push_back(new UFixed16Dataset{ "Throttle Position", "%", MOTOR_CONTROLLER_DUTY_CYCLE_SID, this });
+
+    datasets_.push_back(new Fixed32Dataset{ "Electrical Angle", "rad", MOTOR_THETA_HIGH_SID, MOTOR_THETA_LOW_SID, this });
+
+    datasets_.push_back(new Fixed32Dataset{ "q-Axis Current", "A", Q_AXIS_CURRENT_HIGH_SID, Q_AXIS_CURRENT_LOW_SID, this });
+    datasets_.push_back(new Fixed32Dataset{ "Commanded q-Axis Current", "A", COMMANDED_Q_AXIS_CURRENT_HIGH_SID, COMMANDED_Q_AXIS_CURRENT_LOW_SID, this });
+
+    datasets_.push_back(new Fixed32Dataset{ "d-Axis Current", "A", D_AXIS_CURRENT_HIGH_SID, D_AXIS_CURRENT_LOW_SID, this });
+    datasets_.push_back(new Fixed32Dataset{ "Commanded d-Axis Current", "A", COMMANDED_D_AXIS_CURRENT_HIGH_SID, COMMANDED_D_AXIS_CURRENT_LOW_SID, this });
+
+    /*datasets_.push_back(new N16Dataset{"Battery Voltage",BATTERY_VOLTAGE_SID,this});
     datasets_.push_back(new N16Dataset{"Battery Current",USAGE_CURRENT_SID,this});
-    datasets_.push_back(new N16Dataset{"Throttle Position",MOTOR_CONTROLLER_DUTY_CYCLE_SID,this});
     datasets_.push_back(new N16Dataset{"IGBT1 Temperature",MOTOR_CONTROLLER_IGBT1_TEMPERATURE_SID,this});
     datasets_.push_back(new N16Dataset{"IGBT2 Temperature",MOTOR_CONTROLLER_IGBT2_TEMPERATURE_SID,this});
     datasets_.push_back(new N16Dataset{"Battery Life",BATTERY_VOLTAGE_SID,this});
-    datasets_.push_back(new N16Dataset{"Speed",AXLE_RPM_SID,this});    
+    datasets_.push_back(new N16Dataset{"Speed",AXLE_RPM_SID,this});*/
 }
 
-Master::~Master() {
+Master::~Master()
+{
     qDeleteAll(datasets_);
 }
 
-Master *Master::instance() {
+Master* Master::instance()
+{
     return instance_;
 }
 
 double Master::time() const
 {
-    return std::chrono::duration_cast<std::chrono::duration<double,std::milli>>(std::chrono::high_resolution_clock::now() - start_).count();
+    return std::chrono::duration_cast<std::chrono::duration<double, std::milli> >(std::chrono::high_resolution_clock::now() - start_).count();
 }
 
 double Master::batteryVoltage() const
@@ -59,7 +88,7 @@ double Master::batteryVoltage() const
 
 void Master::setBatteryVoltage(double batteryVoltage)
 {
-    if(batteryVoltage_ != batteryVoltage) {
+    if (batteryVoltage_ != batteryVoltage) {
         batteryVoltage_ = batteryVoltage;
         emit batteryVoltageChanged(batteryVoltage_);
     }
@@ -72,7 +101,7 @@ double Master::usageCurrent() const
 
 void Master::setUsageCurrent(double usageCurrent)
 {
-    if(usageCurrent_ != usageCurrent) {
+    if (usageCurrent_ != usageCurrent) {
         usageCurrent_ = usageCurrent;
         emit usageCurrentChanged(usageCurrent);
     }
@@ -85,7 +114,7 @@ double Master::throttlePosition() const
 
 void Master::setThrottlePosition(double throttlePosition)
 {
-    if(throttlePosition_ != throttlePosition) {
+    if (throttlePosition_ != throttlePosition) {
         throttlePosition_ = throttlePosition;
         emit throttlePositionChanged(throttlePosition);
     }
@@ -98,7 +127,7 @@ double Master::igbt1Temperature() const
 
 void Master::setIgbt1Temperature(double igbtTemperature)
 {
-    if(igbt1Temperature_ != igbtTemperature) {
+    if (igbt1Temperature_ != igbtTemperature) {
         igbt1Temperature_ = igbtTemperature;
         emit igbt1TemperatureChanged(igbtTemperature);
     }
@@ -111,7 +140,7 @@ double Master::igbt2Temperature() const
 
 void Master::setIgbt2Temperature(double igbt2Temperature)
 {
-    if(igbt2Temperature_ != igbt2Temperature) {
+    if (igbt2Temperature_ != igbt2Temperature) {
         igbt2Temperature_ = igbt2Temperature;
         emit igbt2TemperatureChanged(igbt2Temperature);
     }
@@ -124,7 +153,7 @@ double Master::batteryLife() const
 
 void Master::setBatteryLife(double batteryLife)
 {
-    if(batteryLife_ != batteryLife) {
+    if (batteryLife_ != batteryLife) {
         batteryLife_ = batteryLife;
         emit batteryLifeChanged(batteryLife);
     }
@@ -137,7 +166,7 @@ double Master::speed() const
 
 void Master::setSpeed(double speed)
 {
-    if(speed_ != speed) {
+    if (speed_ != speed) {
         speed_ = speed;
         emit speedChanged(speed);
     }
@@ -150,13 +179,13 @@ int Master::signalLightState() const
 
 void Master::setSignalLightState(int signalLightState)
 {
-    if(signalLightState_ != signalLightState) {
+    if (signalLightState_ != signalLightState) {
         signalLightState_ = signalLightState;
 #ifdef Q_OS_ANDROID
         QAndroidJniObject::callStaticMethod<void>("com/ptransportation/FullscreenActivity",
-                                            "sendSignalLightState",
-                                            "(I)V",
-                                            signalLightState_);
+            "sendSignalLightState",
+            "(I)V",
+            signalLightState_);
 #endif
         emit signalLightStateChanged(signalLightState);
     }
@@ -169,94 +198,52 @@ int Master::headLightState() const
 
 void Master::setHeadLightState(int headLightState)
 {
-    if(headLightState_ != headLightState) {
+    if (headLightState_ != headLightState) {
         headLightState_ = headLightState;
 #ifdef Q_OS_ANDROID
         QAndroidJniObject::callStaticMethod<void>("com/ptransportation/FullscreenActivity",
-                                            "sendHeadLightState",
-                                            "(I)V",
-                                            headLightState_);
+            "sendHeadLightState",
+            "(I)V",
+            headLightState_);
 #endif
         emit headLightStateChanged(headLightState);
     }
 }
 
-Dataset::Dataset(QString name, uint32_t SID, Master *master)
-    :QObject(master),master_(master),name_(name),SID_(SID)
+void Master::signalReceived(uint32_t SID, uint8_t* data, uint8_t length)
 {
+    for (auto ds : datasets_)
+        ds->onSignalReceived(SID, data, length);
 }
 
-QString Dataset::name() const
+QHash<int, QByteArray> Master::roleNames() const
 {
-    return name_;
-}
-
-void Dataset::update(QtCharts::QAbstractSeries *series)
-{
-    QtCharts::QXYSeries *xySeries = static_cast<QtCharts::QXYSeries *>(series);
-    xySeries->replace(data_);
-}
-
-void Dataset::onSignalReceived(uint32_t SID, uint8_t *data, uint8_t length)
-{
-
-    if(SID == SID_) {
-        auto time = master_->time();
-        data_.push_back(QPoint(time,convert(data,length)));
-        auto it = std::remove_if(data_.begin(),data_.end(),[time](const QPointF &point) {
-            return point.x() < time - 750; // TODO this is hard coded here.
-        });
-        if(it != data_.end())
-            data_.erase(it,data_.end());
-    }
-}
-
-
-N16Dataset::N16Dataset(QString name, uint32_t SID, Master *master)
-    : Dataset(name,SID,master)
-{
-}
-
-float N16Dataset::convert(uint8_t *data, uint8_t length) const
-{
-    uint16_t value = (((uint16_t)data[1]) << 8) | ((uint16_t)data[0]);
-    return (float) value / 655.360;
-}
-
-void Master::signalReceived(uint32_t SID, uint8_t *data, uint8_t length)
-{
-    for(auto ds:datasets_)
-        ds->onSignalReceived(SID,data,length);
-}
-
-QHash<int, QByteArray> Master::roleNames() const {
     QHash<int, QByteArray> roles;
     roles[NameRole] = "name";
     return roles;
 }
 
-int Master::rowCount(const QModelIndex &parent) const
+int Master::rowCount(const QModelIndex& parent) const
 {
     return datasets_.size();
 }
 
-QVariant Master::data(const QModelIndex &index, int role) const
+QVariant Master::data(const QModelIndex& index, int role) const
 {
-    if (index.row() < 0 || index.row() >= datasets_.size())
-    {
+    if (index.row() < 0 || index.row() >= datasets_.size()) {
         return QVariant();
     }
 
     auto dataset = datasets_[index.row()];
 
-    if(role == NameRole) {
+    if (role == NameRole) {
         return QVariant::fromValue(dataset->name());
     }
 
     return QVariant();
 }
 
-Dataset *Master::getDataset(int index)
+Dataset* Master::getDataset(int index)
 {
     return datasets_[index];
 }
