@@ -201,7 +201,13 @@ void Dataset::onSignalReceived(uint32_t SID, uint8_t *data, uint8_t length)
 {
 
     if(SID == SID_) {
-        data_.push_back(QPoint(master_->time(),convert(data,length)));
+        auto time = master_->time();
+        data_.push_back(QPoint(time,convert(data,length)));
+        auto it = std::remove_if(data_.begin(),data_.end(),[time](const QPointF &point) {
+            return point.x() < time - 750; // TODO this is hard coded here.
+        });
+        if(it != data_.end())
+            data_.erase(it,data_.end());
     }
 }
 
