@@ -22,15 +22,15 @@ Rectangle {
 
     ValueAxis {
         id: currentAxis
-        min: -1.5
-        max: 1.5
+        min: -2
+        max: 2
         titleText: "Current (A)"
     }
 
     ValueAxis {
         id: angleAxis
         min: 0
-        max: 2.0*Math.PI
+        max: 7.0*Math.PI/3.0
         titleText: "Angle (rad)"
     }
 

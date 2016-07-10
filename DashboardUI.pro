@@ -6,12 +6,14 @@ CONFIG += c++11
 SOURCES += main.cpp Master.cpp \
     Fixed16Dataset.cpp \
     Fixed32Dataset.cpp \
-    Dataset.cpp
+    Dataset.cpp \
+    Fixed32AngleDataset.cpp
 HEADERS += \
     Fixed16Dataset.hpp \
     Fixed32Dataset.hpp \
     Dataset.hpp \
-    Master.hpp
+    Master.hpp \
+    Fixed32AngleDataset.hpp
 
 RESOURCES += \
     qml.qrc

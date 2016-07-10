@@ -34,10 +34,12 @@ void Dataset::addDataPoint(float value)
 void Dataset::update(QtCharts::QAbstractSeries* series)
 {
     QtCharts::QXYSeries* xySeries = static_cast<QtCharts::QXYSeries*>(series);
+    if(data_.size() > 0 && data_.back().x() < master_->time() - 10)
+        addDataPoint(data_.back().y());
     xySeries->replace(data_);
 }
 
-void Dataset::onSignalReceived(uint32_t SID, uint8_t* data, uint8_t length)
+void Dataset::onSignalReceived(uint32_t SID, const uint8_t* const data, uint8_t length)
 {
     if (SID == SID_) {
         addDataPoint(convert(data, length));

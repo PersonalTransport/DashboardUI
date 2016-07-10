@@ -8,7 +8,7 @@ class Fixed16Dataset : public Dataset {
 public:
     explicit Fixed16Dataset(QString name, QString unit, uint32_t SID, Master* master);
 
-    virtual float convert(uint8_t* data, uint8_t length) const override;
+    virtual float convert(const uint8_t* const data, uint8_t length) const override;
 };
 
 class UFixed16Dataset : public Dataset {
@@ -16,7 +16,7 @@ class UFixed16Dataset : public Dataset {
 public:
     explicit UFixed16Dataset(QString name, QString unit, uint32_t SID, Master* master);
 
-    virtual float convert(uint8_t* data, uint8_t length) const override;
+    virtual float convert(const uint8_t * const data, uint8_t length) const override;
 };
 
 #endif // FIXED16DATASET_HPP

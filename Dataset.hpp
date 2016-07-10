@@ -24,9 +24,9 @@ public:
 
     Q_INVOKABLE void update(QtCharts::QAbstractSeries* series);
 
-    virtual float convert(uint8_t* data, uint8_t length) const = 0;
+    virtual float convert(const uint8_t* const data, uint8_t length) const = 0;
 
-    virtual void onSignalReceived(uint32_t SID, uint8_t* data, uint8_t length);
+    virtual void onSignalReceived(uint32_t SID, const uint8_t * const data, uint8_t length);
 
 protected:
     Master* master_;

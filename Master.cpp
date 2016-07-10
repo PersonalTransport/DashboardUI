@@ -1,6 +1,7 @@
 #include "Master.hpp"
 #include "Fixed16Dataset.hpp"
 #include "Fixed32Dataset.hpp"
+#include "Fixed32AngleDataset.hpp"
 
 #ifdef Q_OS_ANDROID
 #include <QAndroidJniEnvironment>
@@ -19,20 +20,15 @@ Master* Master::instance_ = nullptr;
 #define USAGE_CURRENT_SID 0x5A23E81Cul
 #define CHARGING_CURRENT_SID 3484793322ul
 
-#define MOTOR_THETA_LOW_SID 0xEAA6BD9Cul
-#define MOTOR_THETA_HIGH_SID 0x2F7011CAul
+#define MOTOR_THETA_SID 0xFF76A82Bul
 
-#define Q_AXIS_CURRENT_LOW_SID 0x286B8EFDul
-#define Q_AXIS_CURRENT_HIGH_SID 0x52BD9C6Bul
+#define Q_AXIS_CURRENT_SID 0xBF79A32Cul
 
-#define COMMANDED_Q_AXIS_CURRENT_LOW_SID 0x734548C4ul
-#define COMMANDED_Q_AXIS_CURRENT_HIGH_SID 0x2F2177B2ul
+#define COMMANDED_Q_AXIS_CURRENT_SID 0x6E01A3B3ul
 
-#define D_AXIS_CURRENT_LOW_SID 0x286B8EF0ul
-#define D_AXIS_CURRENT_HIGH_SID 0x52BD9C5Eul
+#define D_AXIS_CURRENT_SID 0xBF79A31Ful
 
-#define COMMANDED_D_AXIS_CURRENT_LOW_SID 0xAD901477ul
-#define COMMANDED_D_AXIS_CURRENT_HIGH_SID 0x696C4365ul
+#define COMMANDED_D_AXIS_CURRENT_SID 0xA84C6F66ul
 
 Master::Master(QObject* parent)
     : QAbstractListModel(parent)
@@ -48,15 +44,15 @@ Master::Master(QObject* parent)
 {
     start_ = std::chrono::high_resolution_clock::now();
     instance_ = this;
-    datasets_.push_back(new UFixed16Dataset{ "Throttle Position", "%", MOTOR_CONTROLLER_DUTY_CYCLE_SID, this });
+    //datasets_.push_back(new UFixed16Dataset{ "Throttle Position", "%", MOTOR_CONTROLLER_DUTY_CYCLE_SID, this });
 
-    datasets_.push_back(new Fixed32Dataset{ "Electrical Angle", "rad", MOTOR_THETA_HIGH_SID, MOTOR_THETA_LOW_SID, this });
+    datasets_.push_back(new Fixed32AngleDataset{ "Electrical Angle", MOTOR_THETA_SID, this });
 
-    datasets_.push_back(new Fixed32Dataset{ "q-Axis Current", "A", Q_AXIS_CURRENT_HIGH_SID, Q_AXIS_CURRENT_LOW_SID, this });
-    datasets_.push_back(new Fixed32Dataset{ "Commanded q-Axis Current", "A", COMMANDED_Q_AXIS_CURRENT_HIGH_SID, COMMANDED_Q_AXIS_CURRENT_LOW_SID, this });
+    datasets_.push_back(new Fixed32Dataset{ "q-Axis Current", "A", Q_AXIS_CURRENT_SID, this });
+    datasets_.push_back(new Fixed32Dataset{ "Commanded q-Axis Current", "A", COMMANDED_Q_AXIS_CURRENT_SID, this });
 
-    datasets_.push_back(new Fixed32Dataset{ "d-Axis Current", "A", D_AXIS_CURRENT_HIGH_SID, D_AXIS_CURRENT_LOW_SID, this });
-    datasets_.push_back(new Fixed32Dataset{ "Commanded d-Axis Current", "A", COMMANDED_D_AXIS_CURRENT_HIGH_SID, COMMANDED_D_AXIS_CURRENT_LOW_SID, this });
+    datasets_.push_back(new Fixed32Dataset{ "d-Axis Current", "A", D_AXIS_CURRENT_SID, this });
+    datasets_.push_back(new Fixed32Dataset{ "Commanded d-Axis Current", "A", COMMANDED_D_AXIS_CURRENT_SID, this });
 
     /*datasets_.push_back(new N16Dataset{"Battery Voltage",BATTERY_VOLTAGE_SID,this});
     datasets_.push_back(new N16Dataset{"Battery Current",USAGE_CURRENT_SID,this});
